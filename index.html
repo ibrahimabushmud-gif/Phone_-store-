@@ -225,7 +225,7 @@
     </div>
   </div>
 
-  <!-- نافذة تسجيل الدخول والتحقق (نظام المرحلتين OTP) -->
+  <!-- نافذة تسجيل الدخول والتحقق (نظام المرحلتين مع رمز عشوائي متغير) -->
   <div id="auth-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" style="display: none;">
     <div class="bg-white rounded-3xl p-6 w-full max-w-md shadow-2xl relative" dir="rtl">
         <button onclick="closeAuthModal()" class="absolute left-5 top-5 text-gray-400 hover:text-gray-600 text-xl font-bold">×</button>
@@ -249,12 +249,12 @@
         <div id="step-two" class="space-y-4" style="display: none;">
             <div class="bg-purple-50 p-3 rounded-xl text-center mb-2">
                 <span class="text-xs text-purple-800 font-bold">تم إرسال رمز التحقق إلى: <br><b id="sent-to-target"></b></span>
-                <span class="block text-[10px] text-gray-400 mt-1">(رمز التجربة السريع: 1234)</span>
+                <span class="block text-[10px] text-purple-600 mt-1 font-semibold" id="debug-otp-hint"></span>
             </div>
 
             <div>
                 <label class="block text-xs text-gray-600 mb-1">أدخل رمز التحقق المكون من 4 أرقام</label>
-                <input type="text" id="otp-input" maxlength="4" placeholder="1234" class="w-full p-3 border border-gray-200 rounded-xl text-center text-lg tracking-widest font-bold focus:outline-none focus:border-purple-700">
+                <input type="text" id="otp-input" maxlength="4" placeholder="••••" class="w-full p-3 border border-gray-200 rounded-xl text-center text-lg tracking-widest font-bold focus:outline-none focus:border-purple-700">
             </div>
 
             <button onclick="verifyOtpCode()" class="w-full bg-green-700 text-white py-3 rounded-xl font-bold text-sm hover:bg-green-800 transition-colors">
@@ -415,15 +415,17 @@
     function openCart() { document.getElementById('cart-modal').style.display = 'flex'; }
     function closeCart() { document.getElementById('cart-modal').style.display = 'none'; }
     
-    // دالة فتح نافذة تسجيل الدخول من السلة
+    // إدارة نافذة تسجيل الدخول والتحقق
     function sendWhatsAppApp() {
         if (cart.length === 0) {
             alert('السلة فارغة!');
             return;
         }
-        closeCart(); // إغلاق سلة التسوق
+        closeCart();
         document.getElementById('step-one').style.display = 'block';
         document.getElementById('step-two').style.display = 'none';
+        document.getElementById('auth-input').value = '';
+        document.getElementById('otp-input').value = '';
         document.getElementById('auth-modal').style.display = 'flex';
     }
 
@@ -431,7 +433,7 @@
         document.getElementById('auth-modal').style.display = 'none';
     }
 
-    let userTarget = '';
+    let generatedOtp = ''; // متغير لحفظ الرمز العشوائي الحالي
 
     function sendVerificationCode() {
         const val = document.getElementById('auth-input').value.trim();
@@ -440,25 +442,26 @@
             return;
         }
         
-        userTarget = val;
+        // توليد رمز عشوائي مكون من 4 أرقام يتغير في كل مرة
+        generatedOtp = Math.floor(1000 + Math.random() * 9000).toString();
+        
         document.getElementById('sent-to-target').innerText = val;
+        // إظهار الرمز في التنبيه داخل النافذة لتتمكن من تجربته (محاكاة لإرسال الكود)
+        document.getElementById('debug-otp-hint').innerText = `(رمز التحقق التجريبي الذي تم توليده: ${generatedOtp})`;
 
-        // الانتقال للخطوة الثانية (إدخال الرمز)
+        // الانتقال للخطوة الثانية
         document.getElementById('step-one').style.display = 'none';
         document.getElementById('step-two').style.display = 'block';
-        
-        alert('تم إرسال رمز التحقق (رمز التجربة: 1234)');
     }
 
     function verifyOtpCode() {
-        const otp = document.getElementById('otp-input').value.trim();
+        const userOtp = document.getElementById('otp-input').value.trim();
         
-        // التحقق من الرمز التجريبي
-        if(otp === '1234') {
+        if(userOtp === generatedOtp) {
             alert('تم التحقق بنجاح! جاري تحويلك لصفحة إتمام الطلب...');
             window.location.href = 'checkout.html';
         } else {
-            alert('رمز التحقق غير صحيح! جرب إدخال: 1234');
+            alert('رمز التحقق غير صحيح! تأكد من الرقم الظاهر أعلى خانة الإدخال.');
         }
     }
 
@@ -471,3 +474,4 @@
   </script>
 </body>
 </html>
+
