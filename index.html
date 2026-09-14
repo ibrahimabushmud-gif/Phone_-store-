@@ -7,6 +7,8 @@
   <meta name="google-site-verification" content="jqjZBsKrmgY8unaqpHCBTDKfk45QX2pRzomo4Cxzk74" />
   <!-- Swiper CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <!-- Tailwind CSS للتنسيق السريع للنافذة -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
     :root {
@@ -68,7 +70,7 @@
     /* Cart Modal */
     .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1000; align-items: flex-end; }
     .modal-content { background: #fff; width: 100%; max-height: 80vh; border-radius: 20px 20px 0 0; padding: 1.2rem; overflow-y: auto; }
-    .checkout-btn { width: 100%; background: #25d366; color: #fff; border: none; padding: 0.9rem; border-radius: 12px; font-size: 1rem; font-weight: bold; cursor: pointer; margin-top: 1rem; }
+    .checkout-btn { width: 100%; background: var(--primary); color: #fff; border: none; padding: 0.9rem; border-radius: 12px; font-size: 1rem; font-weight: bold; cursor: pointer; margin-top: 1rem; }
 
     footer { background: #26072b; color: #fff; padding: 1.5rem 1rem; margin-top: 2rem; text-align: center; font-size: 0.8rem; }
   </style>
@@ -121,21 +123,17 @@
       <div class="cat-icon">🛡️</div>
       <span>الكفرات والإكسسوارات</span>
     </button>
-
-
     <button class="cat-item" onclick="scrollToSection('section-watches')">
       <div class="cat-icon">⌚</div>
       <span>الساعات</span>
     </button>
-
-
     <button class="cat-item" onclick="scrollToSection('section-chargers')">
       <div class="cat-icon">🔌</div>
       <span>الشواحن</span>
     </button>
   </div>
 
-  <!-- قسم 1: آيفون -->
+  <!-- الأقسام -->
   <div class="alatawi-section" id="section-iphones">
     <div class="alatawi-section-header">
       <h2>🔥 أحدث أجهزة آيفون</h2>
@@ -146,7 +144,6 @@
     </div>
   </div>
 
-  <!-- قسم 2: سامسونج ألترا -->
   <div class="alatawi-section" id="section-ultra" style="background: linear-gradient(135deg, #32103f, #1b0424);">
     <div class="alatawi-section-header">
       <h2>💎 قسم Galaxy Ultra Zone</h2>
@@ -157,7 +154,6 @@
     </div>
   </div>
 
-  <!-- قسم 3: شاومي -->
   <div class="alatawi-section" id="section-xiaomi" style="background: linear-gradient(135deg, #281c3a, #150d22);">
     <div class="alatawi-section-header">
       <h2>📸 هواتف شاومي الرائدة</h2>
@@ -168,7 +164,6 @@
     </div>
   </div>
 
-  <!-- قسم 4: ريد ماجيك -->
   <div class="alatawi-section" id="section-redmagic" style="background: linear-gradient(135deg, #3b1019, #1a0409);">
     <div class="alatawi-section-header">
       <h2>⚡ وحوش الألعاب Red Magic</h2>
@@ -179,7 +174,6 @@
     </div>
   </div>
 
-  <!-- قسم 5: السماعات -->
   <div class="alatawi-section" id="section-audio">
     <div class="alatawi-section-header">
       <h2>🎧 قسم الصوتيات والسماعات</h2>
@@ -190,7 +184,6 @@
     </div>
   </div>
 
-  <!-- قسم 6: الساعات -->
   <div class="alatawi-section" id="section-watches">
     <div class="alatawi-section-header">
       <h2>⌚ قسم الساعات الذكية Apple Watch</h2>
@@ -201,8 +194,6 @@
     </div>
   </div>
     
-
-  <!-- قسم 7: الشواحن -->
   <div class="alatawi-section" id="section-chargers">
     <div class="alatawi-section-header">
       <h2>🔌 الشواحن والبطاريات والكيابل</h2>
@@ -212,7 +203,7 @@
       <div class="swiper-wrapper" id="chargers-slider-container"></div>
     </div>
   </div>
-      <!-- قسم الكفرات والإكسسوارات -->
+
   <div class="alatawi-section" id="section-accessories">
     <div class="alatawi-section-header">
       <h2>🛡️ كفرات حماية وإكسسوارات أصلية</h2>
@@ -223,15 +214,36 @@
     </div>
   </div>
 
-
   <!-- Cart Modal -->
   <div class="modal" id="cart-modal">
     <div class="modal-content">
       <h2 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--primary);">سلة التسوق</h2>
       <div id="cart-items"></div>
       <h3 style="margin-top: 1rem; font-size: 1rem;">الإجمالي: $<span id="cart-total">0</span></h3>
-      <button class="checkout-btn" onclick="sendWhatsApp()">إتمام الطلب عبر WhatsApp 💬</button>
+      <!-- تم تعديل استدعاء الدالة هنا لتعمل بشكل صحيح -->
+      <button class="checkout-btn" onclick="sendWhatsAppApp()">إتمام الطلب وتسجيل الدخول 🔐</button>
       <button onclick="closeCart()" style="width: 100%; margin-top: 0.5rem; padding: 0.6rem; border: none; background: #f1f5f9; border-radius: 8px; font-weight: bold; cursor: pointer;">إغلاق</button>
+    </div>
+  </div>
+
+  <!-- نافذة تسجيل الدخول والتحقق -->
+  <div id="auth-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" style="display: none;">
+    <div class="bg-white rounded-3xl p-6 w-full max-w-md shadow-2xl relative" dir="rtl">
+        <button onclick="closeAuthModal()" class="absolute left-5 top-5 text-gray-400 hover:text-gray-600 text-xl font-bold">×</button>
+
+        <h3 class="text-xl font-bold text-gray-900 text-center mb-2">تسجيل الدخول</h3>
+        <p class="text-gray-500 text-xs text-center mb-6">أدخل رقم واتساب أو البريد الإلكتروني للحصول على رمز التحقق.</p>
+
+        <div class="space-y-4">
+            <div>
+                <label class="block text-xs text-gray-600 mb-1">الرقم أو البريد الإلكتروني</label>
+                <input type="text" id="auth-input" placeholder="05xxxxxxxx أو example@gmail.com" class="w-full p-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-purple-700 text-right">
+            </div>
+
+            <button onclick="verifyAndProceed()" class="w-full bg-purple-800 text-white py-3 rounded-xl font-bold text-sm hover:bg-purple-900 transition-colors">
+                إرسال رمز التحقق ومتابعة الطلب
+            </button>
+        </div>
     </div>
   </div>
 
@@ -290,12 +302,12 @@
       { id: 'ch1', name: 'شاحن أبل سريع 20W', price: 25, tag: 'أصلي', img: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=500', colors: ['أبيض أصلي'] },
       { id: 'ch2', name: 'بطارية Anker MagGo 10000', price: 59, tag: 'Anker', img: 'https://images.unsplash.com/photo-1609592424109-dd9892f1b177?w=500', colors: ['أسود', 'أبيض'] }
     ];
-        const accessoriesList = [
+
+    const accessoriesList = [
       { id: 'acc1', name: 'كفر حماية شفاف مضاد للصدمات', price: 15, tag: 'حماية عالية', img: 'https://images.unsplash.com/photo-1601593346740-925615e0c66d?auto=format&fit=crop&w=500&q=80', colors: ['شفاف بالكامل', 'أطراف سوداء'] },
       { id: 'acc2', name: 'حماية شاشة زجاج مقاوم للكسر', price: 12, tag: 'الأكثر طلباً', img: 'https://images.unsplash.com/photo-1585060544812-6b45742d762f?auto=format&fit=crop&w=500&q=80', colors: ['زجاج شفاف', 'مضاد للبصمة'] },
       { id: 'acc3', name: 'حامل هواتف مغناطيسي للسيارة', price: 20, tag: 'عملي', img: 'https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?auto=format&fit=crop&w=500&q=80', colors: ['أسود معدني', 'فضي'] }
     ];
-
 
     function createCardHTML(p) {
       let colorOptions = p.colors.map(c => `<option value="${c}">${c}</option>`).join('');
@@ -336,9 +348,9 @@
       document.getElementById('audio-slider-container').innerHTML = audioList.map(createCardHTML).join('');
       document.getElementById('watches-slider-container').innerHTML = watchesList.map(createCardHTML).join('');
       document.getElementById('chargers-slider-container').innerHTML = chargersList.map(createCardHTML).join('');
-document.getElementById('accessories-slider-container').innerHTML = accessoriesList.map(createCardHTML).join('');
-new Swiper('.swiper-accessories', { slidesPerView: 2.2, spaceBetween: 10, freeMode: true });
+      document.getElementById('accessories-slider-container').innerHTML = accessoriesList.map(createCardHTML).join('');
 
+      new Swiper('.swiper-accessories', { slidesPerView: 2.2, spaceBetween: 10, freeMode: true });
       new Swiper('.swiper-iphones', { slidesPerView: 2.2, spaceBetween: 10, freeMode: true });
       new Swiper('.swiper-ultra', { slidesPerView: 2.2, spaceBetween: 10, freeMode: true });
       new Swiper('.swiper-xiaomi', { slidesPerView: 2.2, spaceBetween: 10, freeMode: true });
@@ -380,10 +392,12 @@ new Swiper('.swiper-accessories', { slidesPerView: 2.2, spaceBetween: 10, freeMo
 
     function openCart() { document.getElementById('cart-modal').style.display = 'flex'; }
     function closeCart() { document.getElementById('cart-modal').style.display = 'none'; }
-            function sendWhatsAppApp() {
+    
+    // الدوال الخاصة بنافذة تسجيل الدخول والتحقق
+    function sendWhatsAppApp() {
         if (cart.length === 0) return alert('السلة فارغة!');
-        // إظهار نافذة تسجيل الدخول والتحقق أولاً
-        document.getElementById('auth-modal').style.display = 'flex';
+        closeCart(); // إغلاق سلة التسوق أولاً
+        document.getElementById('auth-modal').style.display = 'flex'; // إظهار نافذة تسجيل الدخول
     }
 
     function closeAuthModal() {
@@ -396,33 +410,11 @@ new Swiper('.swiper-accessories', { slidesPerView: 2.2, spaceBetween: 10, freeMo
             alert('الرجاء إدخال البريد أو رقم الواتساب');
             return;
         }
-        // بعد إدخال البيانات، يتم تحويله لصفحة إتمام الطلب والعنوان
+        // الانتقال لصفحة إتمام الطلب والعنوان
         window.location.href = 'checkout.html';
     }
 
     renderSliders();
   </script>
-  <!-- نافذة تسجيل الدخول والتحقق -->
-<div id="auth-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" style="display: none;">
-    <div class="bg-white rounded-3xl p-6 w-full max-w-md shadow-2xl relative" dir="rtl">
-        <button onclick="closeAuthModal()" class="absolute left-5 top-5 text-gray-400 hover:text-gray-600 text-xl font-bold">×</button>
-
-        <h3 class="text-xl font-bold text-gray-900 text-center mb-2">تسجيل الدخول</h3>
-        <p class="text-gray-500 text-xs text-center mb-6">أدخل رقم واتساب أو البريد الإلكتروني للحصول على رمز التحقق.</p>
-
-        <div class="space-y-4">
-            <div>
-                <label class="block text-xs text-gray-600 mb-1">الرقم أو البريد الإلكتروني</label>
-                <input type="text" id="auth-input" placeholder="05xxxxxxxx أو example@gmail.com" class="w-full p-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-purple-700 text-right">
-            </div>
-
-            <button onclick="verifyAndProceed()" class="w-full bg-purple-800 text-white py-3 rounded-xl font-bold text-sm hover:bg-purple-900 transition-colors">
-                إرسال رمز التحقق ومتابعة الطلب
-            </button>
-        </div>
-    </div>
-</div>
-
 </body>
 </html>
-
