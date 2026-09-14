@@ -220,30 +220,52 @@
       <h2 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--primary);">سلة التسوق</h2>
       <div id="cart-items"></div>
       <h3 style="margin-top: 1rem; font-size: 1rem;">الإجمالي: $<span id="cart-total">0</span></h3>
-      <!-- تم تعديل استدعاء الدالة هنا لتعمل بشكل صحيح -->
       <button class="checkout-btn" onclick="sendWhatsAppApp()">إتمام الطلب وتسجيل الدخول 🔐</button>
       <button onclick="closeCart()" style="width: 100%; margin-top: 0.5rem; padding: 0.6rem; border: none; background: #f1f5f9; border-radius: 8px; font-weight: bold; cursor: pointer;">إغلاق</button>
     </div>
   </div>
 
-  <!-- نافذة تسجيل الدخول والتحقق -->
+  <!-- نافذة تسجيل الدخول والتحقق (نظام المرحلتين OTP) -->
   <div id="auth-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" style="display: none;">
     <div class="bg-white rounded-3xl p-6 w-full max-w-md shadow-2xl relative" dir="rtl">
         <button onclick="closeAuthModal()" class="absolute left-5 top-5 text-gray-400 hover:text-gray-600 text-xl font-bold">×</button>
 
-        <h3 class="text-xl font-bold text-gray-900 text-center mb-2">تسجيل الدخول</h3>
+        <h3 class="text-xl font-bold text-gray-900 text-center mb-2">تسجيل الدخول والتحقق</h3>
         <p class="text-gray-500 text-xs text-center mb-6">أدخل رقم واتساب أو البريد الإلكتروني للحصول على رمز التحقق.</p>
 
-        <div class="space-y-4">
+        <!-- الخطوة الأولى: إدخال البريد أو الهاتف -->
+        <div id="step-one" class="space-y-4">
             <div>
                 <label class="block text-xs text-gray-600 mb-1">الرقم أو البريد الإلكتروني</label>
                 <input type="text" id="auth-input" placeholder="05xxxxxxxx أو example@gmail.com" class="w-full p-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-purple-700 text-right">
             </div>
 
-            <button onclick="verifyAndProceed()" class="w-full bg-purple-800 text-white py-3 rounded-xl font-bold text-sm hover:bg-purple-900 transition-colors">
-                إرسال رمز التحقق ومتابعة الطلب
+            <button onclick="sendVerificationCode()" class="w-full bg-purple-800 text-white py-3 rounded-xl font-bold text-sm hover:bg-purple-900 transition-colors">
+                إرسال رمز التحقق 📩
             </button>
         </div>
+
+        <!-- الخطوة الثانية: إدخال رمز التحقق (مخفية بالبداية) -->
+        <div id="step-two" class="space-y-4" style="display: none;">
+            <div class="bg-purple-50 p-3 rounded-xl text-center mb-2">
+                <span class="text-xs text-purple-800 font-bold">تم إرسال رمز التحقق إلى: <br><b id="sent-to-target"></b></span>
+                <span class="block text-[10px] text-gray-400 mt-1">(رمز التجربة السريع: 1234)</span>
+            </div>
+
+            <div>
+                <label class="block text-xs text-gray-600 mb-1">أدخل رمز التحقق المكون من 4 أرقام</label>
+                <input type="text" id="otp-input" maxlength="4" placeholder="1234" class="w-full p-3 border border-gray-200 rounded-xl text-center text-lg tracking-widest font-bold focus:outline-none focus:border-purple-700">
+            </div>
+
+            <button onclick="verifyOtpCode()" class="w-full bg-green-700 text-white py-3 rounded-xl font-bold text-sm hover:bg-green-800 transition-colors">
+                تأكيد الرمز ومتابعة الطلب ✅
+            </button>
+            
+            <button onclick="backToStepOne()" class="w-full text-gray-500 text-xs py-1 text-center hover:underline">
+                إعادة إدخال البريد أو الرقم؟
+            </button>
+        </div>
+
     </div>
   </div>
 
@@ -393,25 +415,56 @@
     function openCart() { document.getElementById('cart-modal').style.display = 'flex'; }
     function closeCart() { document.getElementById('cart-modal').style.display = 'none'; }
     
-    // الدوال الخاصة بنافذة تسجيل الدخول والتحقق
+    // دالة فتح نافذة تسجيل الدخول من السلة
     function sendWhatsAppApp() {
-        if (cart.length === 0) return alert('السلة فارغة!');
-        closeCart(); // إغلاق سلة التسوق أولاً
-        document.getElementById('auth-modal').style.display = 'flex'; // إظهار نافذة تسجيل الدخول
+        if (cart.length === 0) {
+            alert('السلة فارغة!');
+            return;
+        }
+        closeCart(); // إغلاق سلة التسوق
+        document.getElementById('step-one').style.display = 'block';
+        document.getElementById('step-two').style.display = 'none';
+        document.getElementById('auth-modal').style.display = 'flex';
     }
 
     function closeAuthModal() {
         document.getElementById('auth-modal').style.display = 'none';
     }
 
-    function verifyAndProceed() {
-        const val = document.getElementById('auth-input').value;
-        if(!val.trim()) {
-            alert('الرجاء إدخال البريد أو رقم الواتساب');
+    let userTarget = '';
+
+    function sendVerificationCode() {
+        const val = document.getElementById('auth-input').value.trim();
+        if(!val) {
+            alert('الرجاء إدخال البريد أو رقم الواتساب أولاً');
             return;
         }
-        // الانتقال لصفحة إتمام الطلب والعنوان
-        window.location.href = 'checkout.html';
+        
+        userTarget = val;
+        document.getElementById('sent-to-target').innerText = val;
+
+        // الانتقال للخطوة الثانية (إدخال الرمز)
+        document.getElementById('step-one').style.display = 'none';
+        document.getElementById('step-two').style.display = 'block';
+        
+        alert('تم إرسال رمز التحقق (رمز التجربة: 1234)');
+    }
+
+    function verifyOtpCode() {
+        const otp = document.getElementById('otp-input').value.trim();
+        
+        // التحقق من الرمز التجريبي
+        if(otp === '1234') {
+            alert('تم التحقق بنجاح! جاري تحويلك لصفحة إتمام الطلب...');
+            window.location.href = 'checkout.html';
+        } else {
+            alert('رمز التحقق غير صحيح! جرب إدخال: 1234');
+        }
+    }
+
+    function backToStepOne() {
+        document.getElementById('step-two').style.display = 'none';
+        document.getElementById('step-one').style.display = 'block';
     }
 
     renderSliders();
