@@ -84,7 +84,7 @@
     <button class="cart-btn" onclick="openCart()">السلة (<span id="cart-count">0</span>)</button>
   </header>
 
-  <!-- Banner Slider (Updated with iphone18_banner.jpeg) -->
+  <!-- Banner Slider -->
   <div class="banner-wrapper">
     <div class="swiper swiper-banner">
       <div class="swiper-wrapper">
@@ -92,7 +92,7 @@
           <img src="iphone18_banner.jpeg" alt="ترقبوا آيفون 18 الجديد - متجر العطاوي" onerror="this.src='https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=800'">
         </div>
         <div class="swiper-slide">
-          <img src="ultra_banner.jpg" alt="Galaxy Ultra Zone - متجر العطاوي" onerror="this.src='https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=800'">
+          <img src="64369.jpeg" alt="Galaxy Ultra Zone - متجر العطاوي" onerror="this.src='https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=800'">
         </div>
       </div>
     </div>
@@ -239,25 +239,25 @@
     ];
 
     const ultraList = [
-      { id: 's26u', name: 'Galaxy S26 Ultra', price: 1199, tag: 'جديد', img: '64369.jpg', colors: ['تيتانيوم أسود', 'تيتانيوم رمادي', 'تيتانيوم بنفسجي'] },
-      { id: 's25u', name: 'Galaxy S25 Ultra AI', price: 1099, tag: 'Galaxy AI', img: '64368.jpg', colors: ['تيتانيوم أسود', 'تيتانيوم فضي', 'تيتانيوم رمادي'] },
-      { id: 's24u', name: 'Galaxy S24 Ultra', price: 999, tag: 'عرض %30', img: '64367.jpg', colors: ['تيتانيوم ذهبي', 'تيتانيوم رمادي', 'تيتانيوم أسود'] },
-      { id: 's23u', name: 'Galaxy S23 Ultra', price: 899, tag: 'مميز', img: '64366.jpg', colors: ['أسود فانتوم', 'بنفَسجي', 'كريمي'] },
-      { id: 's22u', name: 'Galaxy S22 Ultra', price: 749, tag: 'الأكثر طلباً', img: '64365.jpg', colors: ['أسود بورغندي', 'أبيض', 'أخضر'] }
+      { id: 's26u', name: 'Galaxy S26 Ultra', price: 1199, tag: 'جديد', img: '64369.jpeg', colors: ['تيتانيوم أسود', 'تيتانيوم رمادي', 'تيتانيوم بنفسجي'] },
+      { id: 's25u', name: 'Galaxy S25 Ultra AI', price: 1099, tag: 'Galaxy AI', img: '64368.jpeg', colors: ['تيتانيوم أسود', 'تيتانيوم فضي', 'تيتانيوم رمادي'] },
+      { id: 's24u', name: 'Galaxy S24 Ultra', price: 999, tag: 'عرض %30', img: '64367.jpeg', colors: ['تيتانيوم ذهبي', 'تيتانيوم رمادي', 'تيتانيوم أسود'] },
+      { id: 's23u', name: 'Galaxy S23 Ultra', price: 899, tag: 'مميز', img: '64366.jpeg', colors: ['أسود فانتوم', 'بنفَسجي', 'كريمي'] },
+      { id: 's22u', name: 'Galaxy S22 Ultra', price: 749, tag: 'الأكثر طلباً', img: '64365.jpeg', colors: ['أسود بورغندي', 'أبيض', 'أخضر'] }
     ];
 
     const xiaomiList = [
-      { id: 'xm1', name: 'Xiaomi Smart Clock Ed.', price: 1049, tag: 'إصدار خاص', img: '64373.jpg', colors: ['سيراميك أبيض', 'أسود فخم'] },
-      { id: 'xm2', name: 'Xiaomi Flagship Leica', price: 999, tag: 'Leica', img: '64372.jpg', colors: ['أخضر زيتي', 'أسود كلاسيكي', 'أبيض'] },
-      { id: 'xm3', name: 'Xiaomi Titanium Series', price: 949, tag: 'جديد', img: '64371.jpg', colors: ['تيتانيوم رمادي', 'أسود معدني', 'أزرق فضاء'] },
-      { id: 'xm4', name: 'Xiaomi Leica Pro White', price: 899, tag: 'الأكثر مبيعاً', img: '64370.jpg', colors: ['أبيض ناصع', 'أسود مطفي'] }
+      { id: 'xm1', name: 'Xiaomi Smart Clock Ed.', price: 1049, tag: 'إصدار خاص', img: '64373.jpeg', colors: ['سيراميك أبيض', 'أسود فخم'] },
+      { id: 'xm2', name: 'Xiaomi Flagship Leica', price: 999, tag: 'Leica', img: '64372.jpeg', colors: ['أخضر زيتي', 'أسود كلاسيكي', 'أبيض'] },
+      { id: 'xm3', name: 'Xiaomi Titanium Series', price: 949, tag: 'جديد', img: '64371.jpeg', colors: ['تيتانيوم رمادي', 'أسود معدني', 'أزرق فضاء'] },
+      { id: 'xm4', name: 'Xiaomi Leica Pro White', price: 899, tag: 'الأكثر مبيعاً', img: '64370.jpeg', colors: ['أبيض ناصع', 'أسود مطفي'] }
     ];
 
     const redmagicList = [
-      { id: 'rm1', name: 'Red Magic Pro Transparent', price: 929, tag: 'جيمينج', img: '64377.jpg', colors: ['فضي شفاف', 'أسود شفاف'] },
-      { id: 'rm2', name: 'Red Magic Cyber Black', price: 899, tag: 'تبريد مدمج', img: '64376.jpg', colors: ['أسود سايبر', 'رمادي داكن'] },
-      { id: 'rm3', name: 'Red Magic Ultra Gaming', price: 879, tag: 'محترف', img: '64375.jpg', colors: ['أسود مسلّح', 'فضي معدني'] },
-      { id: 'rm4', name: 'Red Magic White Edition', price: 849, tag: 'إضاءة RGB', img: '64374.jpg', colors: ['أبيض مستقبلي', 'أسود ليلي'] }
+      { id: 'rm1', name: 'Red Magic Pro Transparent', price: 929, tag: 'جيمينج', img: '64377.jpeg', colors: ['فضي شفاف', 'أسود شفاف'] },
+      { id: 'rm2', name: 'Red Magic Cyber Black', price: 899, tag: 'تبريد مدمج', img: '64376.jpeg', colors: ['أسود سايبر', 'رمادي داكن'] },
+      { id: 'rm3', name: 'Red Magic Ultra Gaming', price: 879, tag: 'محترف', img: '64375.jpeg', colors: ['أسود مسلّح', 'فضي معدني'] },
+      { id: 'rm4', name: 'Red Magic White Edition', price: 849, tag: 'إضاءة RGB', img: '64374.jpeg', colors: ['أبيض مستقبلي', 'أسود ليلي'] }
     ];
 
     const audioList = [
@@ -373,3 +373,4 @@
   </script>
 </body>
 </html>
+
