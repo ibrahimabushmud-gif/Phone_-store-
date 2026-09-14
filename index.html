@@ -35,7 +35,7 @@
     .section-title { font-size: 0.95rem; font-weight: 800; margin: 15px 1rem 8px; color: #0f172a; text-align: center; }
 
     /* Circular Categories Scroll */
-    .categories-scroll { display: flex; gap: 12px; overflow-x: auto; padding: 0.4rem 1rem; scrollbar-width: none; justify-content: center; }
+    .categories-scroll { display: flex; gap: 12px; overflow-x: auto; padding: 0.4rem 1rem; scrollbar-width: none; }
     .cat-item { display: flex; flex-direction: column; align-items: center; min-width: 70px; cursor: pointer; border: none; background: transparent; }
     .cat-icon { width: 56px; height: 56px; background: linear-gradient(135deg, var(--primary-light), var(--primary)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.3rem; box-shadow: 0 3px 8px rgba(74, 19, 86, 0.3); transition: transform 0.2s; }
     .cat-item:hover .cat-icon, .cat-item.active .cat-icon { transform: scale(1.08); outline: 2px solid var(--primary-light); }
@@ -49,14 +49,21 @@
 
     /* Swiper Product Card */
     .swiper-products { padding-bottom: 10px; }
-    .product-card { background: var(--card-bg); border-radius: 14px; padding: 8px; color: #1e293b; display: flex; flex-direction: column; justify-content: space-between; position: relative; height: 235px; }
+    .product-card { background: var(--card-bg); border-radius: 14px; padding: 8px; color: #1e293b; display: flex; flex-direction: column; justify-content: space-between; position: relative; height: 285px; }
     .badge { position: absolute; top: 6px; right: 6px; background: var(--accent-red); color: #fff; font-size: 0.6rem; padding: 2px 5px; border-radius: 5px; font-weight: bold; z-index: 2; }
-    .img-box { width: 100%; height: 110px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #fff; border-radius: 8px; }
+    .img-box { width: 100%; height: 95px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #fff; border-radius: 8px; }
     .product-card img { max-width: 100%; max-height: 100%; object-fit: contain; }
-    .card-title { font-size: 0.75rem; font-weight: 700; line-height: 1.2; height: 2.4em; overflow: hidden; margin-top: 6px; color: #334155; }
-    .price-box { margin: 4px 0; }
-    .card-price { color: var(--primary); font-weight: 900; font-size: 0.9rem; }
-    .add-btn { background: var(--primary-light); color: #fff; border: none; width: 100%; padding: 6px; border-radius: 8px; font-size: 0.72rem; font-weight: bold; cursor: pointer; }
+    .card-title { font-size: 0.72rem; font-weight: 700; line-height: 1.2; height: 2.2em; overflow: hidden; margin-top: 4px; color: #334155; }
+    
+    /* Options styling (Color & Quantity) */
+    .options-box { display: flex; gap: 4px; margin: 4px 0; }
+    .options-box select { flex: 1; font-size: 0.65rem; padding: 3px; border: 1px solid #cbd5e1; border-radius: 6px; background: #f8fafc; font-weight: bold; color: #334155; outline: none; }
+    
+    .price-row { display: flex; justify-content: space-between; align-items: center; margin: 2px 0; }
+    .card-price { color: var(--primary); font-weight: 900; font-size: 0.85rem; }
+    
+    .add-btn { background: var(--primary-light); color: #fff; border: none; width: 100%; padding: 6px; border-radius: 8px; font-size: 0.72rem; font-weight: bold; cursor: pointer; transition: background 0.2s; }
+    .add-btn:hover { background: var(--primary); }
 
     /* Cart Modal */
     .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1000; align-items: flex-end; }
@@ -77,12 +84,15 @@
     <button class="cart-btn" onclick="openCart()">السلة (<span id="cart-count">0</span>)</button>
   </header>
 
-  <!-- Banner Slider (اللافتة الجديدة) -->
+  <!-- Banner Slider (Updated with iphone18_banner.jpeg) -->
   <div class="banner-wrapper">
     <div class="swiper swiper-banner">
       <div class="swiper-wrapper">
         <div class="swiper-slide">
-          <img src="iphone18_banner.jpg" alt="ترقبوا آيفون 18 الجديد - متجر العطاوي" onerror="this.src='https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=800'">
+          <img src="iphone18_banner.jpeg" alt="ترقبوا آيفون 18 الجديد - متجر العطاوي" onerror="this.src='https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=800'">
+        </div>
+        <div class="swiper-slide">
+          <img src="ultra_banner.jpg" alt="Galaxy Ultra Zone - متجر العطاوي" onerror="this.src='https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=800'">
         </div>
       </div>
     </div>
@@ -91,43 +101,110 @@
   <!-- Circular Categories Scroll -->
   <div class="section-title">التصنيفات الرئيسية</div>
   <div class="categories-scroll">
-    <button class="cat-item active" onclick="filterCategory('all', this)">
+    <button class="cat-item active" onclick="scrollToSection('section-iphones')">
       <div class="cat-icon">📱</div>
       <span>هواتف آيفون</span>
     </button>
-    <button class="cat-item" onclick="filterCategory('covers', this)">
-      <div class="cat-icon">🛡️</div>
-      <span>الكفرات</span>
+    <button class="cat-item" onclick="scrollToSection('section-ultra')">
+      <div class="cat-icon">💎</div>
+      <span>سامسونج ألترا</span>
     </button>
-    <button class="cat-item" onclick="filterCategory('cables', this)">
-      <div class="cat-icon">🔌</div>
-      <span>البطاريات والكيابل</span>
+    <button class="cat-item" onclick="scrollToSection('section-xiaomi')">
+      <div class="cat-icon">📸</div>
+      <span>هواتف شاومي</span>
     </button>
-    <button class="cat-item" onclick="filterCategory('audio', this)">
+    <button class="cat-item" onclick="scrollToSection('section-redmagic')">
+      <div class="cat-icon">⚡</div>
+      <span>ريد ماجيك</span>
+    </button>
+    <button class="cat-item" onclick="scrollToSection('section-audio')">
       <div class="cat-icon">🎧</div>
-      <span>الصوتيات</span>
+      <span>السماعات</span>
+    </button>
+    <button class="cat-item" onclick="scrollToSection('section-watches')">
+      <div class="cat-icon">⌚</div>
+      <span>الساعات</span>
+    </button>
+    <button class="cat-item" onclick="scrollToSection('section-chargers')">
+      <div class="cat-icon">🔌</div>
+      <span>الشواحن</span>
     </button>
   </div>
 
-  <!-- Al-Atawi Style Section 1: أحدث أجهزة آيفون (14 إلى 18) -->
+  <!-- قسم 1: آيفون -->
   <div class="alatawi-section" id="section-iphones">
     <div class="alatawi-section-header">
-      <h2>🔥 أحدث أجهزة آيفون (السلاسل الحديثة)</h2>
-      <p>من iPhone 14 إلى iPhone 18 الجديد</p>
+      <h2>🔥 أحدث أجهزة آيفون</h2>
+      <p>اختر اللون والكمية المناسبة</p>
     </div>
     <div class="swiper swiper-products swiper-iphones">
       <div class="swiper-wrapper" id="iphone-slider-container"></div>
     </div>
   </div>
 
-  <!-- Al-Atawi Style Section 2: سلسلة iPhone 12 & 13 -->
-  <div class="alatawi-section" id="section-older">
+  <!-- قسم 2: سامسونج ألترا -->
+  <div class="alatawi-section" id="section-ultra" style="background: linear-gradient(135deg, #32103f, #1b0424);">
     <div class="alatawi-section-header">
-      <h2>📱 سلسلة iPhone 12 & 13 المميزة</h2>
-      <p>أفضل قيمة وسعر منافس</p>
+      <h2>💎 قسم Galaxy Ultra Zone</h2>
+      <p>أقوى هواتف سامسونج الرائدة</p>
     </div>
-    <div class="swiper swiper-products swiper-older">
-      <div class="swiper-wrapper" id="older-slider-container"></div>
+    <div class="swiper swiper-products swiper-ultra">
+      <div class="swiper-wrapper" id="ultra-slider-container"></div>
+    </div>
+  </div>
+
+  <!-- قسم 3: شاومي -->
+  <div class="alatawi-section" id="section-xiaomi" style="background: linear-gradient(135deg, #281c3a, #150d22);">
+    <div class="alatawi-section-header">
+      <h2>📸 هواتف شاومي الرائدة</h2>
+      <p>إبداع التصوير مع عدسات لايكا</p>
+    </div>
+    <div class="swiper swiper-products swiper-xiaomi">
+      <div class="swiper-wrapper" id="xiaomi-slider-container"></div>
+    </div>
+  </div>
+
+  <!-- قسم 4: ريد ماجيك -->
+  <div class="alatawi-section" id="section-redmagic" style="background: linear-gradient(135deg, #3b1019, #1a0409);">
+    <div class="alatawi-section-header">
+      <h2>⚡ وحوش الألعاب Red Magic</h2>
+      <p>أداء جبار وتبريد مدمج</p>
+    </div>
+    <div class="swiper swiper-products swiper-redmagic">
+      <div class="swiper-wrapper" id="redmagic-slider-container"></div>
+    </div>
+  </div>
+
+  <!-- قسم 5: السماعات -->
+  <div class="alatawi-section" id="section-audio">
+    <div class="alatawi-section-header">
+      <h2>🎧 قسم الصوتيات والسماعات</h2>
+      <p>سماعات AirPods وأفضل مكبرات الصوت</p>
+    </div>
+    <div class="swiper swiper-products swiper-audio">
+      <div class="swiper-wrapper" id="audio-slider-container"></div>
+    </div>
+  </div>
+
+  <!-- قسم 6: الساعات -->
+  <div class="alatawi-section" id="section-watches">
+    <div class="alatawi-section-header">
+      <h2>⌚ قسم الساعات الذكية Apple Watch</h2>
+      <p>أحدث ساعات آبل الذكية والرياضية</p>
+    </div>
+    <div class="swiper swiper-products swiper-watches">
+      <div class="swiper-wrapper" id="watches-slider-container"></div>
+    </div>
+  </div>
+
+  <!-- قسم 7: الشواحن -->
+  <div class="alatawi-section" id="section-chargers">
+    <div class="alatawi-section-header">
+      <h2>🔌 الشواحن والبطاريات والكيابل</h2>
+      <p>شواحن سريعة وبنوك طاقة معتمدة</p>
+    </div>
+    <div class="swiper swiper-products swiper-chargers">
+      <div class="swiper-wrapper" id="chargers-slider-container"></div>
     </div>
   </div>
 
@@ -153,46 +230,77 @@
   <script>
     new Swiper('.swiper-banner', { loop: true, autoplay: { delay: 3500 } });
 
-    // مصفوفة المنتجات الحديثة (تضم آيفون 18 والأسماء المطلوبة)
     const iphonesList = [
-      { name: 'iPhone 18 Pro Max (حجز مسبق)', price: 1299, tag: 'قريباً', img: 'iphone18.jpg' },
-      { name: 'iPhone 17 Pro Max', price: 1199, tag: 'iPhone 17', img: 'iphone17_promax.jpeg' },
-      { name: 'iPhone 17 Pro', price: 1099, tag: 'iPhone 17', img: 'iphone17_pro.jpeg' },
-      { name: 'iPhone 17 Standard', price: 799, tag: 'iPhone 17', img: 'iphone17.jpeg' },
-      { name: 'iPhone 16 Pro Max', price: 1199, tag: 'iPhone 16', img: 'iphone16_promax.jpeg' },
-      { name: 'iPhone 16 Pro', price: 999, tag: 'iPhone 16', img: 'iphone16_pro.jpeg' },
-      { name: 'iPhone 16 Standard', price: 799, tag: 'iPhone 16', img: 'iphone16.jpeg' },
-      { name: 'iPhone 15 Pro Max', price: 1199, tag: 'iPhone 15', img: 'iphone15_promax.jpeg' },
-      { name: 'iPhone 15 Pro', price: 999, tag: 'iPhone 15', img: 'iphone15_pro.jpeg' },
-      { name: 'iPhone 15 Standard', price: 799, tag: 'iPhone 15', img: 'iphone15.jpeg' },
-      { name: 'iPhone 14 Pro Max', price: 1099, tag: 'iPhone 14', img: 'iphone14_promax.jpeg' },
-      { name: 'iPhone 14 Pro', price: 999, tag: 'iPhone 14', img: 'iphone14_pro.jpeg' },
-      { name: 'iPhone 14 Standard', price: 799, tag: 'iPhone 14', img: 'iphone14.jpeg' }
+      { id: 'iph18', name: 'iPhone 18 Pro Max', price: 1299, tag: 'قريباً', img: 'iphone18.jpg', colors: ['تيتانيوم أسود', 'تيتانيوم طبيعي', 'فضي'] },
+      { id: 'iph17pm', name: 'iPhone 17 Pro Max', price: 1199, tag: 'iPhone 17', img: 'iphone17_promax.jpeg', colors: ['أسود كوزميك', 'فضي لامع', 'ذهبي وردي'] },
+      { id: 'iph17p', name: 'iPhone 17 Pro', price: 1099, tag: 'iPhone 17', img: 'iphone17_pro.jpeg', colors: ['تيتانيوم رمادي', 'أزرق غامق', 'فضي'] },
+      { id: 'iph16pm', name: 'iPhone 16 Pro Max', price: 1199, tag: 'iPhone 16', img: 'iphone16_promax.jpeg', colors: ['تيتانيوم صحراوي', 'تيتانيوم أسود', 'تيتانيوم أبيض'] },
+      { id: 'iph15pm', name: 'iPhone 15 Pro Max', price: 1099, tag: 'iPhone 15', img: 'iphone15_promax.jpeg', colors: ['تيتانيوم طبيعي', 'تيتانيوم أزرق', 'تيتانيوم أسود'] }
     ];
 
-    // مصفوفة السلاسل السابقة (12 و 13)
-    const olderList = [
-      { name: 'iPhone 13 Pro Max', price: 1099, tag: 'iPhone 13', img: 'iphone13_promax.jpeg' },
-      { name: 'iPhone 13 Pro', price: 999, tag: 'iPhone 13', img: 'iphone13_pro.jpeg' },
-      { name: 'iPhone 13 Standard', price: 699, tag: 'iPhone 13', img: 'iphone13.jpeg' },
-      { name: 'iPhone 12 Pro Max', price: 999, tag: 'iPhone 12', img: 'iphone12_promax.jpeg' },
-      { name: 'iPhone 12 Pro', price: 899, tag: 'iPhone 12', img: 'iphone12_pro.jpeg' },
-      { name: 'iPhone 12 Standard', price: 699, tag: 'iPhone 12', img: 'iphone12.jpg' }
+    const ultraList = [
+      { id: 's26u', name: 'Galaxy S26 Ultra', price: 1199, tag: 'جديد', img: '64369.jpg', colors: ['تيتانيوم أسود', 'تيتانيوم رمادي', 'تيتانيوم بنفسجي'] },
+      { id: 's25u', name: 'Galaxy S25 Ultra AI', price: 1099, tag: 'Galaxy AI', img: '64368.jpg', colors: ['تيتانيوم أسود', 'تيتانيوم فضي', 'تيتانيوم رمادي'] },
+      { id: 's24u', name: 'Galaxy S24 Ultra', price: 999, tag: 'عرض %30', img: '64367.jpg', colors: ['تيتانيوم ذهبي', 'تيتانيوم رمادي', 'تيتانيوم أسود'] },
+      { id: 's23u', name: 'Galaxy S23 Ultra', price: 899, tag: 'مميز', img: '64366.jpg', colors: ['أسود فانتوم', 'بنفَسجي', 'كريمي'] },
+      { id: 's22u', name: 'Galaxy S22 Ultra', price: 749, tag: 'الأكثر طلباً', img: '64365.jpg', colors: ['أسود بورغندي', 'أبيض', 'أخضر'] }
+    ];
+
+    const xiaomiList = [
+      { id: 'xm1', name: 'Xiaomi Smart Clock Ed.', price: 1049, tag: 'إصدار خاص', img: '64373.jpg', colors: ['سيراميك أبيض', 'أسود فخم'] },
+      { id: 'xm2', name: 'Xiaomi Flagship Leica', price: 999, tag: 'Leica', img: '64372.jpg', colors: ['أخضر زيتي', 'أسود كلاسيكي', 'أبيض'] },
+      { id: 'xm3', name: 'Xiaomi Titanium Series', price: 949, tag: 'جديد', img: '64371.jpg', colors: ['تيتانيوم رمادي', 'أسود معدني', 'أزرق فضاء'] },
+      { id: 'xm4', name: 'Xiaomi Leica Pro White', price: 899, tag: 'الأكثر مبيعاً', img: '64370.jpg', colors: ['أبيض ناصع', 'أسود مطفي'] }
+    ];
+
+    const redmagicList = [
+      { id: 'rm1', name: 'Red Magic Pro Transparent', price: 929, tag: 'جيمينج', img: '64377.jpg', colors: ['فضي شفاف', 'أسود شفاف'] },
+      { id: 'rm2', name: 'Red Magic Cyber Black', price: 899, tag: 'تبريد مدمج', img: '64376.jpg', colors: ['أسود سايبر', 'رمادي داكن'] },
+      { id: 'rm3', name: 'Red Magic Ultra Gaming', price: 879, tag: 'محترف', img: '64375.jpg', colors: ['أسود مسلّح', 'فضي معدني'] },
+      { id: 'rm4', name: 'Red Magic White Edition', price: 849, tag: 'إضاءة RGB', img: '64374.jpg', colors: ['أبيض مستقبلي', 'أسود ليلي'] }
+    ];
+
+    const audioList = [
+      { id: 'aud1', name: 'AirPods Pro 2 (USB-C)', price: 249, tag: 'الأصلي', img: 'https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=500', colors: ['أبيض أصلي'] },
+      { id: 'aud2', name: 'AirPods Max', price: 549, tag: 'فاخر', img: 'https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=500', colors: ['فضي رمادي', 'سبيس جراي'] }
+    ];
+
+    const watchesList = [
+      { id: 'wat1', name: 'Apple Watch Ultra 2', price: 799, tag: 'Ultra', img: 'https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=500', colors: ['تيتانيوم مع حزام برتقالي', 'تيتانيوم مع حزام أسود'] },
+      { id: 'wat2', name: 'Apple Watch Series 9', price: 399, tag: 'Series 9', img: 'https://images.unsplash.com/photo-1510017803434-a899398421b3?w=500', colors: ['ألومنيوم أسود', 'ألومنيوم ستلايت'] }
+    ];
+
+    const chargersList = [
+      { id: 'ch1', name: 'شاحن أبل سريع 20W', price: 25, tag: 'أصلي', img: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=500', colors: ['أبيض أصلي'] },
+      { id: 'ch2', name: 'بطارية Anker MagGo 10000', price: 59, tag: 'Anker', img: 'https://images.unsplash.com/photo-1609592424109-dd9892f1b177?w=500', colors: ['أسود', 'أبيض'] }
     ];
 
     function createCardHTML(p) {
+      let colorOptions = p.colors.map(c => `<option value="${c}">${c}</option>`).join('');
+      let qtyOptions = '';
+      for(let i=1; i<=10; i++) {
+        qtyOptions += `<option value="${i}">الكمية: ${i}</option>`;
+      }
+
       return `
         <div class="swiper-slide">
           <div class="product-card">
             <span class="badge">${p.tag}</span>
             <div class="img-box">
-              <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/150?text=Apple+iPhone'">
+              <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/150?text=Alatawi+Store'">
             </div>
             <div class="card-title">${p.name}</div>
-            <div class="price-box">
+            
+            <div class="options-box">
+              <select id="color-${p.id}">${colorOptions}</select>
+              <select id="qty-${p.id}">${qtyOptions}</select>
+            </div>
+
+            <div class="price-row">
               <span class="card-price">$${p.price}</span>
             </div>
-            <button class="add-btn" onclick="addToCart('${p.name}', ${p.price})">أضف للسلة 🛒</button>
+            
+            <button class="add-btn" onclick="addWithOptions('${p.id}', '${p.name}', ${p.price})">أضف للسلة 🛒</button>
           </div>
         </div>
       `;
@@ -200,31 +308,64 @@
 
     function renderSliders() {
       document.getElementById('iphone-slider-container').innerHTML = iphonesList.map(createCardHTML).join('');
-      document.getElementById('older-slider-container').innerHTML = olderList.map(createCardHTML).join('');
+      document.getElementById('ultra-slider-container').innerHTML = ultraList.map(createCardHTML).join('');
+      document.getElementById('xiaomi-slider-container').innerHTML = xiaomiList.map(createCardHTML).join('');
+      document.getElementById('redmagic-slider-container').innerHTML = redmagicList.map(createCardHTML).join('');
+      document.getElementById('audio-slider-container').innerHTML = audioList.map(createCardHTML).join('');
+      document.getElementById('watches-slider-container').innerHTML = watchesList.map(createCardHTML).join('');
+      document.getElementById('chargers-slider-container').innerHTML = chargersList.map(createCardHTML).join('');
 
       new Swiper('.swiper-iphones', { slidesPerView: 2.2, spaceBetween: 10, freeMode: true });
-      new Swiper('.swiper-older', { slidesPerView: 2.2, spaceBetween: 10, freeMode: true });
+      new Swiper('.swiper-ultra', { slidesPerView: 2.2, spaceBetween: 10, freeMode: true });
+      new Swiper('.swiper-xiaomi', { slidesPerView: 2.2, spaceBetween: 10, freeMode: true });
+      new Swiper('.swiper-redmagic', { slidesPerView: 2.2, spaceBetween: 10, freeMode: true });
+      new Swiper('.swiper-audio', { slidesPerView: 2.2, spaceBetween: 10, freeMode: true });
+      new Swiper('.swiper-watches', { slidesPerView: 2.2, spaceBetween: 10, freeMode: true });
+      new Swiper('.swiper-chargers', { slidesPerView: 2.2, spaceBetween: 10, freeMode: true });
+    }
+
+    function scrollToSection(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
     }
 
     let cart = [];
-    function addToCart(name, price) { cart.push({ name, price }); updateCartUI(); }
+    
+    function addWithOptions(id, name, price) {
+      let selectedColor = document.getElementById(`color-${id}`).value;
+      let selectedQty = parseInt(document.getElementById(`qty-${id}`).value);
+      let totalPrice = price * selectedQty;
+
+      cart.push({ name, color: selectedColor, qty: selectedQty, price: totalPrice });
+      updateCartUI();
+      alert(`تمت إضافة ${selectedQty} قطعة من (${name}) باللون (${selectedColor}) إلى السلة بنجاح!`);
+    }
+
     function updateCartUI() {
-      document.getElementById('cart-count').innerText = cart.length;
+      let totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+      document.getElementById('cart-count').innerText = totalCount;
       let total = 0;
-      document.getElementById('cart-items').innerHTML = cart.map((item, index) => {
+      document.getElementById('cart-items').innerHTML = cart.map((item) => {
         total += item.price;
-        return `<div style="display:flex; justify-space-between; margin-bottom:8px;"><span>${item.name}</span><b>$${item.price}</b></div>`;
+        return `<div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid #f1f5f9; padding-bottom:5px; font-size:0.8rem;">
+                  <span><b>${item.name}</b><br><small style="color:#64748b">اللون: ${item.color} | الكمية: ${item.qty}</small></span>
+                  <b style="color:var(--primary)">$${item.price}</b>
+                </div>`;
       }).join('');
       document.getElementById('cart-total').innerText = total;
     }
+
     function openCart() { document.getElementById('cart-modal').style.display = 'flex'; }
     function closeCart() { document.getElementById('cart-modal').style.display = 'none'; }
+    
     function sendWhatsApp() {
       if (cart.length === 0) return alert('السلة فارغة!');
-      let text = "مرحباً، أريد طلب المنتجات التالية من المتجر:\n\n";
+      let text = "مرحباً، أريد طلب المنتجات التالية من متجر العطاوي:\n\n";
       let total = 0;
-      cart.forEach((item, i) => { text += `${i+1}. ${item.name} - $${item.price}\n`; total += item.price; });
-      text += `\nالمجموع الكلي: $${total}`;
+      cart.forEach((item, i) => { 
+        text += `${i+1}. ${item.name}\n   - اللون: ${item.color}\n   - الكمية: ${item.qty}\n   - السعر الإجمالي: $${item.price}\n\n`; 
+        total += item.price; 
+      });
+      text += `المجموع الكلي للطلب: $${total}`;
       window.open(`https://wa.me/970592152484?text=${encodeURIComponent(text)}`, '_blank');
     }
 
