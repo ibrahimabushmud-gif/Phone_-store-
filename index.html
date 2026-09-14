@@ -380,15 +380,49 @@ new Swiper('.swiper-accessories', { slidesPerView: 2.2, spaceBetween: 10, freeMo
 
     function openCart() { document.getElementById('cart-modal').style.display = 'flex'; }
     function closeCart() { document.getElementById('cart-modal').style.display = 'none'; }
-        function sendWhatsAppApp() {
+            function sendWhatsAppApp() {
         if (cart.length === 0) return alert('السلة فارغة!');
-        // الانتقال لصفحة إتمام الطلب الجديدة
+        // إظهار نافذة تسجيل الدخول والتحقق أولاً
+        document.getElementById('auth-modal').style.display = 'flex';
+    }
+
+    function closeAuthModal() {
+        document.getElementById('auth-modal').style.display = 'none';
+    }
+
+    function verifyAndProceed() {
+        const val = document.getElementById('auth-input').value;
+        if(!val.trim()) {
+            alert('الرجاء إدخال البريد أو رقم الواتساب');
+            return;
+        }
+        // بعد إدخال البيانات، يتم تحويله لصفحة إتمام الطلب والعنوان
         window.location.href = 'checkout.html';
     }
 
-
     renderSliders();
   </script>
+  <!-- نافذة تسجيل الدخول والتحقق -->
+<div id="auth-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" style="display: none;">
+    <div class="bg-white rounded-3xl p-6 w-full max-w-md shadow-2xl relative" dir="rtl">
+        <button onclick="closeAuthModal()" class="absolute left-5 top-5 text-gray-400 hover:text-gray-600 text-xl font-bold">×</button>
+
+        <h3 class="text-xl font-bold text-gray-900 text-center mb-2">تسجيل الدخول</h3>
+        <p class="text-gray-500 text-xs text-center mb-6">أدخل رقم واتساب أو البريد الإلكتروني للحصول على رمز التحقق.</p>
+
+        <div class="space-y-4">
+            <div>
+                <label class="block text-xs text-gray-600 mb-1">الرقم أو البريد الإلكتروني</label>
+                <input type="text" id="auth-input" placeholder="05xxxxxxxx أو example@gmail.com" class="w-full p-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-purple-700 text-right">
+            </div>
+
+            <button onclick="verifyAndProceed()" class="w-full bg-purple-800 text-white py-3 rounded-xl font-bold text-sm hover:bg-purple-900 transition-colors">
+                إرسال رمز التحقق ومتابعة الطلب
+            </button>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
 
