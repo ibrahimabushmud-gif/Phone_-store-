@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>متجر الهواتف والإكسسوارات</title>
+  <!-- مكتبة التمرير الأفقي Swiper -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  
+  <style>
+    :root {
+      /* درجتين مميزتين من اللون البنفسجي */
+      --primary: #5b21b6; 
+      --primary-dark: #3b0764;
+      --primary-light: #7c3aed;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --border: #e2e8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+    body { background-color: var(--bg); color: var(--text); padding-bottom: 90px; }
+
+    /* Header */
+    header { background: #fff; padding: 1rem; position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f3e8ff; box-shadow: 0 2px 8px rgba(91, 33, 182, 0.05); }
+    .logo { font-size: 1.2rem; font-weight: 900; color: var(--primary); }
+    .cart-btn { background: var(--primary); color: #fff; border: none; padding: 0.6rem 1.2rem; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 0.9rem; }
+
+    /* التصنيفات الدائرية */
+    .section-title { font-size: 0.95rem; font-weight: 800; margin: 12px 1rem 8px; color: var(--primary-dark); }
+    .categories-circles { display: flex; gap: 12px; overflow-x: auto; padding: 0.5rem 1rem; scrollbar-width: none; }
+    .cat-circle { display: flex; flex-direction: column; align-items: center; min-width: 65px; cursor: pointer; }
+    .circle-icon { width: 58px; height: 58px; background: linear-gradient(135deg, var(--primary-light), var(--primary)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.3rem; box-shadow: 0 3px 8px rgba(91, 33, 182, 0.2); }
+    .cat-circle span { font-size: 0.75rem; margin-top: 6px; font-weight: 700; color: #475569; }
+
+    /* البلوك البنفسجي للأقسام والعروض */
+    .category-block { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border-radius: 20px; padding: 15px 10px; margin: 15px 10px; color: #fff; box-shadow: 0 4px 15px rgba(91, 33, 182, 0.15); }
+    .block-header { text-align: center; margin-bottom: 12px; }
+    .block-header h2 { font-size: 1.1rem; font-weight: 800; }
+    .block-header p { font-size: 0.75rem; opacity: 0.85; margin-top: 2px; }
+
+    /* كروت المنتجات */
+    .card { background: var(--card-bg); border-radius: 14px; padding: 8px; color: var(--text); height: 240px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 2px 6px rgba(0,0,0,0.03); }
+    .img-container { width: 100%; height: 110px; display: flex; align-items: center; justify-content: center; background: #fff; border-radius: 8px; }
+    .card img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .card-title { font-size: 0.8rem; font-weight: 700; line-height: 1.2; height: 2.4em; overflow: hidden; margin-top: 4px; }
+    .card-price { color: var(--primary); font-weight: 900; font-size: 0.95rem; margin: 4px 0; }
+    .add-btn { background: var(--primary); color: #fff; border: none; width: 100%; padding: 7px; border-radius: 8px; font-size: 0.8rem; font-weight: bold; cursor: pointer; transition: 0.2s; }
+    .add-btn:active { background: var(--primary-dark); }
+
+    /* السلة (Modal) */
+    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1000; align-items: flex-end; }
+    .modal-content { background: #fff; width: 100%; max-height: 80vh; border-radius: 20px 20px 0 0; padding: 1.2rem; overflow-y: auto; }
+    .checkout-btn { width: 100%; background: #25d366; color: #fff; border: none; padding: 0.9rem; border-radius: 12px; font-size: 1rem; font-weight: bold; cursor: pointer; margin-top: 1rem; }
+
+    /* الفوتر البنفسجي */
+    footer { background: var(--primary-dark); color: #fff; padding: 1.5rem 1rem 1rem; margin-top: 2rem; }
+    .footer-content { font-size: 0.85rem; text-align: center; }
+    .footer-bottom { text-align: center; margin-top: 1rem; padding-top: 0.8rem; border-top: 1px solid var(--primary); font-size: 0.75rem; color: #ddd6fe; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">📱 متجر الهواتف</div>
+    <button class="cart-btn" onclick="openCart()">السلة (<span id="cart-count">0</span>)</button>
+  </header>
+
+  <!-- شريط التصنيفات الدائرية -->
+  <div class="section-title">الأقسام الرئيسية</div>
+  <div class="categories-circles">
+    <div class="cat-circle"><div class="circle-icon">📱</div><span>آبل</span></div>
+    <div class="cat-circle"><div class="circle-icon">📲</div><span>سامسونج</span></div>
+    <div class="cat-circle"><div class="circle-icon">🌐</div><span>جوجل</span></div>
+    <div class="cat-circle"><div class="circle-icon">🎧</div><span>إكسسوارات</span></div>
+  </div>
+
+  <!-- بلوك القسم الأول: عروض مميزة -->
+  <div class="category-block">
+    <div class="block-header">
+      <h2>🔥 عروض حصرية</h2>
+      <p>أحدث المنتجات والتخفيضات</p>
+    </div>
+
+    <div class="swiper swiper-section-1">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <div class="card">
+            <div class="img-container">
+              <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=300" alt="iPhone 16 Pro Max">
+            </div>
+            <div class="card-title">iPhone 16 Pro Max</div>
+            <div class="card-price">$1199</div>
+            <button class="add-btn" onclick="addToCart('iPhone 16 Pro Max', 1199)">إضافة للسلة</button>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="card">
+            <div class="img-container">
+              <img src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=300" alt="Samsung S24 Ultra">
+            </div>
+            <div class="card-title">Samsung S24 Ultra</div>
+            <div class="card-price">$899</div>
+            <button class="add-btn" onclick="addToCart('Samsung S24 Ultra', 899)">إضافة للسلة</button>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="card">
+            <div class="img-container">
+              <img src="https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=300" alt="AirPods Pro 2">
+            </div>
+            <div class="card-title">AirPods Pro 2</div>
+            <div class="card-price">$229</div>
+            <button class="add-btn" onclick="addToCart('AirPods Pro 2', 229)">إضافة للسلة</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- بلوك القسم الثاني: قسم آبل -->
+  <div class="category-block" style="background: linear-gradient(135deg, #4c1d95, #2e1065);">
+    <div class="block-header">
+      <h2>🍏 منتجات آبل</h2>
+      <p>تصفح أجهزة آبل المتوفرة</p>
+    </div>
+
+    <div class="swiper swiper-section-2">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <div class="card">
+            <div class="img-container">
+              <img src="https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=300" alt="iPhone 15">
+            </div>
+            <div class="card-title">iPhone 15 / 15 Plus</div>
+            <div class="card-price">$699</div>
+            <button class="add-btn" onclick="addToCart('iPhone 15', 699)">إضافة للسلة</button>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="card">
+            <div class="img-container">
+              <img src="https://images.unsplash.com/photo-1678685888221-cda773a3dcdb?w=300" alt="iPhone 14 Pro Max">
+            </div>
+            <div class="card-title">iPhone 14 Pro Max</div>
+            <div class="card-price">$850</div>
+            <button class="add-btn" onclick="addToCart('iPhone 14 Pro Max', 850)">إضافة للسلة</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Cart -->
+  <div class="modal" id="cart-modal">
+    <div class="modal-content">
+      <h2 style="font-size: 1.2rem; margin-bottom: 1rem; color: var(--primary);">سلة الشراء</h2>
+      <div id="cart-items"></div>
+      <h3 style="margin-top: 1rem; font-size: 1.1rem;">المجموع الكلي: $<span id="cart-total">0</span></h3>
+      <button class="checkout-btn" onclick="sendWhatsApp()">إتمام الطلب عبر WhatsApp 💬</button>
+      <button onclick="closeCart()" style="width: 100%; margin-top: 0.5rem; padding: 0.7rem; border: none; background: #f1f5f9; border-radius: 8px; font-weight: bold; cursor: pointer;">إغلاق</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <h4>متجر الهواتف الشامل</h4>
+      <p style="margin-top:4px; opacity: 0.8;">أفضل الأجهزة الإلكتورة بخدمة وسعر ممتاز</p>
+    </div>
+    <div class="footer-bottom">جميع الحقوق محفوظة © 2026</div>
+  </footer>
+
+  <!-- Swiper JS & Cart Logic -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    new Swiper('.swiper-section-1', { slidesPerView: 2.2, spaceBetween: 10 });
+    new Swiper('.swiper-section-2', { slidesPerView: 2.2, spaceBetween: 10 });
+
+    let cart = [];
+    function addToCart(name, price) {
+      cart.push({ name, price });
+      updateCartUI();
+    }
+    function updateCartUI() {
+      document.getElementById('cart-count').innerText = cart.length;
+      let total = 0;
+      document.getElementById('cart-items').innerHTML = cart.map((item, index) => {
+        total += item.price;
+        return `
+          <div style="display:flex; justify-space-between; align-items:center; margin-bottom:8px; border-bottom:1px solid #eee; padding-bottom:5px;">
+            <div><strong>${item.name}</strong> - $${item.price}</div>
+            <button onclick="removeFromCart(${index})" style="background:#fee2e2; color:#ef4444; border:none; padding:3px 8px; border-radius:4px; cursor:pointer;">حذف</button>
+          </div>`;
+      }).join('');
+      document.getElementById('cart-total').innerText = total;
+    }
+    function removeFromCart(index) { cart.splice(index, 1); updateCartUI(); }
+    function openCart() { document.getElementById('cart-modal').style.display = 'flex'; }
+    function closeCart() { document.getElementById('cart-modal').style.display = 'none'; }
+    function sendWhatsApp() {
+      if (cart.length === 0) return alert('السلة فارغة!');
+      let text = "مرحباً، أريد طلب المنتجات التالية:\n\n";
+      let total = 0;
+      cart.forEach((item, i) => { text += `${i+1}. ${item.name} - $${item.price}\n`; total += item.price; });
+      text += `\nالمجموع الكلي: $${total}`;
+      window.open(`https://wa.me/970592152484?text=${encodeURIComponent(text)}`, '_blank');
+    }
+  </script>
+</body>
+</html>
