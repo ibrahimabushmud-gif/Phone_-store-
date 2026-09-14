@@ -380,18 +380,12 @@ new Swiper('.swiper-accessories', { slidesPerView: 2.2, spaceBetween: 10, freeMo
 
     function openCart() { document.getElementById('cart-modal').style.display = 'flex'; }
     function closeCart() { document.getElementById('cart-modal').style.display = 'none'; }
-    
-    function sendWhatsApp() {
-      if (cart.length === 0) return alert('السلة فارغة!');
-      let text = "مرحباً، أريد طلب المنتجات التالية من متجر العطاوي:\n\n";
-      let total = 0;
-      cart.forEach((item, i) => { 
-        text += `${i+1}. ${item.name}\n   - اللون: ${item.color}\n   - الكمية: ${item.qty}\n   - السعر الإجمالي: $${item.price}\n\n`; 
-        total += item.price; 
-      });
-      text += `المجموع الكلي للطلب: $${total}`;
-      window.open(`https://wa.me/972592152484?text=${encodeURIComponent(text)}`, '_blank');
+        function sendWhatsAppApp() {
+        if (cart.length === 0) return alert('السلة فارغة!');
+        // الانتقال لصفحة إتمام الطلب الجديدة
+        window.location.href = 'checkout.html';
     }
+
 
     renderSliders();
   </script>
