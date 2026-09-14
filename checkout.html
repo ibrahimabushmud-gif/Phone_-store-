@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إتمام الطلب - العطاوي</title>
+    <!-- استخدام Tailwind CSS للتصميم -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 font-sans min-h-screen pb-12">
+
+    <!-- هيدر الصفحة -->
+    <header class="bg-white border-b border-gray-100 py-4 px-6 mb-6 flex justify-between items-center max-w-xl mx-auto">
+        <h1 class="font-bold text-lg text-purple-900">متجر العطاوي - إتمام الطلب</h1>
+        <span class="text-sm font-bold text-purple-700 bg-purple-50 px-3 py-1 rounded-full">4,149.00 ر.س</span>
+    </header>
+
+    <div class="max-w-xl mx-auto px-4 space-y-4">
+
+        <!-- الخطوة 1: التحقق برقم الواتساب أو البريد -->
+        <div id="step-auth" class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+            <div class="flex items-center gap-2 mb-3">
+                <span class="w-7 h-7 bg-purple-700 text-white rounded-full flex items-center justify-center text-sm font-bold">1</span>
+                <h3 class="font-bold text-gray-800 text-base">التحقق من رقم الواتساب أو الإيميل</h3>
+            </div>
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-xs text-gray-500 mb-1">رقم الواتساب أو البريد الإلكتروني *</label>
+                    <input type="text" id="user-contact" placeholder="05xxxxxxxx أو example@gmail.com" class="w-full p-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-purple-700 text-right">
+                </div>
+                <button onclick="unlockNextStep('step-delivery')" class="w-full bg-purple-800 text-white py-3 rounded-xl font-bold text-sm hover:bg-purple-900 transition-colors">
+                    إرسال ومتابعة
+                </button>
+            </div>
+        </div>
+
+        <!-- الخطوة 2: معلومات التواصل والتوصيل والموقع (مخفية لحين إتمام التحقق) -->
+        <div id="step-delivery" class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 opacity-50 pointer-events-none transition-all">
+            <div class="flex items-center gap-2 mb-3">
+                <span class="w-7 h-7 bg-gray-300 text-gray-700 rounded-full flex items-center justify-center text-sm font-bold" id="badge-2">2</span>
+                <h3 class="font-bold text-gray-800 text-base">التوصيل وعنوان الاستلام والموقع</h3>
+            </div>
+            
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-xs text-gray-500 mb-1">الاسم الكامل *</label>
+                    <input type="text" placeholder="اسم المستلم" class="w-full p-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-purple-700">
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-xs text-gray-500 mb-1">المدينة *</label>
+                        <input type="text" placeholder="مثال: الرياض" class="w-full p-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-purple-700">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-500 mb-1">الحي / المنطقة *</label>
+                        <input type="text" placeholder="اسم الحي" class="w-full p-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-purple-700">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs text-gray-500 mb-1">تفاصيل موقع التوصيل (الشارع، رقم المبنى)</label>
+                    <input type="text" placeholder="اكتب وصف تفصيلي أو عنوان موقعك هنا..." class="w-full p-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-purple-700">
+                </div>
+                <button onclick="unlockNextStep('step-payment')" class="w-full bg-purple-800 text-white py-3 rounded-xl font-bold text-sm hover:bg-purple-900 transition-colors">
+                    حفظ العنوان والانتقال للدفع
+                </button>
+            </div>
+        </div>
+
+        <!-- الخطوة 3: الدفع (مخفية لحين حفظ العنوان) -->
+        <div id="step-payment" class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 opacity-50 pointer-events-none transition-all">
+            <div class="flex items-center gap-2 mb-3">
+                <span class="w-7 h-7 bg-gray-300 text-gray-700 rounded-full flex items-center justify-center text-sm font-bold" id="badge-3">3</span>
+                <h3 class="font-bold text-gray-800 text-base">طريقة الدفع</h3>
+            </div>
+            
+            <div class="space-y-2">
+                <label class="flex items-center justify-between p-3 border border-gray-200 rounded-xl cursor-pointer hover:border-purple-700">
+                    <span class="text-sm font-medium text-gray-700">الدفع الإلكتروني (Apple Pay / بطاقة ائتمانية)</span>
+                    <input type="radio" name="payment" class="accent-purple-700 w-4 h-4" checked>
+                </label>
+                <label class="flex items-center justify-between p-3 border border-gray-200 rounded-xl cursor-pointer hover:border-purple-700">
+                    <span class="text-sm font-medium text-gray-700">الدفع عند الاستلام</span>
+                    <input type="radio" name="payment" class="accent-purple-700 w-4 h-4">
+                </label>
+
+                <button onclick="completeOrder()" class="w-full mt-3 bg-emerald-600 text-white py-3.5 rounded-xl font-bold text-sm hover:bg-emerald-700 transition-colors">
+                    إتمام وتأكيد الطلب نهائياً
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function unlockNextStep(stepId) {
+            if(stepId === 'step-delivery') {
+                const contact = document.getElementById('user-contact').value;
+                if(!contact) {
+                    alert('الرجاء إدخال البريد أو رقم الواتساب أولاً');
+                    return;
+                }
+                // تفعيل خطوة التوصيل
+                const deliveryDiv = document.getElementById('step-delivery');
+                deliveryDiv.classList.remove('opacity-50', 'pointer-events-none');
+                document.getElementById('badge-2').className = "w-7 h-7 bg-purple-700 text-white rounded-full flex items-center justify-center text-sm font-bold";
+            } 
+            else if(stepId === 'step-payment') {
+                // تفعيل خطوة الدفع
+                const paymentDiv = document.getElementById('step-payment');
+                paymentDiv.classList.remove('opacity-50', 'pointer-events-none');
+                document.getElementById('badge-3').className = "w-7 h-7 bg-purple-700 text-white rounded-full flex items-center justify-center text-sm font-bold";
+            }
+        }
+
+        function completeOrder() {
+            alert('تم استلام طلبك بنجاح! شكراً لتسوقك في متجر العطاوي.');
+            window.location.href = 'index.html'; // العودة للمتجر الرئيسي بعد الطلب
+        }
+    </script>
+</body>
+</html>
