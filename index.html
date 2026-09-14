@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>متجر العطاوي للاتصالات | مكان يستحق الثقة</title>
+  <!-- Swiper Slider Library -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  
+  <style>
+    :root {
+      --primary: #4a154b;
+      --primary-gradient: linear-gradient(135deg, #5b1d6f, #360b3d);
+      --purple-card: #5a1962;
+      --bg: #f8fafc;
+      --text: #1e293b;
+      --card-bg: #ffffff;
+      --accent-red: #e11d48;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+    body { background-color: var(--bg); color: var(--text); padding-bottom: 70px; }
+
+    /* Header */
+    header { background: #fff; padding: 0.8rem 1rem; position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .logo-box { text-align: right; }
+    .logo-box h1 { font-size: 1.2rem; font-weight: 900; color: var(--primary); }
+    .logo-box span { font-size: 0.65rem; color: #64748b; font-weight: bold; }
+    .cart-btn { background: var(--primary); color: #fff; border: none; padding: 0.5rem 1rem; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 0.85rem; }
+
+    /* Banners Carousel */
+    .banner-wrapper { padding: 0.8rem 0.8rem 0; }
+    .swiper-banner { border-radius: 16px; overflow: hidden; height: 160px; }
+    .swiper-banner img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Sub Banner - Tabby & Tamara */
+    .installments-banner { background: #fff; border-radius: 12px; margin: 0.8rem; padding: 0.8rem; text-align: center; border: 1px solid #e2e8f0; }
+    .installments-banner h3 { font-size: 0.9rem; color: var(--primary); margin-bottom: 4px; }
+    .installments-banner p { font-size: 0.75rem; color: #64748b; }
+
+    /* Section Title */
+    .section-title { font-size: 0.95rem; font-weight: 800; margin: 15px 1rem 8px; color: #0f172a; }
+
+    /* Categories Circles */
+    .categories-scroll { display: flex; gap: 12px; overflow-x: auto; padding: 0.4rem 1rem; scrollbar-width: none; }
+    .cat-item { display: flex; flex-direction: column; align-items: center; min-width: 70px; cursor: pointer; text-decoration: none; }
+    .cat-icon { width: 58px; height: 58px; background: var(--primary-gradient); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.3rem; box-shadow: 0 3px 8px rgba(90, 25, 98, 0.25); }
+    .cat-item span { font-size: 0.72rem; margin-top: 6px; font-weight: 700; color: #475569; text-align: center; }
+
+    /* Brands Scroll */
+    .brands-scroll { display: flex; gap: 10px; overflow-x: auto; padding: 0.4rem 1rem; scrollbar-width: none; }
+    .brand-chip { background: #fff; border: 1px solid #e2e8f0; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 800; color: #334155; white-space: nowrap; }
+
+    /* Purple Section Block */
+    .purple-block { background: var(--primary-gradient); border-radius: 20px; padding: 15px 10px; margin: 15px 10px; color: #fff; }
+    .block-header { text-align: center; margin-bottom: 12px; }
+    .block-header h2 { font-size: 1.1rem; font-weight: 800; }
+    .block-header p { font-size: 0.75rem; opacity: 0.85; margin-top: 2px; }
+
+    /* Product Cards */
+    .card { background: var(--card-bg); border-radius: 14px; padding: 8px; color: var(--text); height: 260px; display: flex; flex-direction: column; justify-content: space-between; position: relative; }
+    .badge { position: absolute; top: 6px; right: 6px; background: var(--accent-red); color: #fff; font-size: 0.65rem; padding: 2px 6px; border-radius: 6px; font-weight: bold; }
+    .img-box { width: 100%; height: 110px; display: flex; align-items: center; justify-content: center; }
+    .card img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .card-title { font-size: 0.78rem; font-weight: 700; line-height: 1.25; height: 2.5em; overflow: hidden; margin-top: 4px; }
+    .price-box { margin: 4px 0; }
+    .card-price { color: var(--primary); font-weight: 900; font-size: 0.95rem; }
+    .old-price { font-size: 0.75rem; color: #94a3b8; text-decoration: line-through; margin-right: 5px; }
+    .add-btn { background: var(--primary); color: #fff; border: none; width: 100%; padding: 7px; border-radius: 8px; font-size: 0.75rem; font-weight: bold; cursor: pointer; }
+
+    /* Modal Cart */
+    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1000; align-items: flex-end; }
+    .modal-content { background: #fff; width: 100%; max-height: 80vh; border-radius: 20px 20px 0 0; padding: 1.2rem; overflow-y: auto; }
+    .checkout-btn { width: 100%; background: #25d366; color: #fff; border: none; padding: 0.9rem; border-radius: 12px; font-size: 1rem; font-weight: bold; cursor: pointer; margin-top: 1rem; }
+
+    /* Footer */
+    footer { background: #26072b; color: #fff; padding: 1.5rem 1rem 1rem; margin-top: 2rem; }
+    .footer-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; font-size: 0.8rem; text-align: center; }
+    .footer-bottom { text-align: center; margin-top: 1rem; padding-top: 0.8rem; border-top: 1px solid #4a154b; font-size: 0.7rem; color: #cbd5e1; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo-box">
+      <h1>العطاوي ALATAWI</h1>
+      <span>خيارك الأول للأجهزة الذكية</span>
+    </div>
+    <button class="cart-btn" onclick="openCart()">السلة (<span id="cart-count">0</span>)</button>
+  </header>
+
+  <!-- Top Main Banner -->
+  <div class="banner-wrapper">
+    <div class="swiper swiper-banner">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <img src="https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=1000" alt="عروض اليوم الوطني">
+        </div>
+        <div class="swiper-slide">
+          <img src="https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=1000" alt="سماعات وجيمينج">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabby / Tamara Banner -->
+  <div class="installments-banner">
+    <h3>قسم مشترياتك بدون فوائد</h3>
+    <p>أو رسوم مع <strong>تابي (Tabby)</strong> و <strong>تمارا (Tamara)</strong> 💳</p>
+  </div>
+
+  <!-- Categories Scroll -->
+  <div class="section-title">التصنيفات الرئيسية</div>
+  <div class="categories-scroll">
+    <div class="cat-item"><div class="cat-icon">📱</div><span>بكجات وحمايات</span></div>
+    <div class="cat-item"><div class="cat-icon">🛡️</div><span>الكفرات</span></div>
+    <div class="cat-item"><div class="cat-icon">🔌</div><span>بطاريات وكيابل</span></div>
+    <div class="cat-item"><div class="cat-icon">🎧</div><span>الصوتيات</span></div>
+    <div class="cat-item"><div class="cat-icon">⌚</div><span>الساعات الذكية</span></div>
+    <div class="cat-item"><div class="cat-icon">🚗</div><span>ملحقات السيارة</span></div>
+    <div class="cat-item"><div class="cat-icon">📐</div><span>الاستاندات</span></div>
+  </div>
+
+  <!-- Brands Bar -->
+  <div class="section-title">تصفح حسب العلامة التجارية</div>
+  <div class="brands-scroll">
+    <div class="brand-chip">UGREEN</div>
+    <div class="brand-chip">LDNIO</div>
+    <div class="brand-chip">WIWU</div>
+    <div class="brand-chip">ORAIMO</div>
+    <div class="brand-chip">X-WOLF</div>
+  </div>
+
+  <!-- Block 1: Offers Starting from 3 SAR -->
+  <div class="purple-block">
+    <div class="block-header">
+      <h2>🔥 عروض تبدأ من 3 ريال</h2>
+      <p>أحدث المنتجات والتخفيضات المميزة</p>
+    </div>
+
+    <div class="swiper swiper-section-1">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <div class="card">
+            <span class="badge">خصم 90%</span>
+            <div class="img-box"><img src="https://images.unsplash.com/photo-1603921326210-6edd2d60ca68?w=300" alt="كفر شفاف"></div>
+            <div class="card-title">كفر شفاف بإطار ملون للايفون</div>
+            <div class="price-box"><span class="card-price">3.00 ر.س</span> <span class="old-price">29.99</span></div>
+            <button class="add-btn" onclick="addToCart('كفر شفاف بإطار ملون', 3)">أضف للسلة 🛒</button>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="card">
+            <span class="badge">خصم 93%</span>
+            <div class="img-box"><img src="https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=300" alt="جراب فخم"></div>
+            <div class="card-title">جراب قرم نسائي جلد فخم</div>
+            <div class="price-box"><span class="card-price">1.96 ر.س</span> <span class="old-price">29.99</span></div>
+            <button class="add-btn" onclick="addToCart('جراب قرم نسائي جلد', 1.96)">أضف للسلة 🛒</button>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="card">
+            <span class="badge">خصم 97%</span>
+            <div class="img-box"><img src="https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=300" alt="حامي كاميرا"></div>
+            <div class="card-title">حامي كاميرا مع إطار ألومنيوم</div>
+            <div class="price-box"><span class="card-price">1.00 ر.س</span> <span class="old-price">49.00</span></div>
+            <button class="add-btn" onclick="addToCart('حامي كاميرا ألومنيوم', 1.00)">أضف للسلة 🛒</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Block 2: Gaming & Headphones -->
+  <div class="purple-block" style="background: linear-gradient(135deg, #3b0764, #1e1b4b);">
+    <div class="block-header">
+      <h2>🎧 سماعات قرم لعالم الألعاب</h2>
+      <p>صوتيات فائقة الجودة تجعلك في قلب الحدث</p>
+    </div>
+
+    <div class="swiper swiper-section-2">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <div class="card">
+            <div class="img-box"><img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300" alt="سماعة ألعاب"></div>
+            <div class="card-title">سماعة جيمنج احترافية لاسلكية</div>
+            <div class="price-box"><span class="card-price">99.00 ر.س</span></div>
+            <button class="add-btn" onclick="addToCart('سماعة جيمنج احترافية', 99)">أضف للسلة 🛒</button>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="card">
+            <div class="img-box"><img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300" alt="سماعة ايربودز"></div>
+            <div class="card-title">سماعة ايربودز بلوتوث عالي الوضوح</div>
+            <div class="price-box"><span class="card-price">39.00 ر.س</span></div>
+            <button class="add-btn" onclick="addToCart('سماعة ايربودز بلوتوث', 39)">أضف للسلة 🛒</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Block 3: Smart Devices & Tablets -->
+  <div class="purple-block">
+    <div class="block-header">
+      <h2>📱 أحدث الأجهزة والتابلت</h2>
+      <p>أفضل أسعار الهواتف والتابلت في المملكة</p>
+    </div>
+
+    <div class="swiper swiper-section-3">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <div class="card">
+            <span class="badge">خصم 22%</span>
+            <div class="img-box"><img src="https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=300" alt="تابلت هونر"></div>
+            <div class="card-title">هونر - تابلت X9b Max بشاشة 13 بوصة</div>
+            <div class="price-box"><span class="card-price">1,099.00 ر.س</span> <span class="old-price">1,399</span></div>
+            <button class="add-btn" onclick="addToCart('هونر تابلت X9b Max', 1099)">أضف للسلة 🛒</button>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="card">
+            <span class="badge">خصم 17%</span>
+            <div class="img-box"><img src="https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=300" alt="ساعة هواوي"></div>
+            <div class="card-title">هواوي - ساعة ذكية Watch Fit 5 Pro</div>
+            <div class="price-box"><span class="card-price">899.00 ر.س</span> <span class="old-price">999</span></div>
+            <button class="add-btn" onclick="addToCart('ساعة هواوي Watch Fit 5', 899)">أضف للسلة 🛒</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Cart -->
+  <div class="modal" id="cart-modal">
+    <div class="modal-content">
+      <h2 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--primary);">سلة التسوق</h2>
+      <div id="cart-items"></div>
+      <h3 style="margin-top: 1rem; font-size: 1rem;">الإجمالي: <span id="cart-total">0</span> ر.س</h3>
+      <button class="checkout-btn" onclick="sendWhatsApp()">إتمام الطلب عبر WhatsApp 💬</button>
+      <button onclick="closeCart()" style="width: 100%; margin-top: 0.5rem; padding: 0.6rem; border: none; background: #f1f5f9; border-radius: 8px; font-weight: bold; cursor: pointer;">إغلاق</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <h4 style="color:#d8b4fe; margin-bottom: 5px;">عن العطاوي للاتصالات</h4>
+        <p>متجر سعودي رائد يتميز بكفاءة إدارية عالية ومعرفة جيدة متخصصة نقدم أفضل الحلول والمنتجات الأصلية 100%.</p>
+      </div>
+      <div style="margin-top: 10px;">
+        <p>طرق الدفع المتاحة: مدى | Visa | Apple Pay | Tabby | Tamara</p>
+      </div>
+    </div>
+    <div class="footer-bottom">جميع الحقوق محفوظة © متجر العطاوي للاتصالات 2026</div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    new Swiper('.swiper-banner', { loop: true, autoplay: { delay: 3500 } });
+    new Swiper('.swiper-section-1', { slidesPerView: 2.2, spaceBetween: 10 });
+    new Swiper('.swiper-section-2', { slidesPerView: 2.2, spaceBetween: 10 });
+    new Swiper('.swiper-section-3', { slidesPerView: 2.2, spaceBetween: 10 });
+
+    let cart = [];
+    function addToCart(name, price) {
+      cart.push({ name, price });
+      updateCartUI();
+    }
+    function updateCartUI() {
+      document.getElementById('cart-count').innerText = cart.length;
+      let total = 0;
+      document.getElementById('cart-items').innerHTML = cart.map((item, index) => {
+        total += item.price;
+        return `
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; border-bottom:1px solid #eee; padding-bottom:5px;">
+            <div style="font-size:0.85rem;"><strong>${item.name}</strong> - ${item.price} ر.س</div>
+            <button onclick="removeFromCart(${index})" style="background:#fee2e2; color:#ef4444; border:none; padding:3px 8px; border-radius:4px; cursor:pointer; font-size:0.75rem;">حذف</button>
+          </div>`;
+      }).join('');
+      document.getElementById('cart-total').innerText = total.toFixed(2);
+    }
+    function removeFromCart(index) { cart.splice(index, 1); updateCartUI(); }
+    function openCart() { document.getElementById('cart-modal').style.display = 'flex'; }
+    function closeCart() { document.getElementById('cart-modal').style.display = 'none'; }
+    function sendWhatsApp() {
+      if (cart.length === 0) return alert('السلة فارغة!');
+      let text = "مرحباً، أريد طلب المنتجات التالية من متجر العطاوي:\n\n";
+      let total = 0;
+      cart.forEach((item, i) => { text += `${i+1}. ${item.name} - ${item.price} ر.س\n`; total += item.price; });
+      text += `\nالإجمالي: ${total.toFixed(2)} ر.س`;
+      window.open(`https://wa.me/970592152484?text=${encodeURIComponent(text)}`, '_blank');
+    }
+  </script>
+</body>
+</html>
