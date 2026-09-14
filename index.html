@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>متجر العطاوي للاتصالات | أجهزة آبل</title>
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <style>
+    :root {
+      --primary: #5b1d6f;
+      --primary-dark: #360b3d;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --accent-red: #e11d48;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+    body { background-color: var(--bg); color: #1e293b; padding-bottom: 80px; }
+
+    header { background: #fff; padding: 0.8rem 1rem; position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .logo-box h1 { font-size: 1.2rem; font-weight: 900; color: var(--primary); }
+    .logo-box span { font-size: 0.65rem; color: #64748b; font-weight: bold; }
+    .cart-btn { background: var(--primary); color: #fff; border: none; padding: 0.5rem 1rem; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 0.85rem; }
+
+    .banner-wrapper { padding: 0.8rem; }
+    .swiper-banner { border-radius: 16px; overflow: hidden; height: 160px; }
+    .swiper-banner img { width: 100%; height: 100%; object-fit: cover; }
+
+    .section-title { font-size: 0.95rem; font-weight: 800; margin: 15px 1rem 8px; color: #0f172a; }
+
+    .categories-scroll { display: flex; gap: 12px; overflow-x: auto; padding: 0.4rem 1rem; scrollbar-width: none; }
+    .cat-item { display: flex; flex-direction: column; align-items: center; min-width: 75px; cursor: pointer; border: none; background: transparent; }
+    .cat-icon { width: 58px; height: 58px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.3rem; box-shadow: 0 3px 8px rgba(90, 25, 98, 0.25); }
+    .cat-item span { font-size: 0.72rem; margin-top: 6px; font-weight: 700; color: #475569; text-align: center; }
+
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; padding: 0 1rem; margin-top: 10px; }
+    .card { background: var(--card-bg); border-radius: 14px; padding: 10px; border: 1px solid #e2e8f0; display: flex; flex-direction: column; justify-content: space-between; position: relative; }
+    .badge { position: absolute; top: 6px; right: 6px; background: var(--accent-red); color: #fff; font-size: 0.62rem; padding: 2px 6px; border-radius: 6px; font-weight: bold; z-index: 2; }
+    .img-box { width: 100%; height: 130px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #fff; border-radius: 8px; }
+    .card img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .card-title { font-size: 0.78rem; font-weight: 700; line-height: 1.3; height: 2.6em; overflow: hidden; margin-top: 8px; color: #334155; }
+    .price-box { margin: 6px 0; }
+    .card-price { color: var(--primary); font-weight: 900; font-size: 0.95rem; }
+    .add-btn { background: var(--primary); color: #fff; border: none; width: 100%; padding: 8px; border-radius: 8px; font-size: 0.75rem; font-weight: bold; cursor: pointer; }
+
+    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1000; align-items: flex-end; }
+    .modal-content { background: #fff; width: 100%; max-height: 80vh; border-radius: 20px 20px 0 0; padding: 1.2rem; overflow-y: auto; }
+    .checkout-btn { width: 100%; background: #25d366; color: #fff; border: none; padding: 0.9rem; border-radius: 12px; font-size: 1rem; font-weight: bold; cursor: pointer; margin-top: 1rem; }
+
+    footer { background: #26072b; color: #fff; padding: 1.5rem 1rem; margin-top: 2rem; text-align: center; font-size: 0.8rem; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-box">
+      <h1>العطاوي ALATAWI</h1>
+      <span>خيارك الأول للهواتف الذكية</span>
+    </div>
+    <button class="cart-btn" onclick="openCart()">السلة (<span id="cart-count">0</span>)</button>
+  </header>
+
+  <div class="banner-wrapper">
+    <div class="swiper swiper-banner">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=800" alt="سلسلة آيفون"></div>
+        <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=800" alt="عروض آبل"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">الأقسام</div>
+  <div class="categories-scroll">
+    <button class="cat-item active" onclick="filterCategory('iphone', this)">
+      <div class="cat-icon">📱</div>
+      <span>هواتف آيفون</span>
+    </button>
+    <button class="cat-item" onclick="filterCategory('covers', this)">
+      <div class="cat-icon">🛡️</div>
+      <span>الكفرات</span>
+    </button>
+    <button class="cat-item" onclick="filterCategory('cables', this)">
+      <div class="cat-icon">🔌</div>
+      <span>بطاريات وكيابل</span>
+    </button>
+  </div>
+
+  <div class="section-title" id="current-category-title">قسم هواتف آيفون (أسعار أبل الرسمية)</div>
+  <div class="products-grid" id="products-container"></div>
+
+  <div class="modal" id="cart-modal">
+    <div class="modal-content">
+      <h2 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--primary);">سلة التسوق</h2>
+      <div id="cart-items"></div>
+      <h3 style="margin-top: 1rem; font-size: 1rem;">الإجمالي: $<span id="cart-total">0</span></h3>
+      <button class="checkout-btn" onclick="sendWhatsApp()">إتمام الطلب عبر WhatsApp 💬</button>
+      <button onclick="closeCart()" style="width: 100%; margin-top: 0.5rem; padding: 0.6rem; border: none; background: #f1f5f9; border-radius: 8px; font-weight: bold; cursor: pointer;">إغلاق</button>
+    </div>
+  </div>
+
+  <footer>
+    <p>جميع الحقوق محفوظة © متجر العطاوي للاتصالات 2026</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    new Swiper('.swiper-banner', { loop: true, autoplay: { delay: 3000 } });
+
+    // مطابقة أسماء الملفات تماماً مع صورتك المرفوعة
+    const productsData = [
+      // iPhone 17 (إن كنت رفعتها بنفس النمط)
+      { category: 'iphone', name: 'iPhone 17 Pro Max', price: 1199, tag: 'iPhone 17', img: 'iphone17_promax.jpeg' },
+      { category: 'iphone', name: 'iPhone 17 Pro', price: 1099, tag: 'iPhone 17', img: 'iphone17_pro.jpeg' },
+      { category: 'iphone', name: 'iPhone 17 Standard', price: 799, tag: 'iPhone 17', img: 'iphone17.jpeg' },
+
+      // iPhone 16
+      { category: 'iphone', name: 'iPhone 16 Pro Max', price: 1199, tag: 'iPhone 16', img: 'iphone16_promax.jpeg' },
+      { category: 'iphone', name: 'iPhone 16 Pro', price: 999, tag: 'iPhone 16', img: 'iphone16_pro.jpeg' },
+      { category: 'iphone', name: 'iPhone 16 / 16 Plus', price: 799, tag: 'iPhone 16', img: 'iphone16.jpeg' },
+
+      // iPhone 15
+      { category: 'iphone', name: 'iPhone 15 Pro Max', price: 1199, tag: 'iPhone 15', img: 'iphone15_promax.jpeg' },
+      { category: 'iphone', name: 'iPhone 15 Pro', price: 999, tag: 'iPhone 15', img: 'iphone15_pro.jpeg' },
+      { category: 'iphone', name: 'iPhone 15 / 15 Plus', price: 799, tag: 'iPhone 15', img: 'iphone15.jpeg' },
+
+      // iPhone 14
+      { category: 'iphone', name: 'iPhone 14 Pro Max', price: 1099, tag: 'iPhone 14', img: 'iphone14_promax.jpeg' },
+      { category: 'iphone', name: 'iPhone 14 Pro', price: 999, tag: 'iPhone 14', img: 'iphone14_pro.jpeg' },
+      { category: 'iphone', name: 'iPhone 14 / 14 Plus', price: 799, tag: 'iPhone 14', img: 'iphone14.jpeg' },
+
+      // iPhone 13
+      { category: 'iphone', name: 'iPhone 13 Pro Max', price: 1099, tag: 'iPhone 13', img: 'iphone13_promax.jpeg' },
+      { category: 'iphone', name: 'iPhone 13 Pro', price: 999, tag: 'iPhone 13', img: 'iphone13_pro.jpeg' },
+      { category: 'iphone', name: 'iPhone 13 / 13 mini', price: 699, tag: 'iPhone 13', img: 'iphone13.jpeg' },
+
+      // iPhone 12
+      { category: 'iphone', name: 'iPhone 12 Pro Max', price: 999, tag: 'iPhone 12', img: 'iphone12_promax.jpeg' },
+      { category: 'iphone', name: 'iPhone 12 Pro', price: 899, tag: 'iPhone 12', img: 'iphone12_pro.jpeg' },
+      { category: 'iphone', name: 'iPhone 12 / 12 mini', price: 699, tag: 'iPhone 12', img: 'iphone12.jpg' }
+    ];
+
+    function renderProducts(items) {
+      const container = document.getElementById('products-container');
+      container.innerHTML = items.map(p => `
+        <div class="card">
+          <span class="badge">${p.tag}</span>
+          <div class="img-box">
+            <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/150?text=Apple+iPhone'">
+          </div>
+          <div class="card-title">${p.name}</div>
+          <div class="price-box">
+            <span class="card-price">$${p.price}</span>
+          </div>
+          <button class="add-btn" onclick="addToCart('${p.name}', ${p.price})">أضف للسلة 🛒</button>
+        </div>
+      `).join('');
+    }
+
+    function filterCategory(cat, element) {
+      document.querySelectorAll('.cat-item').forEach(el => el.classList.remove('active'));
+      element.classList.add('active');
+
+      const filtered = productsData.filter(p => p.category === cat);
+      renderProducts(filtered);
+      document.getElementById('current-category-title').innerText = `قسم: ${element.innerText}`;
+    }
+
+    let cart = [];
+    function addToCart(name, price) { cart.push({ name, price }); updateCartUI(); }
+    function updateCartUI() {
+      document.getElementById('cart-count').innerText = cart.length;
+      let total = 0;
+      document.getElementById('cart-items').innerHTML = cart.map((item, index) => {
+        total += item.price;
+        return `<div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span>${item.name}</span><b>$${item.price}</b></div>`;
+      }).join('');
+      document.getElementById('cart-total').innerText = total;
+    }
+    function openCart() { document.getElementById('cart-modal').style.display = 'flex'; }
+    function closeCart() { document.getElementById('cart-modal').style.display = 'none'; }
+    function sendWhatsApp() {
+      if (cart.length === 0) return alert('السلة فارغة!');
+      let text = "مرحباً، أريد طلب المنتجات التالية:\n\n";
+      let total = 0;
+      cart.forEach((item, i) => { text += `${i+1}. ${item.name} - $${item.price}\n`; total += item.price; });
+      text += `\nالمجموع الكلي: $${total}`;
+      window.open(`https://wa.me/970592152484?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    renderProducts(productsData.filter(p => p.category === 'iphone'));
+  </script>
+</body>
+</html>
