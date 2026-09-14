@@ -290,11 +290,12 @@
       { id: 'ch1', name: 'شاحن أبل سريع 20W', price: 25, tag: 'أصلي', img: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=500', colors: ['أبيض أصلي'] },
       { id: 'ch2', name: 'بطارية Anker MagGo 10000', price: 59, tag: 'Anker', img: 'https://images.unsplash.com/photo-1609592424109-dd9892f1b177?w=500', colors: ['أسود', 'أبيض'] }
     ];
-    const accessoriesList = [
-      { id: 'acc1', name: 'كفر حماية شفاف مضاد للصدمات', price: 15, tag: 'حماية عالية', img: 'https://images.unsplash.com/photo-1601593346740-925615e0c66d?auto=format&fit=crop&w=500&q=80', colors: ['شفاف بالكامل', 'أطراف سوداء'] }
-      { id: 'acc2', name: 'حماية شاشة زجاج مقاوم للكسر', price: 12, tag: 'الأكثر طلباً', img: 'https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=500', colors: ['زجاج شفاف', 'مضاد للبصمة'] },
-      { id: 'acc3', name: 'حامل هواتف مغناطيسي للسيارة', price: 20, tag: 'عملي', img: 'https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?w=500', colors: ['أسود معدني', 'فضي'] }
+        const accessoriesList = [
+      { id: 'acc1', name: 'كفر حماية شفاف مضاد للصدمات', price: 15, tag: 'حماية عالية', img: 'https://images.unsplash.com/photo-1601593346740-925615e0c66d?auto=format&fit=crop&w=500&q=80', colors: ['شفاف بالكامل', 'أطراف سوداء'] },
+      { id: 'acc2', name: 'حماية شاشة زجاج مقاوم للكسر', price: 12, tag: 'الأكثر طلباً', img: 'https://images.unsplash.com/photo-1585060544812-6b45742d762f?auto=format&fit=crop&w=500&q=80', colors: ['زجاج شفاف', 'مضاد للبصمة'] },
+      { id: 'acc3', name: 'حامل هواتف مغناطيسي للسيارة', price: 20, tag: 'عملي', img: 'https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?auto=format&fit=crop&w=500&q=80', colors: ['أسود معدني', 'فضي'] }
     ];
+
 
     function createCardHTML(p) {
       let colorOptions = p.colors.map(c => `<option value="${c}">${c}</option>`).join('');
