@@ -196,6 +196,10 @@
       <div class="swiper-wrapper" id="watches-slider-container"></div>
     </div>
   </div>
+    <button class="cat-item" onclick="scrollToSection('section-accessories')">
+      <div class="cat-icon">🛡️</div>
+      <span>الكفرات والإكسسوارات</span>
+    </button>
 
   <!-- قسم 7: الشواحن -->
   <div class="alatawi-section" id="section-chargers">
@@ -205,6 +209,17 @@
     </div>
     <div class="swiper swiper-products swiper-chargers">
       <div class="swiper-wrapper" id="chargers-slider-container"></div>
+    </div>
+  </div>
+    
+  <!-- قسم 8: الكفرات والإكسسوارات -->
+  <div class="alatawi-section" id="section-accessories" style="background: linear-gradient(135deg, #1e293b, #0f172a);">
+    <div class="alatawi-section-header">
+      <h2>🛡️ كفرات حماية وإكسسوارات أصلية</h2>
+      <p>حماية كاملة وأناقة لجهازك</p>
+    </div>
+    <div class="swiper swiper-products swiper-accessories">
+      <div class="swiper-wrapper" id="accessories-slider-container"></div>
     </div>
   </div>
 
@@ -274,6 +289,11 @@
       { id: 'ch1', name: 'شاحن أبل سريع 20W', price: 25, tag: 'أصلي', img: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=500', colors: ['أبيض أصلي'] },
       { id: 'ch2', name: 'بطارية Anker MagGo 10000', price: 59, tag: 'Anker', img: 'https://images.unsplash.com/photo-1609592424109-dd9892f1b177?w=500', colors: ['أسود', 'أبيض'] }
     ];
+    const accessoriesList = [
+      { id: 'acc1', name: 'كفر حماية شفاف مضاد للصدمات', price: 15, tag: 'حماية عالية', img: 'https://images.unsplash.com/photo-1601593346740-925615e0c66d?w=500', colors: ['شفاف بالكامل', 'أطراف سوداء'] },
+      { id: 'acc2', name: 'حماية شاشة زجاج مقاوم للكسر', price: 12, tag: 'الأكثر طلباً', img: 'https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=500', colors: ['زجاج شفاف', 'مضاد للبصمة'] },
+      { id: 'acc3', name: 'حامل هواتف مغناطيسي للسيارة', price: 20, tag: 'عملي', img: 'https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?w=500', colors: ['أسود معدني', 'فضي'] }
+    ];
 
     function createCardHTML(p) {
       let colorOptions = p.colors.map(c => `<option value="${c}">${c}</option>`).join('');
@@ -314,6 +334,8 @@
       document.getElementById('audio-slider-container').innerHTML = audioList.map(createCardHTML).join('');
       document.getElementById('watches-slider-container').innerHTML = watchesList.map(createCardHTML).join('');
       document.getElementById('chargers-slider-container').innerHTML = chargersList.map(createCardHTML).join('');
+document.getElementById('accessories-slider-container').innerHTML = accessoriesList.map(createCardHTML).join('');
+new Swiper('.swiper-accessories', { slidesPerView: 2.2, spaceBetween: 10, freeMode: true });
 
       new Swiper('.swiper-iphones', { slidesPerView: 2.2, spaceBetween: 10, freeMode: true });
       new Swiper('.swiper-ultra', { slidesPerView: 2.2, spaceBetween: 10, freeMode: true });
