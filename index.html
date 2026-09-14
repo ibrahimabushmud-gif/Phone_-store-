@@ -459,17 +459,18 @@
             cart_total: "---"
         };
 
+        alert('جاري إرسال رمز التحقق إلى بريدك...');
+
         emailjs.send('service_ak9x10p', 'template_frbkscq', templateParams)
             .then(function(response) {
                 alert('تم إرسال رمز التحقق إلى بريدك الإلكتروني بنجاح!');
+                document.getElementById('sent-to-target').innerText = clientTarget;
+                document.getElementById('step-one').style.display = 'none';
+                document.getElementById('step-two').style.display = 'block';
             }, function(error) {
                 console.log('FAILED...', error);
-                alert('حدث خطأ أثناء إرسال الكود للإيميل.');
+                alert('خطأ من EmailJS: ' + JSON.stringify(error));
             });
-
-        document.getElementById('sent-to-target').innerText = clientTarget;
-        document.getElementById('step-one').style.display = 'none';
-        document.getElementById('step-two').style.display = 'block';
     }
 
     function verifyOtpCode() {
@@ -500,7 +501,7 @@
                 closeAuthModal();
             }, function(error) {
                 console.log('FAILED...', error);
-                alert('حدث خطأ أثناء إرسال تفاصيل الطلب للإدارة.');
+                alert('خطأ أثناء إرسال تفاصيل الطلب للإدارة: ' + JSON.stringify(error));
             });
     }
 
