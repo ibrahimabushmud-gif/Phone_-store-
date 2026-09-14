@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>متجر العطاوي ALATAWI | مكان يستحق الثقة</title>
   <meta name="google-site-verification" content="jqjZBsKrmgY8unaqpHCBTDKfk45QX2pRzomo4Cxzk74" />
+  
+  <!-- EmailJS SDK -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script type="text/javascript">
+     (function(){
+        emailjs.init("IMBFT01nxLCDlk3mt"); // المفتاح العام الخاص بك
+     })();
+  </script>
+
   <!-- Swiper CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <!-- Tailwind CSS للتنسيق السريع للنافذة -->
@@ -220,24 +229,24 @@
       <h2 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--primary);">سلة التسوق</h2>
       <div id="cart-items"></div>
       <h3 style="margin-top: 1rem; font-size: 1rem;">الإجمالي: $<span id="cart-total">0</span></h3>
-      <button class="checkout-btn" onclick="sendWhatsAppApp()">إتمام الطلب وتسجيل الدخول 🔐</button>
+      <button class="checkout-btn" onclick="startCheckoutProcess()">إتمام الطلب وتسجيل الدخول 🔐</button>
       <button onclick="closeCart()" style="width: 100%; margin-top: 0.5rem; padding: 0.6rem; border: none; background: #f1f5f9; border-radius: 8px; font-weight: bold; cursor: pointer;">إغلاق</button>
     </div>
   </div>
 
-  <!-- نافذة تسجيل الدخول والتحقق (نظام المرحلتين مع رمز عشوائي متغير) -->
+  <!-- نافذة تسجيل الدخول والتحقق عبر البريد الإلكتروني -->
   <div id="auth-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" style="display: none;">
     <div class="bg-white rounded-3xl p-6 w-full max-w-md shadow-2xl relative" dir="rtl">
         <button onclick="closeAuthModal()" class="absolute left-5 top-5 text-gray-400 hover:text-gray-600 text-xl font-bold">×</button>
 
         <h3 class="text-xl font-bold text-gray-900 text-center mb-2">تسجيل الدخول والتحقق</h3>
-        <p class="text-gray-500 text-xs text-center mb-6">أدخل رقم واتساب أو البريد الإلكتروني للحصول على رمز التحقق.</p>
+        <p class="text-gray-500 text-xs text-center mb-6">أدخل بريدك الإلكتروني ليصلك رمز التحقق الحقيقي.</p>
 
-        <!-- الخطوة الأولى: إدخال البريد أو الهاتف -->
+        <!-- الخطوة الأولى: إدخال البريد الإلكتروني -->
         <div id="step-one" class="space-y-4">
             <div>
-                <label class="block text-xs text-gray-600 mb-1">الرقم أو البريد الإلكتروني</label>
-                <input type="text" id="auth-input" placeholder="05xxxxxxxx أو example@gmail.com" class="w-full p-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-purple-700 text-right">
+                <label class="block text-xs text-gray-600 mb-1">البريد الإلكتروني</label>
+                <input type="email" id="auth-input" placeholder="example@gmail.com" class="w-full p-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-purple-700 text-right">
             </div>
 
             <button onclick="sendVerificationCode()" class="w-full bg-purple-800 text-white py-3 rounded-xl font-bold text-sm hover:bg-purple-900 transition-colors">
@@ -245,24 +254,24 @@
             </button>
         </div>
 
-        <!-- الخطوة الثانية: إدخال رمز التحقق (مخفية بالبداية) -->
+        <!-- الخطوة الثانية: إدخال رمز التحقق (سري تماماً) -->
         <div id="step-two" class="space-y-4" style="display: none;">
             <div class="bg-purple-50 p-3 rounded-xl text-center mb-2">
-                <span class="text-xs text-purple-800 font-bold">تم إرسال رمز التحقق إلى: <br><b id="sent-to-target"></b></span>
-                <span class="block text-[10px] text-purple-600 mt-1 font-semibold" id="debug-otp-hint"></span>
+                <span class="text-xs text-purple-800 font-bold">تم إرسال رمز التحقق إلى بريدك: <br><b id="sent-to-target"></b></span>
+                <span class="block text-[11px] text-red-600 mt-2 font-semibold">🔒 (الكود سري ولم يُظهر على الشاشة حفاظاً على الأمان)</span>
             </div>
 
             <div>
-                <label class="block text-xs text-gray-600 mb-1">أدخل رمز التحقق المكون من 4 أرقام</label>
+                <label class="block text-xs text-gray-600 mb-1">أدخل رمز التحقق (4 أرقام)</label>
                 <input type="text" id="otp-input" maxlength="4" placeholder="••••" class="w-full p-3 border border-gray-200 rounded-xl text-center text-lg tracking-widest font-bold focus:outline-none focus:border-purple-700">
             </div>
 
             <button onclick="verifyOtpCode()" class="w-full bg-green-700 text-white py-3 rounded-xl font-bold text-sm hover:bg-green-800 transition-colors">
-                تأكيد الرمز ومتابعة الطلب ✅
+                تأكيد الرمز وإرسال الطلب للإدارة ✅
             </button>
             
             <button onclick="backToStepOne()" class="w-full text-gray-500 text-xs py-1 text-center hover:underline">
-                إعادة إدخال البريد أو الرقم؟
+                إعادة إدخال البريد الإلكتروني؟
             </button>
         </div>
 
@@ -415,8 +424,7 @@
     function openCart() { document.getElementById('cart-modal').style.display = 'flex'; }
     function closeCart() { document.getElementById('cart-modal').style.display = 'none'; }
     
-    // إدارة نافذة تسجيل الدخول والتحقق
-    function sendWhatsAppApp() {
+    function startCheckoutProcess() {
         if (cart.length === 0) {
             alert('السلة فارغة!');
             return;
@@ -433,23 +441,33 @@
         document.getElementById('auth-modal').style.display = 'none';
     }
 
-    let generatedOtp = ''; // متغير لحفظ الرمز العشوائي الحالي
+    let generatedOtp = '';
+    let clientTarget = '';
 
     function sendVerificationCode() {
-        const val = document.getElementById('auth-input').value.trim();
-        if(!val) {
-            alert('الرجاء إدخال البريد أو رقم الواتساب أولاً');
+        clientTarget = document.getElementById('auth-input').value.trim();
+        if(!clientTarget || !clientTarget.includes('@')) {
+            alert('الرجاء إدخال بريد إلكتروني صحيح يحتوي على @');
             return;
         }
         
-        // توليد رمز عشوائي مكون من 4 أرقام يتغير في كل مرة
         generatedOtp = Math.floor(1000 + Math.random() * 9000).toString();
         
-        document.getElementById('sent-to-target').innerText = val;
-        // إظهار الرمز في التنبيه داخل النافذة لتتمكن من تجربته (محاكاة لإرسال الكود)
-        document.getElementById('debug-otp-hint').innerText = `(رمز التحقق التجريبي الذي تم توليده: ${generatedOtp})`;
+        let templateParams = {
+            client_email: clientTarget,
+            cart_details: "رمز التحقق الخاص بك في متجر العطاوي هو: " + generatedOtp,
+            cart_total: "---"
+        };
 
-        // الانتقال للخطوة الثانية
+        emailjs.send('service_ak9x10p', 'template_frbkscq', templateParams)
+            .then(function(response) {
+                alert('تم إرسال رمز التحقق إلى بريدك الإلكتروني بنجاح!');
+            }, function(error) {
+                console.log('FAILED...', error);
+                alert('حدث خطأ أثناء إرسال الكود للإيميل.');
+            });
+
+        document.getElementById('sent-to-target').innerText = clientTarget;
         document.getElementById('step-one').style.display = 'none';
         document.getElementById('step-two').style.display = 'block';
     }
@@ -458,11 +476,32 @@
         const userOtp = document.getElementById('otp-input').value.trim();
         
         if(userOtp === generatedOtp) {
-            alert('تم التحقق بنجاح! جاري تحويلك لصفحة إتمام الطلب...');
-            window.location.href = 'checkout.html';
+            sendFinalOrderToAdmin(clientTarget);
         } else {
-            alert('رمز التحقق غير صحيح! تأكد من الرقم الظاهر أعلى خانة الإدخال.');
+            alert('رمز التحقق غير صحيح! تأكد من الرمز المرسل لبريدك.');
         }
+    }
+
+    function sendFinalOrderToAdmin(customerInput) {
+        let cartDetailsText = cart.map(item => `- ${item.name} | اللون: ${item.color} | الكمية: ${item.qty} | السعر: $${item.price}`).join('\n');
+        let totalAmount = cart.reduce((sum, item) => sum + item.price, 0);
+
+        let orderParams = {
+            client_email: customerInput,
+            cart_details: cartDetailsText,
+            cart_total: totalAmount
+        };
+
+        emailjs.send('service_ak9x10p', 'template_frbkscq', orderParams)
+            .then(function(response) {
+                alert('🎉 تم تأكيد وإرسال طلبك بنجاح إلى إدارة متجر العطاوي!');
+                cart = [];
+                updateCartUI();
+                closeAuthModal();
+            }, function(error) {
+                console.log('FAILED...', error);
+                alert('حدث خطأ أثناء إرسال تفاصيل الطلب للإدارة.');
+            });
     }
 
     function backToStepOne() {
@@ -474,4 +513,3 @@
   </script>
 </body>
 </html>
-
