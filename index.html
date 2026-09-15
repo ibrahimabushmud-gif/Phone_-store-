@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+س<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
@@ -622,17 +622,34 @@
     }
 
     renderSliders();
-    function searchProducts(query) {
+   function searchProducts(query) {
     const searchTerm = query.toLowerCase().trim();
     const productCards = document.querySelectorAll('.product-card');
 
     productCards.forEach(card => {
-        const title = card.querySelector('.product-title').innerText.toLowerCase();
-        if (title.includes(searchTerm)) {
+        const titleElement = card.querySelector('.product-title');
+        
+        // إذا كان مربع البحث فارغاً، تأكد أن كل المنتجات ظاهرة وواضحة بنسبة 100%
+        if (searchTerm === "") {
             card.style.display = 'block';
-        } else {
-            card.style.display = 'none';
+            card.style.opacity = '1';
+            return;
         }
+
+        if (titleElement) {
+            const title = titleElement.innerText.toLowerCase();
+            if (title.includes(searchTerm)) {
+                // المنتج المطابق يظهر بوضوح تام
+                card.style.display = 'block';
+                card.style.opacity = '1';
+            } else {
+                // باقي المنتجات تبقى ظاهرة ولا تختفي، لكن تصبح شفافة قليلاً
+                card.style.display = 'block';
+                card.style.opacity = '0.3';
+            }
+        }
+    });
+}
     });
 }
   </script>
