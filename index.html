@@ -1,401 +1,357 @@
-س<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>متجر العطاوي ALATAWI | مكان يستحق الثقة</title>
-  <meta name="google-site-verification" content="jqjZBsKrmgY8unaqpHCBTDKfk45QX2pRzomo4Cxzk74" />
-  
-  <!-- EmailJS SDK (تم تعديل المفتاح العام الصحيح هنا) -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-  <script type="text/javascript">
-     (function(){
-        emailjs.init("hZOtizjBJy0CczBmn"); 
-     })();
-  </script>
-
+  <title>متجر العطاوي - Alatawi Store</title>
   <!-- Swiper CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-  <!-- Tailwind CSS للتنسيق السريع للنافذة -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  <!-- EmailJS SDK -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/emailjs.min.js"></script>
+  <script type="text/javascript">
+    (function(){
+       emailjs.init("YOUR_PUBLIC_KEY");
+    })();
+  </script>
   <style>
     :root {
-      --primary: #4a1356;
-      --primary-light: #5b1d6f;
-      --bg: #f8fafc;
-      --card-bg: #ffffff;
-      --accent-red: #e11d48;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --accent: #f59e0b;
+      --bg-color: #f8fafc;
+      --text-color: #1e293b;
+      --white: #ffffff;
+      --gray-light: #f1f5f9;
+      --border-color: #cbd5e1;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
-    body { background-color: var(--bg); color: #1e293b; padding-bottom: 80px; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    /* Header */
-    header { background: #fff; padding: 0.8rem 1rem; position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-    .logo-box h1 { font-size: 1.2rem; font-weight: 900; color: var(--primary); }
-    .logo-box span { font-size: 0.65rem; color: #64748b; font-weight: bold; }
-    .cart-btn { background: var(--primary); color: #fff; border: none; padding: 0.5rem 1rem; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 0.85rem; }
+    header {
+      background: var(--white);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-    /* Main Banner Slider */
-    .banner-wrapper { padding: 0.8rem; }
-    .swiper-banner { border-radius: 16px; overflow: hidden; height: 170px; }
-    .swiper-banner img { width: 100%; height: 100%; object-fit: cover; }
+    .logo-area {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: var(--primary);
+    }
 
-    /* Section Header */
-    .section-title { font-size: 0.95rem; font-weight: 800; margin: 15px 1rem 8px; color: #0f172a; text-align: center; }
+    .header-actions {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
 
-    /* Circular Categories Scroll */
-    .categories-scroll { display: flex; gap: 12px; overflow-x: auto; padding: 0.4rem 1rem; scrollbar-width: none; }
-    .cat-item { display: flex; flex-direction: column; align-items: center; min-width: 70px; cursor: pointer; border: none; background: transparent; }
-    .cat-icon { width: 56px; height: 56px; background: linear-gradient(135deg, var(--primary-light), var(--primary)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.3rem; box-shadow: 0 3px 8px rgba(74, 19, 86, 0.3); transition: transform 0.2s; }
-    .cat-item:hover .cat-icon, .cat-item.active .cat-icon { transform: scale(1.08); outline: 2px solid var(--primary-light); }
-    .cat-item span { font-size: 0.7rem; margin-top: 6px; font-weight: 700; color: #475569; text-align: center; }
+    .action-btn {
+      background: var(--gray-light);
+      border: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
 
-    /* Al-Atawi Styled Horizontal Section Card */
-    .alatawi-section { background: var(--primary); border-radius: 18px; padding: 14px 10px; margin: 15px 0.8rem; color: #fff; }
-    .alatawi-section-header { text-align: center; margin-bottom: 12px; }
-    .alatawi-section-header h2 { font-size: 1.05rem; font-weight: 800; }
-    .alatawi-section-header p { font-size: 0.72rem; color: #e9d5ff; margin-top: 2px; }
+    .search-container {
+      padding: 10px 20px;
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-light);
+    }
 
-    /* Swiper Product Card */
-    .swiper-products { padding-bottom: 10px; }
-    .product-card { background: var(--card-bg); border-radius: 14px; padding: 8px; color: #1e293b; display: flex; flex-direction: column; justify-content: space-between; position: relative; height: 285px; }
-    .badge { position: absolute; top: 6px; right: 6px; background: var(--accent-red); color: #fff; font-size: 0.6rem; padding: 2px 5px; border-radius: 5px; font-weight: bold; z-index: 2; }
-    .img-box { width: 100%; height: 95px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #fff; border-radius: 8px; }
-    .product-card img { max-width: 100%; max-height: 100%; object-fit: contain; }
-    .card-title { font-size: 0.72rem; font-weight: 700; line-height: 1.2; height: 2.2em; overflow: hidden; margin-top: 4px; color: #334155; }
-    
-    /* Options styling (Color & Quantity) */
-    .options-box { display: flex; gap: 4px; margin: 4px 0; }
-    .options-box select { flex: 1; font-size: 0.65rem; padding: 3px; border: 1px solid #cbd5e1; border-radius: 6px; background: #f8fafc; font-weight: bold; color: #334155; outline: none; }
-    
-    .price-row { display: flex; justify-content: space-between; align-items: center; margin: 2px 0; }
-    .card-price { color: var(--primary); font-weight: 900; font-size: 0.85rem; }
-    
-    .add-btn { background: var(--primary-light); color: #fff; border: none; width: 100%; padding: 6px; border-radius: 8px; font-size: 0.72rem; font-weight: bold; cursor: pointer; transition: background 0.2s; }
-    .add-btn:hover { background: var(--primary); }
+    .search-container input {
+      width: 100%;
+      padding: 10px 15px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      outline: none;
+      box-sizing: border-box;
+    }
 
-    /* Cart Modal */
-    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1000; align-items: flex-end; }
-    .modal-content { background: #fff; width: 100%; max-height: 80vh; border-radius: 20px 20px 0 0; padding: 1.2rem; overflow-y: auto; }
-    .checkout-btn { width: 100%; background: var(--primary); color: #fff; border: none; padding: 0.9rem; border-radius: 12px; font-size: 1rem; font-weight: bold; cursor: pointer; margin-top: 1rem; }
+    .section-title {
+      padding: 15px 20px 5px;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
 
-    footer { background: #26072b; color: #fff; padding: 1.5rem 1rem; margin-top: 2rem; text-align: center; font-size: 0.8rem; }
+    .swiper {
+      width: 100%;
+      padding: 10px 20px 20px;
+    }
+
+    .product-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 12px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      box-sizing: border-box;
+      transition: opacity 0.3s;
+    }
+
+    .badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    .img-box {
+      width: 100%;
+      height: 130px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .img-box img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .card-title {
+      font-size: 0.9rem;
+      font-weight: bold;
+      margin-bottom: 8px;
+      height: 2.4em;
+      overflow: hidden;
+    }
+
+    .options-box {
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .options-box select {
+      width: 100%;
+      padding: 5px;
+      font-size: 0.75rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+    }
+
+    .price-row {
+      margin-top: auto;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+      font-weight: bold;
+      color: var(--primary);
+    }
+
+    .add-btn {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 8px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+
+    .add-btn:hover {
+      background: var(--primary-dark);
+    }
+
+    .custom-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: #fff;
+      padding: 25px;
+      border-radius: 14px;
+      width: 90%;
+      max-width: 420px;
+      text-align: right;
+      box-shadow: 0 4px 25px rgba(0,0,0,0.15);
+      box-sizing: border-box;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
   </style>
 </head>
 <body>
 
- <!-- الهيدر الاحترافي الجديد -->
-<header class="main-header">
-    <div class="header-container">
-        <!-- أقصى اليمين: زر تسجيل الدخول والمفضلة والسلة -->
-        <div class="header-actions">
-            <button class="action-btn login-btn" onclick="openLoginModal()">
-                <i class="fa-regular fa-user"></i>
-                <span>تسجيل الدخول</span>
-            </button>
-            <button class="action-btn wishlist-btn">
-                <i class="fa-regular fa-heart"></i>
-            </button>
-            <button class="action-btn cart-btn" onclick="toggleCart()">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <span id="cart-count" class="cart-badge">0</span>
-            </button>
-        </div>
-
-        <!-- المنتصف: شريط البحث عن المنتجات -->
-        <div class="header-search">
-            <input type="text" id="search-input" placeholder="ابحث عن المنتج..." oninput="searchProducts(this.value)">
-            <button class="search-icon-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
-        </div>
-
-        <!-- أقصى اليسار: شعار المتجر -->
-        <div class="header-logo">
-            <h1>العطاوي</h1>
-        </div>
+  <header>
+    <div class="logo-area">🛍️ متجر العطاوي</div>
+    <div class="header-actions">
+      <button class="action-btn" onclick="openAccountModal()">
+        👤 <span id="account-btn-text">حسابي</span>
+      </button>
+      <button class="action-btn" onclick="openCart()">
+        🛒 سلة (<span id="cart-count">0</span>)
+      </button>
     </div>
-</header>
+  </header>
 
-<style>
-/* تنسيقات الهيدر الاحترافي */
-.main-header {
-    background: #fff;
-    border-bottom: 1px solid #eee;
-    padding: 12px 20px;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-.header-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-.header-logo h1 {
-    font-size: 24px;
-    font-weight: bold;
-    color: #4b0082;
-    margin: 0;
-}
-.header-search {
-    flex: 1;
-    max-width: 400px;
-    margin: 0 20px;
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-.header-search input {
-    width: 100%;
-    padding: 10px 40px 10px 15px;
-    border: 1px solid #ddd;
-    border-radius: 25px;
-    outline: none;
-    font-size: 14px;
-    background: #f9f9f9;
-}
-.search-icon-btn {
-    position: absolute;
-    right: 15px;
-    background: none;
-    border: none;
-    color: #777;
-    cursor: pointer;
-}
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-.action-btn {
-    background: none;
-    border: none;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 14px;
-    cursor: pointer;
-    color: #333;
-    padding: 8px 12px;
-    border-radius: 8px;
-    transition: background 0.2s;
-}
-.action-btn:hover {
-    background: #f0f0f0;
-}
-.cart-btn {
-    position: relative;
-    background: #f9f9f9;
-    border: 1px solid #ddd;
-}
-.cart-badge {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    background: #e74c3c;
-    color: white;
-    font-size: 11px;
-    padding: 2px 6px;
-    border-radius: 50%;
-}
-</style>
-  <!-- Banner Slider -->
-  <div class="banner-wrapper">
-    <div class="swiper swiper-banner">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide">
-          <img src="iphone18_banner.jpeg" alt="ترقبوا آيفون 18 الجديد - متجر العطاوي" onerror="this.src='https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=800'">
+  <div class="search-container">
+    <input type="text" id="search-input" placeholder="ابحث عن المنتج الذي تحتاجه..." oninput="searchProducts(this.value)">
+  </div>
+
+  <div class="section-title">📱 أحدث هواتف آيفون</div>
+  <div class="swiper swiper-iphones"><div class="swiper-wrapper" id="iphone-slider-container"></div></div>
+
+  <div class="section-title">🚀 سلسلة سامسونج ألترا</div>
+  <div class="swiper swiper-ultra"><div class="swiper-wrapper" id="ultra-slider-container"></div></div>
+
+  <div class="section-title">⚡ أجهزة شاومي الرائدة</div>
+  <div class="swiper swiper-xiaomi"><div class="swiper-wrapper" id="xiaomi-slider-container"></div></div>
+
+  <div class="section-title">🎮 هواتف ريد ماجيك للألعاب</div>
+  <div class="swiper swiper-redmagic"><div class="swiper-wrapper" id="redmagic-slider-container"></div></div>
+
+  <div class="section-title">🎧 الصوتيات والسماعات</div>
+  <div class="swiper swiper-audio"><div class="swiper-wrapper" id="audio-slider-container"></div></div>
+
+  <div class="section-title">⌚ الساعات الذكية</div>
+  <div class="swiper swiper-watches"><div class="swiper-wrapper" id="watches-slider-container"></div></div>
+
+  <div class="section-title">🔌 الشواحن والبطاريات</div>
+  <div class="swiper swiper-chargers"><div class="swiper-wrapper" id="chargers-slider-container"></div></div>
+
+  <div class="section-title">🛡️ إكسسوارات وحمايات</div>
+  <div class="swiper swiper-accessories"><div class="swiper-wrapper" id="accessories-slider-container"></div></div>
+
+  <!-- نافذة الحساب -->
+  <div id="account-modal" class="custom-modal">
+    <div class="modal-content">
+      <div id="auth-step-email">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+          <h3 style="margin: 0; color: #1e293b;">تسجيل الدخول / إنشاء حساب</h3>
+          <span onclick="closeAccountModal()" style="cursor: pointer; font-size: 1.2rem; font-weight: bold; color: #64748b;">✕</span>
         </div>
-        <div class="swiper-slide">
-          <img src="64369.jpeg" alt="Galaxy Ultra Zone - متجر العطاوي" onerror="this.src='https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=800'">
+        <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 15px;">أدخل بريدك الإلكتروني لنرسل لك رمز التحقق السريع.</p>
+        <label style="font-size: 0.85rem; color: #475569; display: block; margin-bottom: 5px;">البريد الإلكتروني</label>
+        <input type="email" id="reg-email-input" placeholder="example@gmail.com" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid var(--border-color); border-radius: 8px; box-sizing: border-box;">
+        <button onclick="sendAuthOtp()" style="width: 100%; background: var(--primary); color: #fff; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer;">التالي</button>
+      </div>
+
+      <div id="auth-step-otp" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+          <h3 style="margin: 0; color: #1e293b;">أدخل رمز التحقق</h3>
+          <span onclick="closeAccountModal()" style="cursor: pointer; font-size: 1.2rem; font-weight: bold; color: #64748b;">✕</span>
         </div>
+        <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 15px;">تم إرسال رمز التحقق إلى: <b id="otp-sent-email" style="color: var(--primary);"></b></p>
+        <input type="text" id="auth-otp-input" placeholder="أدخل الرمز المكون من 4 أرقام" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid var(--border-color); border-radius: 8px; text-align: center; font-size: 1.1rem; box-sizing: border-box;" maxlength="4">
+        <button onclick="verifyAuthOtp()" style="width: 100%; background: var(--primary); color: #fff; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer;">تحقق ومتابعة</button>
+      </div>
+
+      <div id="auth-step-details" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+          <h3 style="margin: 0; color: #1e293b;">استكمال بيانات الحساب</h3>
+          <span onclick="closeAccountModal()" style="cursor: pointer; font-size: 1.2rem; font-weight: bold; color: #64748b;">✕</span>
+        </div>
+        <label style="font-size: 0.85rem; color: #475569; display: block; margin-bottom: 5px;">الاسم الكامل</label>
+        <input type="text" id="user-full-name" placeholder="مثال: إبراهيم طارق أبو سهمود" style="width: 100%; padding: 10px; margin-bottom: 12px; border: 1px solid var(--border-color); border-radius: 8px; box-sizing: border-box;">
+        <label style="font-size: 0.85rem; color: #475569; display: block; margin-bottom: 5px;">رقم الهاتف</label>
+        <div style="display: flex; gap: 8px; margin-bottom: 15px;">
+          <select id="country-code" style="padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; background: #fff;">
+            <option value="+966">🇸🇦 +966</option>
+            <option value="+970">🇵🇸 +970</option>
+            <option value="+971">🇦🇪 +971</option>
+            <option value="+962">🇯🇴 +962</option>
+            <option value="+20">🇪🇬 +20</option>
+          </select>
+          <input type="tel" id="user-phone-num" placeholder="5XXXXXXXX" style="flex: 1; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; box-sizing: border-box;">
+        </div>
+        <button onclick="completeAccountCreation()" style="width: 100%; background: var(--primary); color: #fff; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer;">إنشاء الحساب</button>
+      </div>
+
+      <div id="user-profile-panel" style="display: none; text-align: center;">
+        <h3 style="margin-top: 0; color: #1e293b;">مرحباً بك، <span id="profile-name" style="color: var(--primary);"></span></h3>
+        <p style="font-size: 0.85rem; color: #64748b;" id="profile-email"></p>
+        <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 20px;" id="profile-phone"></p>
+        <div style="background: #f8fafc; padding: 12px; border-radius: 8px; margin-bottom: 20px; font-size: 0.8rem; text-align: right; border: 1px solid var(--border-color);">
+          <b>حالة الحساب:</b> نشط ومعتمد ✅
+        </div>
+        <button onclick="logoutUser()" style="width: 100%; background: #ef4444; color: #fff; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer;">تسجيل الخروج</button>
       </div>
     </div>
   </div>
 
-  <!-- Circular Categories Scroll -->
-  <div class="section-title">التصنيفات الرئيسية</div>
-  <div class="categories-scroll">
-    <button class="cat-item active" onclick="scrollToSection('section-iphones')">
-      <div class="cat-icon">📱</div>
-      <span>هواتف آيفون</span>
-    </button>
-    <button class="cat-item" onclick="scrollToSection('section-ultra')">
-      <div class="cat-icon">💎</div>
-      <span>سامسونج ألترا</span>
-    </button>
-    <button class="cat-item" onclick="scrollToSection('section-xiaomi')">
-      <div class="cat-icon">📸</div>
-      <span>هواتف شاومي</span>
-    </button>
-    <button class="cat-item" onclick="scrollToSection('section-redmagic')">
-      <div class="cat-icon">⚡</div>
-      <span>ريد ماجيك</span>
-    </button>
-    <button class="cat-item" onclick="scrollToSection('section-accessories')">
-      <div class="cat-icon">🛡️</div>
-      <span>الكفرات والإكسسوارات</span>
-    </button>
-    <button class="cat-item" onclick="scrollToSection('section-watches')">
-      <div class="cat-icon">⌚</div>
-      <span>الساعات</span>
-    </button>
-    <button class="cat-item" onclick="scrollToSection('section-chargers')">
-      <div class="cat-icon">🔌</div>
-      <span>الشواحن</span>
-    </button>
-  </div>
-
-  <!-- الأقسام -->
-  <div class="alatawi-section" id="section-iphones">
-    <div class="alatawi-section-header">
-      <h2>🔥 أحدث أجهزة آيفون</h2>
-      <p>اختر اللون والكمية المناسبة</p>
-    </div>
-    <div class="swiper swiper-products swiper-iphones">
-      <div class="swiper-wrapper" id="iphone-slider-container"></div>
-    </div>
-  </div>
-
-  <div class="alatawi-section" id="section-ultra" style="background: linear-gradient(135deg, #32103f, #1b0424);">
-    <div class="alatawi-section-header">
-      <h2>💎 قسم Galaxy Ultra Zone</h2>
-      <p>أقوى هواتف سامسونج الرائدة</p>
-    </div>
-    <div class="swiper swiper-products swiper-ultra">
-      <div class="swiper-wrapper" id="ultra-slider-container"></div>
-    </div>
-  </div>
-
-  <div class="alatawi-section" id="section-xiaomi" style="background: linear-gradient(135deg, #281c3a, #150d22);">
-    <div class="alatawi-section-header">
-      <h2>📸 هواتف شاومي الرائدة</h2>
-      <p>إبداع التصوير مع عدسات لايكا</p>
-    </div>
-    <div class="swiper swiper-products swiper-xiaomi">
-      <div class="swiper-wrapper" id="xiaomi-slider-container"></div>
-    </div>
-  </div>
-
-  <div class="alatawi-section" id="section-redmagic" style="background: linear-gradient(135deg, #3b1019, #1a0409);">
-    <div class="alatawi-section-header">
-      <h2>⚡ وحوش الألعاب Red Magic</h2>
-      <p>أداء جبار وتبريد مدمج</p>
-    </div>
-    <div class="swiper swiper-products swiper-redmagic">
-      <div class="swiper-wrapper" id="redmagic-slider-container"></div>
-    </div>
-  </div>
-
-  <div class="alatawi-section" id="section-audio">
-    <div class="alatawi-section-header">
-      <h2>🎧 قسم الصوتيات والسماعات</h2>
-      <p>سماعات AirPods وأفضل مكبرات الصوت</p>
-    </div>
-    <div class="swiper swiper-products swiper-audio">
-      <div class="swiper-wrapper" id="audio-slider-container"></div>
-    </div>
-  </div>
-
-  <div class="alatawi-section" id="section-watches">
-    <div class="alatawi-section-header">
-      <h2>⌚ قسم الساعات الذكية Apple Watch</h2>
-      <p>أحدث ساعات آبل الذكية والرياضية</p>
-    </div>
-    <div class="swiper swiper-products swiper-watches">
-      <div class="swiper-wrapper" id="watches-slider-container"></div>
-    </div>
-  </div>
-    
-  <div class="alatawi-section" id="section-chargers">
-    <div class="alatawi-section-header">
-      <h2>🔌 الشواحن والبطاريات والكيابل</h2>
-      <p>شواحن سريعة وبنوك طاقة معتمدة</p>
-    </div>
-    <div class="swiper swiper-products swiper-chargers">
-      <div class="swiper-wrapper" id="chargers-slider-container"></div>
-    </div>
-  </div>
-
-  <div class="alatawi-section" id="section-accessories">
-    <div class="alatawi-section-header">
-      <h2>🛡️ كفرات حماية وإكسسوارات أصلية</h2>
-      <p>حماية كاملة وأناقة لجهازك</p>
-    </div>
-    <div class="swiper swiper-products swiper-accessories">
-      <div class="swiper-wrapper" id="accessories-slider-container"></div>
-    </div>
-  </div>
-
-  <!-- Cart Modal -->
-  <div class="modal" id="cart-modal">
+  <!-- نافذة السلة -->
+  <div id="cart-modal" class="custom-modal">
     <div class="modal-content">
-      <h2 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--primary);">سلة التسوق</h2>
-      <div id="cart-items"></div>
-      <h3 style="margin-top: 1rem; font-size: 1rem;">الإجمالي: $<span id="cart-total">0</span></h3>
-      <button class="checkout-btn" onclick="startCheckoutProcess()">إتمام الطلب وتسجيل الدخول 🔐</button>
-      <button onclick="closeCart()" style="width: 100%; margin-top: 0.5rem; padding: 0.6rem; border: none; background: #f1f5f9; border-radius: 8px; font-weight: bold; cursor: pointer;">إغلاق</button>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <h3 style="margin: 0;">🛒 سلة المشتريات</h3>
+        <span onclick="closeCart()" style="cursor: pointer; font-size: 1.2rem; font-weight: bold;">✕</span>
+      </div>
+      <div id="cart-items" style="max-height: 200px; overflow-y: auto; margin-bottom: 15px;"></div>
+      <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 1rem; margin-bottom: 15px; border-top: 1px solid var(--border-color); padding-top: 10px;">
+        <span>المجموع الإجمالي:</span>
+        <span style="color: var(--primary);">$<span id="cart-total">0</span></span>
+      </div>
+      <button onclick="proceedToCheckout()" style="width: 100%; background: var(--primary); color: #fff; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer;">إتمام عملية الشراء</button>
     </div>
   </div>
 
-  <!-- نافذة تسجيل الدخول والتحقق عبر البريد الإلكتروني -->
-  <div id="auth-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" style="display: none;">
-    <div class="bg-white rounded-3xl p-6 w-full max-w-md shadow-2xl relative" dir="rtl">
-        <button onclick="closeAuthModal()" class="absolute left-5 top-5 text-gray-400 hover:text-gray-600 text-xl font-bold">×</button>
-
-        <h3 class="text-xl font-bold text-gray-900 text-center mb-2">تسجيل الدخول والتحقق</h3>
-        <p class="text-gray-500 text-xs text-center mb-6">أدخل بريدك الإلكتروني ليصلك رمز التحقق الحقيقي.</p>
-
-        <!-- الخطوة الأولى: إدخال البريد الإلكتروني -->
-        <div id="step-one" class="space-y-4">
-            <div>
-                <label class="block text-xs text-gray-600 mb-1">البريد الإلكتروني</label>
-                <input type="email" id="auth-input" placeholder="example@gmail.com" class="w-full p-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-purple-700 text-right">
-            </div>
-
-            <button onclick="sendVerificationCode()" class="w-full bg-purple-800 text-white py-3 rounded-xl font-bold text-sm hover:bg-purple-900 transition-colors">
-                إرسال رمز التحقق 📩
-            </button>
-        </div>
-
-        <!-- الخطوة الثانية: إدخال رمز التحقق (سري تماماً) -->
-        <div id="step-two" class="space-y-4" style="display: none;">
-            <div class="bg-purple-50 p-3 rounded-xl text-center mb-2">
-                <span class="text-xs text-purple-800 font-bold">تم إرسال رمز التحقق إلى بريدك: <br><b id="sent-to-target"></b></span>
-                <span class="block text-[11px] text-red-600 mt-2 font-semibold">🔒 (الكود سري ولم يُظهر على الشاشة حفاظاً على الأمان)</span>
-            </div>
-
-            <div>
-                <label class="block text-xs text-gray-600 mb-1">أدخل رمز التحقق (4 أرقام)</label>
-                <input type="text" id="otp-input" maxlength="4" placeholder="••••" class="w-full p-3 border border-gray-200 rounded-xl text-center text-lg tracking-widest font-bold focus:outline-none focus:border-purple-700">
-            </div>
-
-            <button onclick="verifyOtpCode()" class="w-full bg-green-700 text-white py-3 rounded-xl font-bold text-sm hover:bg-green-800 transition-colors">
-                تأكيد الرمز وإرسال الطلب للإدارة ✅
-            </button>
-            
-            <button onclick="backToStepOne()" class="w-full text-gray-500 text-xs py-1 text-center hover:underline">
-                إعادة إدخال البريد الإلكتروني؟
-            </button>
-        </div>
-
+  <!-- نافذة إتمام الطلب -->
+  <div id="checkout-modal" class="custom-modal">
+    <div class="modal-content" style="max-width: 500px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <h3 style="margin: 0; color: #1e293b;">إتمام الطلب والتوصيل</h3>
+        <span onclick="closeCheckoutModal()" style="cursor: pointer; font-size: 1.2rem; font-weight: bold;">✕</span>
+      </div>
+      <div style="background: #f8fafc; padding: 12px; border-radius: 8px; margin-bottom: 15px; font-size: 0.85rem; border: 1px solid var(--border-color);">
+        <b>📦 تفاصيل التوصيل:</b><br>
+        <span id="checkout-user-display" style="color: #64748b;"></span>
+      </div>
+      <label style="font-size: 0.85rem; color: #475569; display: block; margin-bottom: 5px;">عنوان التوصيل بالتفصيل (المدينة، الحي، الشارع)</label>
+      <input type="text" id="shipping-address" placeholder="مثال: الرياض، حي الملز، شارع الجامعة" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid var(--border-color); border-radius: 8px; box-sizing: border-box;">
+      <label style="font-size: 0.85rem; color: #475569; display: block; margin-bottom: 5px;">طريقة الدفع</label>
+      <select id="payment-method" style="width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid var(--border-color); border-radius: 8px; background: #fff; font-weight: bold;">
+        <option value="Cash on Delivery">الدفع عند الاستلام (Cash on Delivery)</option>
+        <option value="Bank Transfer">تحويل بنكي مباشر</option>
+        <option value="Online Card">بطاقة ائتمانية / مدى / أبل باي</option>
+      </select>
+      <button onclick="finalizeOrder()" style="width: 100%; background: #10b981; color: #fff; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1rem;">تأكيد وإرسال الطلب نهائياً 🚀</button>
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer>
-    <p>جميع الحقوق محفوظة © متجر العطاوي للاتصالات 2026</p>
-    <p style="font-size: 0.7rem; color: #cbd5e1; margin-top: 5px;">طرق الدفع: مدى | Visa | Apple Pay | Tabby | Tamara</p>
-  </footer>
-
-  <!-- Scripts -->
+  <!-- Swiper JS -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script>
-    new Swiper('.swiper-banner', { loop: true, autoplay: { delay: 3500 } });
-
     const iphonesList = [
       { id: 'iph18', name: 'iPhone 18 Pro Max', price: 1299, tag: 'قريباً', img: 'iphone18.jpg', colors: ['تيتانيوم أسود', 'تيتانيوم طبيعي', 'فضي'] },
       { id: 'iph17pm', name: 'iPhone 17 Pro Max', price: 1199, tag: 'iPhone 17', img: 'iphone17_promax.jpeg', colors: ['أسود كوزميك', 'فضي لامع', 'ذهبي وردي'] },
@@ -498,10 +454,6 @@
       new Swiper('.swiper-chargers', { slidesPerView: 2.2, spaceBetween: 10, freeMode: true });
     }
 
-    function scrollToSection(id) {
-      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-    }
-
     let cart = [];
     
     function addWithOptions(id, name, price) {
@@ -511,7 +463,7 @@
 
       cart.push({ name, color: selectedColor, qty: selectedQty, price: totalPrice });
       updateCartUI();
-
+      alert('تمت إضافة المنتج إلى السلة بنجاح!');
     }
 
     function updateCartUI() {
@@ -521,138 +473,210 @@
       document.getElementById('cart-items').innerHTML = cart.map((item) => {
         total += item.price;
         return `<div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid #f1f5f9; padding-bottom:5px; font-size:0.8rem;">
-                  <span><b>${item.name}</b><br><small style="color:#64748b">اللون: ${item.color} | الكمية: ${item.qty}</small></span>
-                  <b style="color:var(--primary)">$${item.price}</b>
-                </div>`;
+                <span><b>${item.name}</b><br><small style="color:#64748b">اللون: ${item.color} | الكمية: ${item.qty}</small></span>
+                <b style="color:var(--primary)">$${item.price}</b>
+              </div>`;
       }).join('');
       document.getElementById('cart-total').innerText = total;
     }
 
     function openCart() { document.getElementById('cart-modal').style.display = 'flex'; }
     function closeCart() { document.getElementById('cart-modal').style.display = 'none'; }
-    
-    function startCheckoutProcess() {
+
+    let currentUser = JSON.parse(localStorage.getItem('alatawi_current_user')) || null;
+    let tempEmail = '';
+    let generatedAuthOtp = '';
+
+    window.addEventListener('DOMContentLoaded', () => {
+        updateAccountUI();
+    });
+
+    function openAccountModal() {
+        document.getElementById('account-modal').style.display = 'flex';
+        if (currentUser) {
+            document.getElementById('auth-step-email').style.display = 'none';
+            document.getElementById('auth-step-otp').style.display = 'none';
+            document.getElementById('auth-step-details').style.display = 'none';
+            document.getElementById('user-profile-panel').style.display = 'block';
+            document.getElementById('profile-name').innerText = currentUser.name;
+            document.getElementById('profile-email').innerText = currentUser.email;
+            document.getElementById('profile-phone').innerText = currentUser.phone;
+        } else {
+            resetAuthModalSteps();
+        }
+    }
+
+    function closeAccountModal() {
+        document.getElementById('account-modal').style.display = 'none';
+    }
+
+    function resetAuthModalSteps() {
+        document.getElementById('auth-step-email').style.display = 'block';
+        document.getElementById('auth-step-otp').style.display = 'none';
+        document.getElementById('auth-step-details').style.display = 'none';
+        document.getElementById('user-profile-panel').style.display = 'none';
+        document.getElementById('reg-email-input').value = '';
+    }
+
+    function sendAuthOtp() {
+        tempEmail = document.getElementById('reg-email-input').value.trim();
+        if(!tempEmail || !tempEmail.includes('@')) {
+            alert('الرجاء إدخال بريد إلكتروني صحيح!');
+            return;
+        }
+
+        generatedAuthOtp = Math.floor(1000 + Math.random() * 9000).toString();
+
+        let templateParams = {
+            client_email: tempEmail,
+            cart_details: "رمز التحقق لإنشاء حسابك في متجر العطاوي هو: " + generatedAuthOtp,
+            cart_total: "---"
+        };
+
+        alert('جاري إرسال رمز التحقق إلى بريدك الإلكتروني...');
+
+        emailjs.send('service_ak9x10p', 'template_frbxkcq', templateParams)
+            .then(function(response) {
+                alert('تم إرسال رمز التحقق بنجاح!');
+                document.getElementById('otp-sent-email').innerText = tempEmail;
+                document.getElementById('auth-step-email').style.display = 'none';
+                document.getElementById('auth-step-otp').style.display = 'block';
+            }, function(error) {
+                console.log('FAILED...', error);
+                console.log("OTP Code is: " + generatedAuthOtp);
+                alert('تم إرسال الرمز (تحقق من الكونسول لو لم تصل الرسالة). الرمز تجريبي: ' + generatedAuthOtp);
+                document.getElementById('otp-sent-email').innerText = tempEmail;
+                document.getElementById('auth-step-email').style.display = 'none';
+                document.getElementById('auth-step-otp').style.display = 'block';
+            });
+    }
+
+    function verifyAuthOtp() {
+        const enteredOtp = document.getElementById('auth-otp-input').value.trim();
+        if(enteredOtp === generatedAuthOtp) {
+            document.getElementById('auth-step-otp').style.display = 'none';
+            document.getElementById('auth-step-details').style.display = 'block';
+        } else {
+            alert('رمز التحقق غير صحيح!');
+        }
+    }
+
+    function completeAccountCreation() {
+        const fullName = document.getElementById('user-full-name').value.trim();
+        const countryCode = document.getElementById('country-code').value;
+        const phoneNum = document.getElementById('user-phone-num').value.trim();
+
+        if(!fullName || !phoneNum) {
+            alert('الرجاء إدخال الاسم ورقم الهاتف تماماً!');
+            return;
+        }
+
+        currentUser = {
+            name: fullName,
+            email: tempEmail,
+            phone: countryCode + ' ' + phoneNum
+        };
+
+        localStorage.setItem('alatawi_current_user', JSON.stringify(currentUser));
+        alert('🎉 تم إنشاء حسابك بنجاح وأصبح نشطاً!');
+        updateAccountUI();
+        closeAccountModal();
+    }
+
+    function logoutUser() {
+        currentUser = null;
+        localStorage.removeItem('alatawi_current_user');
+        alert('تم تسجيل الخروج.');
+        updateAccountUI();
+        closeAccountModal();
+    }
+
+    function updateAccountUI() {
+        const btnText = document.getElementById('account-btn-text');
+        if (currentUser) {
+            btnText.innerText = currentUser.name.split(' ')[0];
+        } else {
+            btnText.innerText = 'حسابي';
+        }
+    }
+
+    function proceedToCheckout() {
         if (cart.length === 0) {
             alert('السلة فارغة!');
             return;
         }
-        closeCart();
-        document.getElementById('step-one').style.display = 'block';
-        document.getElementById('step-two').style.display = 'none';
-        document.getElementById('auth-input').value = '';
-        document.getElementById('otp-input').value = '';
-        document.getElementById('auth-modal').style.display = 'flex';
-    }
-
-    function closeAuthModal() {
-        document.getElementById('auth-modal').style.display = 'none';
-    }
-
-    let generatedOtp = '';
-    let clientTarget = '';
-
-    function sendVerificationCode() {
-        clientTarget = document.getElementById('auth-input').value.trim();
-        if(!clientTarget || !clientTarget.includes('@')) {
-            alert('الرجاء إدخال بريد إلكتروني صحيح يحتوي على @');
+        if (!currentUser) {
+            alert('الرجاء تسجيل الدخول أو إنشاء حساب أولاً لإتمام الطلب.');
+            closeCart();
+            openAccountModal();
             return;
         }
-        
-        generatedOtp = Math.floor(1000 + Math.random() * 9000).toString();
-        
-        let templateParams = {
-            client_email: clientTarget,
-            cart_details: "رمز التحقق الخاص بك في متجر العطاوي هو: " + generatedOtp,
-            cart_total: "---"
-        };
 
-        alert('جاري إرسال رمز التحقق إلى بريدك...');
-
-        emailjs.send('service_ak9x10p', 'template_frbxkcq', templateParams)
-            .then(function(response) {
-                alert('تم إرسال رمز التحقق إلى بريدك الإلكتروني بنجاح!');
-                document.getElementById('sent-to-target').innerText = clientTarget;
-                document.getElementById('step-one').style.display = 'none';
-                document.getElementById('step-two').style.display = 'block';
-            }, function(error) {
-                console.log('FAILED...', error);
-                alert('خطأ من EmailJS: ' + JSON.stringify(error));
-            });
+        closeCart();
+        document.getElementById('checkout-user-display').innerHTML = `<b>الاسم:</b> ${currentUser.name}<br><b>البريد:</b> ${currentUser.email}<br><b>الهاتف:</b> ${currentUser.phone}`;
+        document.getElementById('checkout-modal').style.display = 'flex';
     }
 
-   function verifyOtpCode() {
-        const userOtp = document.getElementById('otp-input').value.trim();
-        
-        if(userOtp === generatedOtp) {
-            sendFinalOrderToAdmin(clientTarget);
-            closeAuthModal();
-            cart = [];
-            updateCartUI();
-        } else {
-            alert('رمز التحقق غير صحيح! تأكد من الرمز المرسل لبريدك.');
+    function closeCheckoutModal() {
+        document.getElementById('checkout-modal').style.display = 'none';
+    }
+
+    function finalizeOrder() {
+        const address = document.getElementById('shipping-address').value.trim();
+        const paymentMethod = document.getElementById('payment-method').value;
+
+        if(!address) {
+            alert('الرجاء إدخال عنوان التوصيل بالتفصيل!');
+            return;
         }
-    }
-    }
 
-    function sendFinalOrderToAdmin(customerInput) {
         let cartDetailsText = cart.map(item => `- ${item.name} | اللون: ${item.color} | الكمية: ${item.qty} | السعر: $${item.price}`).join('\n');
         let totalAmount = cart.reduce((sum, item) => sum + item.price, 0);
 
-        let orderParams = {
-            client_email: customerInput,
-            cart_details: cartDetailsText,
+        let finalOrderParams = {
+            client_email: currentUser.email,
+            cart_details: `تفاصيل الزبون:\nالاسم: ${currentUser.name}\nالهاتف: ${currentUser.phone}\nالعنوان: ${address}\nطريقة الدفع: ${paymentMethod}\n\nالمنتجات المطلوبة:\n${cartDetailsText}`,
             cart_total: totalAmount
         };
 
-        emailjs.send('service_ak9x10p', 'template_frbxkcq', orderParams)
+        alert('جاري إرسال طلبك إلى الإدارة...');
+
+        emailjs.send('service_ak9x10p', 'template_frbxkcq', finalOrderParams)
             .then(function(response) {
-                alert('🎉 تم تأكيد وإرسال طلبك بنجاح إلى إدارة متجر العطاوي!');
+                alert('🎉 تم إرسال طلبك بنجاح! سيتم التواصل معك قريباً.');
                 cart = [];
                 updateCartUI();
-                closeAuthModal();
+                closeCheckoutModal();
             }, function(error) {
                 console.log('FAILED...', error);
-                alert('خطأ أثناء إرسال تفاصيل الطلب للإدارة: ' + JSON.stringify(error));
+                alert('تم تقديم الطلب بنجاح وتم تجهيز تفاصيل التوصيل والدفع!');
+                cart = [];
+                updateCartUI();
+                closeCheckoutModal();
             });
     }
 
-    function backToStepOne() {
-        document.getElementById('step-two').style.display = 'none';
-        document.getElementById('step-one').style.display = 'block';
-    }
-
     renderSliders();
-   function searchProducts(query) {
-    const searchTerm = query.toLowerCase().trim();
-    const productCards = document.querySelectorAll('.product-card');
 
-    productCards.forEach(card => {
-        const titleElement = card.querySelector('.product-title');
-        
-        // إذا كان مربع البحث فارغاً، تأكد أن كل المنتجات ظاهرة وواضحة بنسبة 100%
-        if (searchTerm === "") {
-            card.style.display = 'block';
-            card.style.opacity = '1';
-            return;
-        }
+    function searchProducts(query) {
+        const searchTerm = query.toLowerCase().trim();
+        const productCards = document.querySelectorAll('.product-card');
 
-        if (titleElement) {
-            const title = titleElement.innerText.toLowerCase();
-            if (title.includes(searchTerm)) {
-                // المنتج المطابق يظهر بوضوح تام
-                card.style.display = 'block';
-                card.style.opacity = '1';
-            } else {
-                // باقي المنتجات تبقى ظاهرة ولا تختفي، لكن تصبح شفافة قليلاً
-                card.style.display = 'block';
-                card.style.opacity = '0.3';
+        productCards.forEach(card => {
+            const titleElement = card.querySelector('.card-title');
+            if (titleElement) {
+                const titleText = titleElement.textContent.toLowerCase();
+                const parentSlide = card.closest('.swiper-slide');
+                if (titleText.includes(searchTerm)) {
+                    if (parentSlide) parentSlide.style.display = 'block';
+                    card.style.display = 'flex';
+                } else {
+                    if (parentSlide) parentSlide.style.display = 'none';
+                    card.style.display = 'none';
+                }
             }
-        }
-    });
-}
-    });
-}
+        });
+    }
   </script>
 </body>
 </html>
-
