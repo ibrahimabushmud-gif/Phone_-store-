@@ -86,15 +86,122 @@
 </head>
 <body>
 
-  <!-- Header -->
-  <header>
-    <div class="logo-box">
-      <h1>العطاوي ALATAWI</h1>
-      <span>خيارك الأول للهواتف الذكية</span>
-    </div>
-    <button class="cart-btn" onclick="openCart()">السلة (<span id="cart-count">0</span>)</button>
-  </header>
+ <!-- الهيدر الاحترافي الجديد -->
+<header class="main-header">
+    <div class="header-container">
+        <!-- أقصى اليمين: زر تسجيل الدخول والمفضلة والسلة -->
+        <div class="header-actions">
+            <button class="action-btn login-btn" onclick="openLoginModal()">
+                <i class="fa-regular fa-user"></i>
+                <span>تسجيل الدخول</span>
+            </button>
+            <button class="action-btn wishlist-btn">
+                <i class="fa-regular fa-heart"></i>
+            </button>
+            <button class="action-btn cart-btn" onclick="toggleCart()">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span id="cart-count" class="cart-badge">0</span>
+            </button>
+        </div>
 
+        <!-- المنتصف: شريط البحث عن المنتجات -->
+        <div class="header-search">
+            <input type="text" id="search-input" placeholder="ابحث عن المنتج..." oninput="searchProducts(this.value)">
+            <button class="search-icon-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+
+        <!-- أقصى اليسار: شعار المتجر -->
+        <div class="header-logo">
+            <h1>العطاوي</h1>
+        </div>
+    </div>
+</header>
+
+<style>
+/* تنسيقات الهيدر الاحترافي */
+.main-header {
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    padding: 12px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.header-logo h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #4b0082;
+    margin: 0;
+}
+.header-search {
+    flex: 1;
+    max-width: 400px;
+    margin: 0 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.header-search input {
+    width: 100%;
+    padding: 10px 40px 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    outline: none;
+    font-size: 14px;
+    background: #f9f9f9;
+}
+.search-icon-btn {
+    position: absolute;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #777;
+    cursor: pointer;
+}
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.action-btn {
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    color: #333;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+.action-btn:hover {
+    background: #f0f0f0;
+}
+.cart-btn {
+    position: relative;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+}
+.cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #e74c3c;
+    color: white;
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 50%;
+}
+</style>
   <!-- Banner Slider -->
   <div class="banner-wrapper">
     <div class="swiper swiper-banner">
@@ -473,14 +580,18 @@
             });
     }
 
-    function verifyOtpCode() {
+   function verifyOtpCode() {
         const userOtp = document.getElementById('otp-input').value.trim();
         
         if(userOtp === generatedOtp) {
             sendFinalOrderToAdmin(clientTarget);
+            closeAuthModal();
+            cart = [];
+            updateCartUI();
         } else {
             alert('رمز التحقق غير صحيح! تأكد من الرمز المرسل لبريدك.');
         }
+    }
     }
 
     function sendFinalOrderToAdmin(customerInput) {
@@ -511,6 +622,19 @@
     }
 
     renderSliders();
+    function searchProducts(query) {
+    const searchTerm = query.toLowerCase().trim();
+    const productCards = document.querySelectorAll('.product-card');
+
+    productCards.forEach(card => {
+        const title = card.querySelector('.product-title').innerText.toLowerCase();
+        if (title.includes(searchTerm)) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
   </script>
 </body>
 </html>
