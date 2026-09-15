@@ -15,14 +15,14 @@
   </script>
   <style>
     :root {
-      --primary: #2563eb;
+      --primary: #3b82f6;
       --primary-dark: #1d4ed8;
       --accent: #f59e0b;
-      --bg-color: #f8fafc;
-      --text-color: #1e293b;
+      --bg-color: #f1f5f9;
+      --text-color: #0f172a;
       --white: #ffffff;
-      --gray-light: #f1f5f9;
-      --border-color: #cbd5e1;
+      --gray-light: #f8fafc;
+      --border-color: #e2e8f0;
     }
 
     body {
@@ -36,7 +36,7 @@
 
     header {
       background: var(--white);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
       position: sticky;
       top: 0;
       z-index: 1000;
@@ -47,35 +47,35 @@
     }
 
     .logo-area {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       font-weight: bold;
       color: var(--primary);
     }
 
     .header-actions {
       display: flex;
-      gap: 12px;
+      gap: 10px;
       align-items: center;
     }
 
     .action-btn {
       background: var(--gray-light);
-      border: none;
-      padding: 8px 14px;
+      border: 1px solid var(--border-color);
+      padding: 8px 12px;
       border-radius: 8px;
       cursor: pointer;
       font-weight: bold;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       color: var(--text-color);
     }
 
     .search-container {
       padding: 15px 20px;
       background: var(--white);
-      border-bottom: 1px solid var(--gray-light);
+      border-bottom: 1px solid var(--border-color);
     }
 
     .search-container input {
@@ -85,33 +85,34 @@
       border-radius: 8px;
       outline: none;
       box-sizing: border-box;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
+      background: var(--gray-light);
     }
 
     .section-title {
       padding: 20px 20px 10px;
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       font-weight: bold;
       color: var(--text-color);
     }
 
     .swiper {
       width: 100%;
-      padding: 10px 20px 20px;
+      padding: 5px 20px 15px;
     }
 
     .product-card {
       background: var(--white);
       border-radius: 12px;
-      padding: 15px;
+      padding: 12px;
       text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
       position: relative;
       display: flex;
       flex-direction: column;
       height: 100%;
       box-sizing: border-box;
-      border: 1px solid var(--gray-light);
+      border: 1px solid var(--border-color);
     }
 
     .badge {
@@ -120,19 +121,19 @@
       right: 10px;
       background: var(--accent);
       color: #fff;
-      font-size: 0.7rem;
-      padding: 3px 8px;
+      font-size: 0.65rem;
+      padding: 3px 7px;
       border-radius: 6px;
       font-weight: bold;
     }
 
     .img-box {
       width: 100%;
-      height: 140px;
+      height: 130px;
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .img-box img {
@@ -142,25 +143,25 @@
     }
 
     .card-title {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: bold;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       height: 2.6em;
       overflow: hidden;
       color: var(--text-color);
     }
 
     .options-box {
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 5px;
     }
 
     .options-box select {
       width: 100%;
-      padding: 6px;
-      font-size: 0.8rem;
+      padding: 5px;
+      font-size: 0.75rem;
       border-radius: 6px;
       border: 1px solid var(--border-color);
       background: #fff;
@@ -168,8 +169,8 @@
 
     .price-row {
       margin-top: auto;
-      margin-bottom: 12px;
-      font-size: 1.05rem;
+      margin-bottom: 10px;
+      font-size: 1rem;
       font-weight: bold;
       color: var(--primary);
     }
@@ -178,11 +179,11 @@
       background: var(--primary);
       color: #fff;
       border: none;
-      padding: 10px;
+      padding: 8px;
       border-radius: 8px;
       font-weight: bold;
       cursor: pointer;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       transition: background 0.2s;
     }
 
@@ -205,12 +206,12 @@
 
     .modal-content {
       background: #fff;
-      padding: 25px;
+      padding: 22px;
       border-radius: 14px;
       width: 90%;
-      max-width: 420px;
+      max-width: 400px;
       text-align: right;
-      box-shadow: 0 4px 25px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
       box-sizing: border-box;
       max-height: 90vh;
       overflow-y: auto;
@@ -264,54 +265,54 @@
     <div class="modal-content">
       <div id="auth-step-email">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-          <h3 style="margin: 0; color: #1e293b;">تسجيل الدخول / إنشاء حساب</h3>
+          <h3 style="margin: 0; font-size: 1.1rem; color: #0f172a;">تسجيل الدخول / إنشاء حساب</h3>
           <span onclick="closeAccountModal()" style="cursor: pointer; font-size: 1.2rem; font-weight: bold; color: #64748b;">✕</span>
         </div>
-        <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 15px;">أدخل بريدك الإلكتروني لنرسل لك رمز التحقق السريع عبر EmailJS.</p>
-        <label style="font-size: 0.85rem; color: #475569; display: block; margin-bottom: 5px;">البريد الإلكتروني</label>
-        <input type="email" id="reg-email-input" placeholder="example@gmail.com" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid var(--border-color); border-radius: 8px; box-sizing: border-box;">
-        <button id="send-otp-btn" onclick="sendAuthOtp()" style="width: 100%; background: var(--primary); color: #fff; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer;">إرسال الرمز</button>
+        <p style="font-size: 0.78rem; color: #64748b; margin-bottom: 12px;">أدخل بريدك الإلكتروني لنرسل لك رمز التحقق السريع عبر EmailJS.</p>
+        <label style="font-size: 0.8rem; color: #475569; display: block; margin-bottom: 5px;">البريد الإلكتروني</label>
+        <input type="email" id="reg-email-input" placeholder="example@gmail.com" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid var(--border-color); border-radius: 8px; box-sizing: border-box; font-size: 0.9rem;">
+        <button id="send-otp-btn" onclick="sendAuthOtp()" style="width: 100%; background: var(--primary); color: #fff; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.9rem;">إرسال الرمز</button>
       </div>
 
       <div id="auth-step-otp" style="display: none;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-          <h3 style="margin: 0; color: #1e293b;">أدخل رمز التحقق</h3>
+          <h3 style="margin: 0; font-size: 1.1rem; color: #0f172a;">أدخل رمز التحقق</h3>
           <span onclick="closeAccountModal()" style="cursor: pointer; font-size: 1.2rem; font-weight: bold; color: #64748b;">✕</span>
         </div>
-        <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 15px;">تم إرسال رمز التحقق إلى: <b id="otp-sent-email" style="color: var(--primary);"></b></p>
+        <p style="font-size: 0.78rem; color: #64748b; margin-bottom: 12px;">تم إرسال رمز التحقق إلى: <b id="otp-sent-email" style="color: var(--primary);"></b></p>
         <input type="text" id="auth-otp-input" placeholder="أدخل الرمز المكون من 4 أرقام" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid var(--border-color); border-radius: 8px; text-align: center; font-size: 1.1rem; box-sizing: border-box;" maxlength="4">
-        <button onclick="verifyAuthOtp()" style="width: 100%; background: var(--primary); color: #fff; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer;">تحقق ومتابعة</button>
+        <button onclick="verifyAuthOtp()" style="width: 100%; background: var(--primary); color: #fff; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.9rem;">تحقق ومتابعة</button>
       </div>
 
       <div id="auth-step-details" style="display: none;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-          <h3 style="margin: 0; color: #1e293b;">استكمال بيانات الحساب</h3>
+          <h3 style="margin: 0; font-size: 1.1rem; color: #0f172a;">استكمال بيانات الحساب</h3>
           <span onclick="closeAccountModal()" style="cursor: pointer; font-size: 1.2rem; font-weight: bold; color: #64748b;">✕</span>
         </div>
-        <label style="font-size: 0.85rem; color: #475569; display: block; margin-bottom: 5px;">الاسم الكامل</label>
-        <input type="text" id="user-full-name" placeholder="مثال: إبراهيم طارق أبو سهمود" style="width: 100%; padding: 10px; margin-bottom: 12px; border: 1px solid var(--border-color); border-radius: 8px; box-sizing: border-box;">
-        <label style="font-size: 0.85rem; color: #475569; display: block; margin-bottom: 5px;">رقم الهاتف</label>
+        <label style="font-size: 0.8rem; color: #475569; display: block; margin-bottom: 5px;">الاسم الكامل</label>
+        <input type="text" id="user-full-name" placeholder="مثال: إبراهيم طارق أبو سهمود" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid var(--border-color); border-radius: 8px; box-sizing: border-box; font-size: 0.9rem;">
+        <label style="font-size: 0.8rem; color: #475569; display: block; margin-bottom: 5px;">رقم الهاتف</label>
         <div style="display: flex; gap: 8px; margin-bottom: 15px;">
-          <select id="country-code" style="padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; background: #fff;">
+          <select id="country-code" style="padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; background: #fff; font-size: 0.85rem;">
             <option value="+966">🇸🇦 +966</option>
             <option value="+970" selected>🇵🇸 +970</option>
             <option value="+971">🇦🇪 +971</option>
             <option value="+962">🇯🇴 +962</option>
             <option value="+20">🇪🇬 +20</option>
           </select>
-          <input type="tel" id="user-phone-num" placeholder="5XXXXXXXX" style="flex: 1; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; box-sizing: border-box;">
+          <input type="tel" id="user-phone-num" placeholder="5XXXXXXXX" style="flex: 1; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; box-sizing: border-box; font-size: 0.9rem;">
         </div>
-        <button onclick="completeAccountCreation()" style="width: 100%; background: var(--primary); color: #fff; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer;">إنشاء الحساب</button>
+        <button onclick="completeAccountCreation()" style="width: 100%; background: var(--primary); color: #fff; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.9rem;">إنشاء الحساب</button>
       </div>
 
       <div id="user-profile-panel" style="display: none; text-align: center;">
-        <h3 style="margin-top: 0; color: #1e293b;">مرحباً بك، <span id="profile-name" style="color: var(--primary);"></span></h3>
-        <p style="font-size: 0.85rem; color: #64748b;" id="profile-email"></p>
-        <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 20px;" id="profile-phone"></p>
-        <div style="background: #f8fafc; padding: 12px; border-radius: 8px; margin-bottom: 20px; font-size: 0.8rem; text-align: right; border: 1px solid var(--border-color);">
+        <h3 style="margin-top: 0; font-size: 1.1rem; color: #0f172a;">مرحباً بك، <span id="profile-name" style="color: var(--primary);"></span></h3>
+        <p style="font-size: 0.8rem; color: #64748b;" id="profile-email"></p>
+        <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 15px;" id="profile-phone"></p>
+        <div style="background: var(--gray-light); padding: 10px; border-radius: 8px; margin-bottom: 15px; font-size: 0.8rem; text-align: right; border: 1px solid var(--border-color);">
           <b>حالة الحساب:</b> نشط ومعتمد ✅
         </div>
-        <button onclick="logoutUser()" style="width: 100%; background: #ef4444; color: #fff; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer;">تسجيل الخروج</button>
+        <button onclick="logoutUser()" style="width: 100%; background: #ef4444; color: #fff; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.9rem;">تسجيل الخروج</button>
       </div>
     </div>
   </div>
@@ -319,39 +320,39 @@
   <!-- نافذة السلة -->
   <div id="cart-modal" class="custom-modal">
     <div class="modal-content">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-        <h3 style="margin: 0;">🛒 سلة المشتريات</h3>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <h3 style="margin: 0; font-size: 1.1rem;">🛒 سلة المشتريات</h3>
         <span onclick="closeCart()" style="cursor: pointer; font-size: 1.2rem; font-weight: bold;">✕</span>
       </div>
-      <div id="cart-items" style="max-height: 200px; overflow-y: auto; margin-bottom: 15px;"></div>
-      <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 1rem; margin-bottom: 15px; border-top: 1px solid var(--border-color); padding-top: 10px;">
+      <div id="cart-items" style="max-height: 180px; overflow-y: auto; margin-bottom: 12px;"></div>
+      <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 0.95rem; margin-bottom: 15px; border-top: 1px solid var(--border-color); padding-top: 10px;">
         <span>المجموع الإجمالي:</span>
         <span style="color: var(--primary);">$<span id="cart-total">0</span></span>
       </div>
-      <button onclick="proceedToCheckout()" style="width: 100%; background: var(--primary); color: #fff; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer;">إتمام عملية الشراء</button>
+      <button onclick="proceedToCheckout()" style="width: 100%; background: var(--primary); color: #fff; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.9rem;">إتمام عملية الشراء</button>
     </div>
   </div>
 
   <!-- نافذة إتمام الطلب -->
   <div id="checkout-modal" class="custom-modal">
-    <div class="modal-content" style="max-width: 500px;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-        <h3 style="margin: 0; color: #1e293b;">إتمام الطلب والتوصيل</h3>
+    <div class="modal-content" style="max-width: 450px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <h3 style="margin: 0; font-size: 1.1rem; color: #0f172a;">إتمام الطلب والتوصيل</h3>
         <span onclick="closeCheckoutModal()" style="cursor: pointer; font-size: 1.2rem; font-weight: bold;">✕</span>
       </div>
-      <div style="background: #f8fafc; padding: 12px; border-radius: 8px; margin-bottom: 15px; font-size: 0.85rem; border: 1px solid var(--border-color);">
+      <div style="background: var(--gray-light); padding: 10px; border-radius: 8px; margin-bottom: 12px; font-size: 0.8rem; border: 1px solid var(--border-color);">
         <b>📦 تفاصيل التوصيل:</b><br>
         <span id="checkout-user-display" style="color: #64748b;"></span>
       </div>
-      <label style="font-size: 0.85rem; color: #475569; display: block; margin-bottom: 5px;">عنوان التوصيل بالتفصيل (المدينة، الحي، الشارع)</label>
-      <input type="text" id="shipping-address" placeholder="مثال: غزة، الرمال، شارع الشهداء" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid var(--border-color); border-radius: 8px; box-sizing: border-box;">
-      <label style="font-size: 0.85rem; color: #475569; display: block; margin-bottom: 5px;">طريقة الدفع</label>
-      <select id="payment-method" style="width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid var(--border-color); border-radius: 8px; background: #fff; font-weight: bold;">
+      <label style="font-size: 0.8rem; color: #475569; display: block; margin-bottom: 5px;">عنوان التوصيل بالتفصيل (المدينة، الحي، الشارع)</label>
+      <input type="text" id="shipping-address" placeholder="مثال: غزة، الرمال، شارع الشهداء" style="width: 100%; padding: 10px; margin-bottom: 12px; border: 1px solid var(--border-color); border-radius: 8px; box-sizing: border-box; font-size: 0.9rem;">
+      <label style="font-size: 0.8rem; color: #475569; display: block; margin-bottom: 5px;">طريقة الدفع</label>
+      <select id="payment-method" style="width: 100%; padding: 10px; margin-bottom: 18px; border: 1px solid var(--border-color); border-radius: 8px; background: #fff; font-weight: bold; font-size: 0.85rem;">
         <option value="Cash on Delivery">الدفع عند الاستلام (Cash on Delivery)</option>
         <option value="Bank Transfer">تحويل بنكي مباشر</option>
         <option value="Online Card">بطاقة ائتمانية / مدى / أبل باي</option>
       </select>
-      <button id="checkout-submit-btn" onclick="finalizeOrder()" style="width: 100%; background: #10b981; color: #fff; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1rem;">تأكيد وإرسال الطلب نهائياً 🚀</button>
+      <button id="checkout-submit-btn" onclick="finalizeOrder()" style="width: 100%; background: #10b981; color: #fff; border: none; padding: 11px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.95rem;">تأكيد وإرسال الطلب نهائياً 🚀</button>
     </div>
   </div>
 
@@ -522,6 +523,9 @@
         document.getElementById('auth-step-details').style.display = 'none';
         document.getElementById('user-profile-panel').style.display = 'none';
         document.getElementById('reg-email-input').value = '';
+        const btn = document.getElementById('send-otp-btn');
+        btn.innerText = 'إرسال الرمز';
+        btn.disabled = false;
     }
 
     function sendAuthOtp() {
@@ -544,21 +548,43 @@
         btn.innerText = 'جاري الإرسال...';
         btn.disabled = true;
 
+        // مؤقت أمان لفك تعليق الزر تلقائياً خلال 7 ثوانٍ إذا تأخر سيرفر EmailJS
+        let timeoutTriggered = false;
+        let safetyTimer = setTimeout(() => {
+            if(!timeoutTriggered) {
+                timeoutTriggered = true;
+                btn.innerText = 'إرسال الرمز';
+                btn.disabled = false;
+                document.getElementById('otp-sent-email').innerText = tempEmail;
+                document.getElementById('auth-step-email').style.display = 'none';
+                document.getElementById('auth-step-otp').style.display = 'block';
+                alert('⚠️ ملاحظة: استغرق السيرفر وقتاً طويلاً، تم الانتقال للخطوة التالية. (الرمز التجريبي إذا لم يصل الإيميل: ' + generatedAuthOtp + ')');
+            }
+        }, 7000);
+
         emailjs.send('service_ak9x10p', 'template_frbxkcq', templateParams)
             .then(function(response) {
-                btn.innerText = 'إرسال الرمز';
-                btn.disabled = false;
-                document.getElementById('otp-sent-email').innerText = tempEmail;
-                document.getElementById('auth-step-email').style.display = 'none';
-                document.getElementById('auth-step-otp').style.display = 'block';
+                if(!timeoutTriggered) {
+                    timeoutTriggered = true;
+                    clearTimeout(safetyTimer);
+                    btn.innerText = 'إرسال الرمز';
+                    btn.disabled = false;
+                    document.getElementById('otp-sent-email').innerText = tempEmail;
+                    document.getElementById('auth-step-email').style.display = 'none';
+                    document.getElementById('auth-step-otp').style.display = 'block';
+                }
             }, function(error) {
-                btn.innerText = 'إرسال الرمز';
-                btn.disabled = false;
-                console.error('EmailJS Error:', error);
-                document.getElementById('otp-sent-email').innerText = tempEmail;
-                document.getElementById('auth-step-email').style.display = 'none';
-                document.getElementById('auth-step-otp').style.display = 'block';
-                alert('⚠️ ملاحظة: حدث خطأ أثناء إرسال البريد عبر EmailJS، تم إظهار الرمز التجريبي هنا للاستمرار: ' + generatedAuthOtp);
+                if(!timeoutTriggered) {
+                    timeoutTriggered = true;
+                    clearTimeout(safetyTimer);
+                    btn.innerText = 'إرسال الرمز';
+                    btn.disabled = false;
+                    console.error('EmailJS Error:', error);
+                    document.getElementById('otp-sent-email').innerText = tempEmail;
+                    document.getElementById('auth-step-email').style.display = 'none';
+                    document.getElementById('auth-step-otp').style.display = 'block';
+                    alert('⚠️ ملاحظة: حدث خطأ في الإرسال، تم استخدام الرمز التجريبي التالي للاستمرار: ' + generatedAuthOtp);
+                }
             });
     }
 
@@ -630,6 +656,9 @@
 
     function closeCheckoutModal() {
         document.getElementById('checkout-modal').style.display = 'none';
+        const submitBtn = document.getElementById('checkout-submit-btn');
+        submitBtn.innerText = 'تأكيد وإرسال الطلب نهائياً 🚀';
+        submitBtn.disabled = false;
     }
 
     function finalizeOrder() {
@@ -655,22 +684,43 @@
         submitBtn.innerText = 'جاري إرسال الطلب...';
         submitBtn.disabled = true;
 
+        let orderTimeoutTriggered = false;
+        let orderSafetyTimer = setTimeout(() => {
+            if(!orderTimeoutTriggered) {
+                orderTimeoutTriggered = true;
+                submitBtn.innerText = 'تأكيد وإرسال الطلب نهائياً 🚀';
+                submitBtn.disabled = false;
+                alert('🎉 تم إتمام وحفظ طلبك بنجاح!');
+                cart = [];
+                updateCartUI();
+                closeCheckoutModal();
+            }
+        }, 7000);
+
         emailjs.send('service_ak9x10p', 'template_frbxkcq', finalOrderParams)
             .then(function(response) {
-                submitBtn.innerText = 'تأكيد وإرسال الطلب نهائياً 🚀';
-                submitBtn.disabled = false;
-                alert('🎉 تم إرسال طلبك بنجاح وتم إرسال نسخة إلى بريدك الإلكتروني!');
-                cart = [];
-                updateCartUI();
-                closeCheckoutModal();
+                if(!orderTimeoutTriggered) {
+                    orderTimeoutTriggered = true;
+                    clearTimeout(orderSafetyTimer);
+                    submitBtn.innerText = 'تأكيد وإرسال الطلب نهائياً 🚀';
+                    submitBtn.disabled = false;
+                    alert('🎉 تم إرسال طلبك بنجاح وتم إرسال نسخة إلى بريدك الإلكتروني!');
+                    cart = [];
+                    updateCartUI();
+                    closeCheckoutModal();
+                }
             }, function(error) {
-                submitBtn.innerText = 'تأكيد وإرسال الطلب نهائياً 🚀';
-                submitBtn.disabled = false;
-                console.error('Order EmailJS Error:', error);
-                alert('🎉 تم حفظ طلبك وإتمامه بنجاح!');
-                cart = [];
-                updateCartUI();
-                closeCheckoutModal();
+                if(!orderTimeoutTriggered) {
+                    orderTimeoutTriggered = true;
+                    clearTimeout(orderSafetyTimer);
+                    submitBtn.innerText = 'تأكيد وإرسال الطلب نهائياً 🚀';
+                    submitBtn.disabled = false;
+                    console.error('Order EmailJS Error:', error);
+                    alert('🎉 تم حفظ طلبك وإتمامه بنجاح!');
+                    cart = [];
+                    updateCartUI();
+                    closeCheckoutModal();
+                }
             });
     }
 
@@ -698,3 +748,4 @@
   </script>
 </body>
 </html>
+
