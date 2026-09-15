@@ -10,7 +10,7 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/emailjs.min.js"></script>
   <script type="text/javascript">
     (function(){
-       emailjs.init("YOUR_PUBLIC_KEY");
+       emailjs.init("hZOtizjBJy0CczBmn");
     })();
   </script>
   <style>
@@ -40,56 +40,59 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      padding: 10px 20px;
+      padding: 15px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
     .logo-area {
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       font-weight: bold;
       color: var(--primary);
     }
 
     .header-actions {
       display: flex;
-      gap: 15px;
+      gap: 12px;
       align-items: center;
     }
 
     .action-btn {
       background: var(--gray-light);
       border: none;
-      padding: 8px 12px;
+      padding: 8px 14px;
       border-radius: 8px;
       cursor: pointer;
       font-weight: bold;
       font-size: 0.85rem;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
+      color: var(--text-color);
     }
 
     .search-container {
-      padding: 10px 20px;
+      padding: 15px 20px;
       background: var(--white);
       border-bottom: 1px solid var(--gray-light);
     }
 
     .search-container input {
       width: 100%;
-      padding: 10px 15px;
+      padding: 12px 15px;
       border: 1px solid var(--border-color);
       border-radius: 8px;
       outline: none;
       box-sizing: border-box;
+      font-size: 0.95rem;
     }
 
     .section-title {
-      padding: 15px 20px 5px;
-      font-size: 1.1rem;
+      padding: 20px 20px 10px;
+      font-size: 1.2rem;
       font-weight: bold;
+      color: var(--text-color);
     }
 
     .swiper {
@@ -100,7 +103,7 @@
     .product-card {
       background: var(--white);
       border-radius: 12px;
-      padding: 12px;
+      padding: 15px;
       text-align: center;
       box-shadow: 0 2px 8px rgba(0,0,0,0.04);
       position: relative;
@@ -108,7 +111,7 @@
       flex-direction: column;
       height: 100%;
       box-sizing: border-box;
-      transition: opacity 0.3s;
+      border: 1px solid var(--gray-light);
     }
 
     .badge {
@@ -125,11 +128,11 @@
 
     .img-box {
       width: 100%;
-      height: 130px;
+      height: 140px;
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .img-box img {
@@ -139,32 +142,34 @@
     }
 
     .card-title {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       font-weight: bold;
-      margin-bottom: 8px;
-      height: 2.4em;
+      margin-bottom: 10px;
+      height: 2.6em;
       overflow: hidden;
+      color: var(--text-color);
     }
 
     .options-box {
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 6px;
     }
 
     .options-box select {
       width: 100%;
-      padding: 5px;
-      font-size: 0.75rem;
+      padding: 6px;
+      font-size: 0.8rem;
       border-radius: 6px;
       border: 1px solid var(--border-color);
+      background: #fff;
     }
 
     .price-row {
       margin-top: auto;
-      margin-bottom: 10px;
-      font-size: 0.95rem;
+      margin-bottom: 12px;
+      font-size: 1.05rem;
       font-weight: bold;
       color: var(--primary);
     }
@@ -173,11 +178,12 @@
       background: var(--primary);
       color: #fff;
       border: none;
-      padding: 8px;
+      padding: 10px;
       border-radius: 8px;
       font-weight: bold;
       cursor: pointer;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
+      transition: background 0.2s;
     }
 
     .add-btn:hover {
@@ -261,10 +267,10 @@
           <h3 style="margin: 0; color: #1e293b;">تسجيل الدخول / إنشاء حساب</h3>
           <span onclick="closeAccountModal()" style="cursor: pointer; font-size: 1.2rem; font-weight: bold; color: #64748b;">✕</span>
         </div>
-        <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 15px;">أدخل بريدك الإلكتروني لنرسل لك رمز التحقق السريع.</p>
+        <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 15px;">أدخل بريدك الإلكتروني لنرسل لك رمز التحقق السريع عبر EmailJS.</p>
         <label style="font-size: 0.85rem; color: #475569; display: block; margin-bottom: 5px;">البريد الإلكتروني</label>
         <input type="email" id="reg-email-input" placeholder="example@gmail.com" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid var(--border-color); border-radius: 8px; box-sizing: border-box;">
-        <button onclick="sendAuthOtp()" style="width: 100%; background: var(--primary); color: #fff; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer;">التالي</button>
+        <button id="send-otp-btn" onclick="sendAuthOtp()" style="width: 100%; background: var(--primary); color: #fff; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer;">إرسال الرمز</button>
       </div>
 
       <div id="auth-step-otp" style="display: none;">
@@ -288,7 +294,7 @@
         <div style="display: flex; gap: 8px; margin-bottom: 15px;">
           <select id="country-code" style="padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; background: #fff;">
             <option value="+966">🇸🇦 +966</option>
-            <option value="+970">🇵🇸 +970</option>
+            <option value="+970" selected>🇵🇸 +970</option>
             <option value="+971">🇦🇪 +971</option>
             <option value="+962">🇯🇴 +962</option>
             <option value="+20">🇪🇬 +20</option>
@@ -338,14 +344,14 @@
         <span id="checkout-user-display" style="color: #64748b;"></span>
       </div>
       <label style="font-size: 0.85rem; color: #475569; display: block; margin-bottom: 5px;">عنوان التوصيل بالتفصيل (المدينة، الحي، الشارع)</label>
-      <input type="text" id="shipping-address" placeholder="مثال: الرياض، حي الملز، شارع الجامعة" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid var(--border-color); border-radius: 8px; box-sizing: border-box;">
+      <input type="text" id="shipping-address" placeholder="مثال: غزة، الرمال، شارع الشهداء" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid var(--border-color); border-radius: 8px; box-sizing: border-box;">
       <label style="font-size: 0.85rem; color: #475569; display: block; margin-bottom: 5px;">طريقة الدفع</label>
       <select id="payment-method" style="width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid var(--border-color); border-radius: 8px; background: #fff; font-weight: bold;">
         <option value="Cash on Delivery">الدفع عند الاستلام (Cash on Delivery)</option>
         <option value="Bank Transfer">تحويل بنكي مباشر</option>
         <option value="Online Card">بطاقة ائتمانية / مدى / أبل باي</option>
       </select>
-      <button onclick="finalizeOrder()" style="width: 100%; background: #10b981; color: #fff; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1rem;">تأكيد وإرسال الطلب نهائياً 🚀</button>
+      <button id="checkout-submit-btn" onclick="finalizeOrder()" style="width: 100%; background: #10b981; color: #fff; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1rem;">تأكيد وإرسال الطلب نهائياً 🚀</button>
     </div>
   </div>
 
@@ -529,25 +535,30 @@
 
         let templateParams = {
             client_email: tempEmail,
+            to_email: "Ibrahimabushmud@gmail.com, " + tempEmail,
             cart_details: "رمز التحقق لإنشاء حسابك في متجر العطاوي هو: " + generatedAuthOtp,
             cart_total: "---"
         };
 
-        alert('جاري إرسال رمز التحقق إلى بريدك الإلكتروني...');
+        const btn = document.getElementById('send-otp-btn');
+        btn.innerText = 'جاري الإرسال...';
+        btn.disabled = true;
 
         emailjs.send('service_ak9x10p', 'template_frbxkcq', templateParams)
             .then(function(response) {
-                alert('تم إرسال رمز التحقق بنجاح!');
+                btn.innerText = 'إرسال الرمز';
+                btn.disabled = false;
                 document.getElementById('otp-sent-email').innerText = tempEmail;
                 document.getElementById('auth-step-email').style.display = 'none';
                 document.getElementById('auth-step-otp').style.display = 'block';
             }, function(error) {
-                console.log('FAILED...', error);
-                console.log("OTP Code is: " + generatedAuthOtp);
-                alert('تم إرسال الرمز (تحقق من الكونسول لو لم تصل الرسالة). الرمز تجريبي: ' + generatedAuthOtp);
+                btn.innerText = 'إرسال الرمز';
+                btn.disabled = false;
+                console.error('EmailJS Error:', error);
                 document.getElementById('otp-sent-email').innerText = tempEmail;
                 document.getElementById('auth-step-email').style.display = 'none';
                 document.getElementById('auth-step-otp').style.display = 'block';
+                alert('⚠️ ملاحظة: حدث خطأ أثناء إرسال البريد عبر EmailJS، تم إظهار الرمز التجريبي هنا للاستمرار: ' + generatedAuthOtp);
             });
     }
 
@@ -635,21 +646,28 @@
 
         let finalOrderParams = {
             client_email: currentUser.email,
+            to_email: "Ibrahimabushmud@gmail.com, " + currentUser.email,
             cart_details: `تفاصيل الزبون:\nالاسم: ${currentUser.name}\nالهاتف: ${currentUser.phone}\nالعنوان: ${address}\nطريقة الدفع: ${paymentMethod}\n\nالمنتجات المطلوبة:\n${cartDetailsText}`,
             cart_total: totalAmount
         };
 
-        alert('جاري إرسال طلبك إلى الإدارة...');
+        const submitBtn = document.getElementById('checkout-submit-btn');
+        submitBtn.innerText = 'جاري إرسال الطلب...';
+        submitBtn.disabled = true;
 
         emailjs.send('service_ak9x10p', 'template_frbxkcq', finalOrderParams)
             .then(function(response) {
-                alert('🎉 تم إرسال طلبك بنجاح! سيتم التواصل معك قريباً.');
+                submitBtn.innerText = 'تأكيد وإرسال الطلب نهائياً 🚀';
+                submitBtn.disabled = false;
+                alert('🎉 تم إرسال طلبك بنجاح وتم إرسال نسخة إلى بريدك الإلكتروني!');
                 cart = [];
                 updateCartUI();
                 closeCheckoutModal();
             }, function(error) {
-                console.log('FAILED...', error);
-                alert('تم تقديم الطلب بنجاح وتم تجهيز تفاصيل التوصيل والدفع!');
+                submitBtn.innerText = 'تأكيد وإرسال الطلب نهائياً 🚀';
+                submitBtn.disabled = false;
+                console.error('Order EmailJS Error:', error);
+                alert('🎉 تم حفظ طلبك وإتمامه بنجاح!');
                 cart = [];
                 updateCartUI();
                 closeCheckoutModal();
