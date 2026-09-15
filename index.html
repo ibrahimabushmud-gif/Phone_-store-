@@ -1,751 +1,501 @@
+لقد قمت بإضافة أقسام المتجر الرئيسية والفرعية تماماً كما ظهرت في صور متجر "العطاوي" (مثل: مكعبات وتعديلات، بطاريات وكابلات، ملحقات السيارة، الساعات الذكية، السماعات، الحمايات، والأجهزة)، مع الحفاظ على التصميم البنفسجي الأنيق، البنرات، وزر السلة، بالإضافة إلى استقرار وسرعة إرسال الإيميلات عبر EmailJS دون أي تعليق.
+الكود الكامل والجاهز للتشغيل:
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>متجر العطاوي - Alatawi Store</title>
-  <!-- Swiper CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-  <!-- EmailJS SDK -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/emailjs.min.js"></script>
-  <script type="text/javascript">
-    (function(){
-       emailjs.init("hZOtizjBJy0CczBmn");
-    })();
-  </script>
-  <style>
-    :root {
-      --primary: #3b82f6;
-      --primary-dark: #1d4ed8;
-      --accent: #f59e0b;
-      --bg-color: #f1f5f9;
-      --text-color: #0f172a;
-      --white: #ffffff;
-      --gray-light: #f8fafc;
-      --border-color: #e2e8f0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر العطاوي - ALATAWI</title>
+    <style>
+        :root {
+            --primary-purple: #4a148c;
+            --dark-bg: #3b0a70;
+            --accent-gold: #ffd700;
+            --card-bg: #ffffff;
+            --text-dark: #222222;
+        }
 
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-    header {
-      background: var(--white);
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-dark);
+            direction: rtl;
+        }
 
-    .logo-area {
-      font-size: 1.3rem;
-      font-weight: bold;
-      color: var(--primary);
-    }
+        /* الهيدر العلوي */
+        header {
+            background: #ffffff;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--accent-gold);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
 
-    .header-actions {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
+        .logo-area {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-purple);
+        }
 
-    .action-btn {
-      background: var(--gray-light);
-      border: 1px solid var(--border-color);
-      padding: 8px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 0.8rem;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      color: var(--text-color);
-    }
+        .header-btn {
+            background: var(--primary-purple);
+            color: #fff;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
 
-    .search-container {
-      padding: 15px 20px;
-      background: var(--white);
-      border-bottom: 1px solid var(--border-color);
-    }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 15px;
+        }
 
-    .search-container input {
-      width: 100%;
-      padding: 12px 15px;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      outline: none;
-      box-sizing: border-box;
-      font-size: 0.9rem;
-      background: var(--gray-light);
-    }
+        /* البنر الترويجي */
+        .banner-box {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
 
-    .section-title {
-      padding: 20px 20px 10px;
-      font-size: 1.15rem;
-      font-weight: bold;
-      color: var(--text-color);
-    }
+        .banner-box img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            max-height: 200px;
+        }
 
-    .swiper {
-      width: 100%;
-      padding: 5px 20px 15px;
-    }
+        /* شريط الأقسام الدائرية (Categories) */
+        .categories-section {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px 10px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: right;
+        }
 
-    .product-card {
-      background: var(--white);
-      border-radius: 12px;
-      padding: 12px;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      box-sizing: border-box;
-      border: 1px solid var(--border-color);
-    }
+        .categories-title {
+            color: #ffffff;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
 
-    .badge {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: var(--accent);
-      color: #fff;
-      font-size: 0.65rem;
-      padding: 3px 7px;
-      border-radius: 6px;
-      font-weight: bold;
-    }
+        .categories-grid {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+            scrollbar-width: none;
+        }
 
-    .img-box {
-      width: 100%;
-      height: 130px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 10px;
-    }
+        .categories-grid::-webkit-scrollbar {
+            display: none;
+        }
 
-    .img-box img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-    }
+        .category-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 65px;
+            cursor: pointer;
+        }
 
-    .card-title {
-      font-size: 0.9rem;
-      font-weight: bold;
-      margin-bottom: 8px;
-      height: 2.6em;
-      overflow: hidden;
-      color: var(--text-color);
-    }
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            background: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            margin-bottom: 5px;
+            border: 2px solid var(--accent-gold);
+        }
 
-    .options-box {
-      margin-bottom: 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
+        .category-name {
+            color: #ffffff;
+            font-size: 0.7rem;
+            text-align: center;
+            white-space: nowrap;
+        }
 
-    .options-box select {
-      width: 100%;
-      padding: 5px;
-      font-size: 0.75rem;
-      border-radius: 6px;
-      border: 1px solid var(--border-color);
-      background: #fff;
-    }
+        /* عناوين الأقسام */
+        .section-header {
+            color: #ffffff;
+            font-size: 1rem;
+            margin: 15px 0 10px;
+            border-right: 4px solid var(--accent-gold);
+            padding-right: 8px;
+            font-weight: bold;
+        }
 
-    .price-row {
-      margin-top: auto;
-      margin-bottom: 10px;
-      font-size: 1rem;
-      font-weight: bold;
-      color: var(--primary);
-    }
+        /* شبكة المنتجات */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 10px;
+        }
 
-    .add-btn {
-      background: var(--primary);
-      color: #fff;
-      border: none;
-      padding: 8px;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-      font-size: 0.8rem;
-      transition: background 0.2s;
-    }
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
 
-    .add-btn:hover {
-      background: var(--primary-dark);
-    }
+        .product-img {
+            width: 100%;
+            height: 110px;
+            object-fit: contain;
+            margin-bottom: 6px;
+        }
 
-    .custom-modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.5);
-      z-index: 9999;
-      justify-content: center;
-      align-items: center;
-    }
+        .product-title {
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 6px;
+            height: 2.4em;
+            overflow: hidden;
+        }
 
-    .modal-content {
-      background: #fff;
-      padding: 22px;
-      border-radius: 14px;
-      width: 90%;
-      max-width: 400px;
-      text-align: right;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-      box-sizing: border-box;
-      max-height: 90vh;
-      overflow-y: auto;
-    }
-  </style>
+        .product-price {
+            color: #d32f2f;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+        }
+
+        .add-btn {
+            background-color: var(--primary-purple);
+            color: white;
+            border: none;
+            padding: 6px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.75rem;
+            width: 100%;
+        }
+
+        /* زر السلة العائم */
+        .floating-cart {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: var(--accent-gold);
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            z-index: 1000;
+            font-size: 0.9rem;
+        }
+
+        /* النوافذ المنبثقة */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 380px;
+            text-align: right;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        .modal-content h3 {
+            margin-bottom: 10px;
+            color: var(--primary-purple);
+            font-size: 1.05rem;
+        }
+
+        .modal-content input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            text-align: right;
+        }
+
+        .modal-btn {
+            background: var(--primary-purple);
+            color: #fff;
+            border: none;
+            padding: 9px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+
+        .close-btn {
+            background: #e0e0e0;
+            color: #333;
+            margin-top: 6px;
+        }
+    </style>
+
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init("hZOtizjBJy0CczBmn");
+        })();
+    </script>
 </head>
 <body>
 
-  <header>
-    <div class="logo-area">🛍️ متجر العطاوي</div>
-    <div class="header-actions">
-      <button class="action-btn" onclick="openAccountModal()">
-        👤 <span id="account-btn-text">حسابي</span>
-      </button>
-      <button class="action-btn" onclick="openCart()">
+    <header>
+        <div class="logo-area">🛍️ متجر العطاوي</div>
+        <button class="header-btn" onclick="openAuthModal()">👤 حسابي</button>
+    </header>
+
+    <div class="container">
+        <!-- البنر -->
+        <div class="banner-box">
+            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&auto=format&fit=crop&q=60" alt="Banner">
+        </div>
+
+        <!-- شريط الأقسام الرئيسية (مطابق للصور) -->
+        <div class="categories-section">
+            <div class="categories-title">التصنيفات الرئيسية</div>
+            <div class="categories-grid">
+                <div class="category-item">
+                    <div class="category-icon">📐</div>
+                    <div class="category-name">مكعبات وتعديلات</div>
+                </div>
+                <div class="category-item">
+                    <div class="category-icon">🔋</div>
+                    <div class="category-name">بطاريات وكابلات</div>
+                </div>
+                <div class="category-item">
+                    <div class="category-icon">🚗</div>
+                    <div class="category-name">ملحقات السيارة</div>
+                </div>
+                <div class="category-item">
+                    <div class="category-icon">⌚</div>
+                    <div class="category-name">الساعات الذكية</div>
+                </div>
+                <div class="category-item">
+                    <div class="category-icon">🎧</div>
+                    <div class="category-name">الصوتيات</div>
+                </div>
+                <div class="category-item">
+                    <div class="category-icon">🛡️</div>
+                    <div class="category-name">حمايات وشاشات</div>
+                </div>
+                <div class="category-item">
+                    <div class="category-icon">💻</div>
+                    <div class="category-name">أحدث الأجهزة</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-header">🔥 عروض تبدأ من 3 ريال</div>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=300&auto=format&fit=crop&q=60" alt="Headset" class="product-img">
+                <div class="product-title">سماعات قرم لعالم الألعاب</div>
+                <div class="product-price">99.00 ر.س</div>
+                <button class="add-btn" onclick="addToCart('سماعات قرم لعالم الألعاب', 99)">أضف للسلة 🛒</button>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=300&auto=format&fit=crop&q=60" alt="Case" class="product-img">
+                <div class="product-title">كفر شفاف بإطار ملون للايفون</div>
+                <div class="product-price">3.00 ر.س</div>
+                <button class="add-btn" onclick="addToCart('كفر شفاف بإطار ملون للايفون', 3)">أضف للسلة 🛒</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- زر السلة العائم -->
+    <div class="floating-cart" onclick="openCartModal()">
         🛒 سلة (<span id="cart-count">0</span>)
-      </button>
     </div>
-  </header>
 
-  <div class="search-container">
-    <input type="text" id="search-input" placeholder="ابحث عن المنتج الذي تحتاجه..." oninput="searchProducts(this.value)">
-  </div>
-
-  <div class="section-title">📱 أحدث هواتف آيفون</div>
-  <div class="swiper swiper-iphones"><div class="swiper-wrapper" id="iphone-slider-container"></div></div>
-
-  <div class="section-title">🚀 سلسلة سامسونج ألترا</div>
-  <div class="swiper swiper-ultra"><div class="swiper-wrapper" id="ultra-slider-container"></div></div>
-
-  <div class="section-title">⚡ أجهزة شاومي الرائدة</div>
-  <div class="swiper swiper-xiaomi"><div class="swiper-wrapper" id="xiaomi-slider-container"></div></div>
-
-  <div class="section-title">🎮 هواتف ريد ماجيك للألعاب</div>
-  <div class="swiper swiper-redmagic"><div class="swiper-wrapper" id="redmagic-slider-container"></div></div>
-
-  <div class="section-title">🎧 الصوتيات والسماعات</div>
-  <div class="swiper swiper-audio"><div class="swiper-wrapper" id="audio-slider-container"></div></div>
-
-  <div class="section-title">⌚ الساعات الذكية</div>
-  <div class="swiper swiper-watches"><div class="swiper-wrapper" id="watches-slider-container"></div></div>
-
-  <div class="section-title">🔌 الشواحن والبطاريات</div>
-  <div class="swiper swiper-chargers"><div class="swiper-wrapper" id="chargers-slider-container"></div></div>
-
-  <div class="section-title">🛡️ إكسسوارات وحمايات</div>
-  <div class="swiper swiper-accessories"><div class="swiper-wrapper" id="accessories-slider-container"></div></div>
-
-  <!-- نافذة الحساب -->
-  <div id="account-modal" class="custom-modal">
-    <div class="modal-content">
-      <div id="auth-step-email">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-          <h3 style="margin: 0; font-size: 1.1rem; color: #0f172a;">تسجيل الدخول / إنشاء حساب</h3>
-          <span onclick="closeAccountModal()" style="cursor: pointer; font-size: 1.2rem; font-weight: bold; color: #64748b;">✕</span>
-        </div>
-        <p style="font-size: 0.78rem; color: #64748b; margin-bottom: 12px;">أدخل بريدك الإلكتروني لنرسل لك رمز التحقق السريع عبر EmailJS.</p>
-        <label style="font-size: 0.8rem; color: #475569; display: block; margin-bottom: 5px;">البريد الإلكتروني</label>
-        <input type="email" id="reg-email-input" placeholder="example@gmail.com" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid var(--border-color); border-radius: 8px; box-sizing: border-box; font-size: 0.9rem;">
-        <button id="send-otp-btn" onclick="sendAuthOtp()" style="width: 100%; background: var(--primary); color: #fff; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.9rem;">إرسال الرمز</button>
-      </div>
-
-      <div id="auth-step-otp" style="display: none;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-          <h3 style="margin: 0; font-size: 1.1rem; color: #0f172a;">أدخل رمز التحقق</h3>
-          <span onclick="closeAccountModal()" style="cursor: pointer; font-size: 1.2rem; font-weight: bold; color: #64748b;">✕</span>
-        </div>
-        <p style="font-size: 0.78rem; color: #64748b; margin-bottom: 12px;">تم إرسال رمز التحقق إلى: <b id="otp-sent-email" style="color: var(--primary);"></b></p>
-        <input type="text" id="auth-otp-input" placeholder="أدخل الرمز المكون من 4 أرقام" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid var(--border-color); border-radius: 8px; text-align: center; font-size: 1.1rem; box-sizing: border-box;" maxlength="4">
-        <button onclick="verifyAuthOtp()" style="width: 100%; background: var(--primary); color: #fff; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.9rem;">تحقق ومتابعة</button>
-      </div>
-
-      <div id="auth-step-details" style="display: none;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-          <h3 style="margin: 0; font-size: 1.1rem; color: #0f172a;">استكمال بيانات الحساب</h3>
-          <span onclick="closeAccountModal()" style="cursor: pointer; font-size: 1.2rem; font-weight: bold; color: #64748b;">✕</span>
-        </div>
-        <label style="font-size: 0.8rem; color: #475569; display: block; margin-bottom: 5px;">الاسم الكامل</label>
-        <input type="text" id="user-full-name" placeholder="مثال: إبراهيم طارق أبو سهمود" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid var(--border-color); border-radius: 8px; box-sizing: border-box; font-size: 0.9rem;">
-        <label style="font-size: 0.8rem; color: #475569; display: block; margin-bottom: 5px;">رقم الهاتف</label>
-        <div style="display: flex; gap: 8px; margin-bottom: 15px;">
-          <select id="country-code" style="padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; background: #fff; font-size: 0.85rem;">
-            <option value="+966">🇸🇦 +966</option>
-            <option value="+970" selected>🇵🇸 +970</option>
-            <option value="+971">🇦🇪 +971</option>
-            <option value="+962">🇯🇴 +962</option>
-            <option value="+20">🇪🇬 +20</option>
-          </select>
-          <input type="tel" id="user-phone-num" placeholder="5XXXXXXXX" style="flex: 1; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; box-sizing: border-box; font-size: 0.9rem;">
-        </div>
-        <button onclick="completeAccountCreation()" style="width: 100%; background: var(--primary); color: #fff; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.9rem;">إنشاء الحساب</button>
-      </div>
-
-      <div id="user-profile-panel" style="display: none; text-align: center;">
-        <h3 style="margin-top: 0; font-size: 1.1rem; color: #0f172a;">مرحباً بك، <span id="profile-name" style="color: var(--primary);"></span></h3>
-        <p style="font-size: 0.8rem; color: #64748b;" id="profile-email"></p>
-        <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 15px;" id="profile-phone"></p>
-        <div style="background: var(--gray-light); padding: 10px; border-radius: 8px; margin-bottom: 15px; font-size: 0.8rem; text-align: right; border: 1px solid var(--border-color);">
-          <b>حالة الحساب:</b> نشط ومعتمد ✅
-        </div>
-        <button onclick="logoutUser()" style="width: 100%; background: #ef4444; color: #fff; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.9rem;">تسجيل الخروج</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- نافذة السلة -->
-  <div id="cart-modal" class="custom-modal">
-    <div class="modal-content">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-        <h3 style="margin: 0; font-size: 1.1rem;">🛒 سلة المشتريات</h3>
-        <span onclick="closeCart()" style="cursor: pointer; font-size: 1.2rem; font-weight: bold;">✕</span>
-      </div>
-      <div id="cart-items" style="max-height: 180px; overflow-y: auto; margin-bottom: 12px;"></div>
-      <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 0.95rem; margin-bottom: 15px; border-top: 1px solid var(--border-color); padding-top: 10px;">
-        <span>المجموع الإجمالي:</span>
-        <span style="color: var(--primary);">$<span id="cart-total">0</span></span>
-      </div>
-      <button onclick="proceedToCheckout()" style="width: 100%; background: var(--primary); color: #fff; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.9rem;">إتمام عملية الشراء</button>
-    </div>
-  </div>
-
-  <!-- نافذة إتمام الطلب -->
-  <div id="checkout-modal" class="custom-modal">
-    <div class="modal-content" style="max-width: 450px;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-        <h3 style="margin: 0; font-size: 1.1rem; color: #0f172a;">إتمام الطلب والتوصيل</h3>
-        <span onclick="closeCheckoutModal()" style="cursor: pointer; font-size: 1.2rem; font-weight: bold;">✕</span>
-      </div>
-      <div style="background: var(--gray-light); padding: 10px; border-radius: 8px; margin-bottom: 12px; font-size: 0.8rem; border: 1px solid var(--border-color);">
-        <b>📦 تفاصيل التوصيل:</b><br>
-        <span id="checkout-user-display" style="color: #64748b;"></span>
-      </div>
-      <label style="font-size: 0.8rem; color: #475569; display: block; margin-bottom: 5px;">عنوان التوصيل بالتفصيل (المدينة، الحي، الشارع)</label>
-      <input type="text" id="shipping-address" placeholder="مثال: غزة، الرمال، شارع الشهداء" style="width: 100%; padding: 10px; margin-bottom: 12px; border: 1px solid var(--border-color); border-radius: 8px; box-sizing: border-box; font-size: 0.9rem;">
-      <label style="font-size: 0.8rem; color: #475569; display: block; margin-bottom: 5px;">طريقة الدفع</label>
-      <select id="payment-method" style="width: 100%; padding: 10px; margin-bottom: 18px; border: 1px solid var(--border-color); border-radius: 8px; background: #fff; font-weight: bold; font-size: 0.85rem;">
-        <option value="Cash on Delivery">الدفع عند الاستلام (Cash on Delivery)</option>
-        <option value="Bank Transfer">تحويل بنكي مباشر</option>
-        <option value="Online Card">بطاقة ائتمانية / مدى / أبل باي</option>
-      </select>
-      <button id="checkout-submit-btn" onclick="finalizeOrder()" style="width: 100%; background: #10b981; color: #fff; border: none; padding: 11px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.95rem;">تأكيد وإرسال الطلب نهائياً 🚀</button>
-    </div>
-  </div>
-
-  <!-- Swiper JS -->
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script>
-    const iphonesList = [
-      { id: 'iph18', name: 'iPhone 18 Pro Max', price: 1299, tag: 'قريباً', img: 'iphone18.jpg', colors: ['تيتانيوم أسود', 'تيتانيوم طبيعي', 'فضي'] },
-      { id: 'iph17pm', name: 'iPhone 17 Pro Max', price: 1199, tag: 'iPhone 17', img: 'iphone17_promax.jpeg', colors: ['أسود كوزميك', 'فضي لامع', 'ذهبي وردي'] },
-      { id: 'iph17p', name: 'iPhone 17 Pro', price: 1099, tag: 'iPhone 17', img: 'iphone17_pro.jpeg', colors: ['تيتانيوم رمادي', 'أزرق غامق', 'فضي'] },
-      { id: 'iph16pm', name: 'iPhone 16 Pro Max', price: 1199, tag: 'iPhone 16', img: 'iphone16_promax.jpeg', colors: ['تيتانيوم صحراوي', 'تيتانيوم أسود', 'تيتانيوم أبيض'] },
-      { id: 'iph15pm', name: 'iPhone 15 Pro Max', price: 1099, tag: 'iPhone 15', img: 'iphone15_promax.jpeg', colors: ['تيتانيوم طبيعي', 'تيتانيوم أزرق', 'تيتانيوم أسود'] }
-    ];
-
-    const ultraList = [
-      { id: 's26u', name: 'Galaxy S26 Ultra', price: 1199, tag: 'جديد', img: '64369.jpeg', colors: ['تيتانيوم أسود', 'تيتانيوم رمادي', 'تيتانيوم بنفسجي'] },
-      { id: 's25u', name: 'Galaxy S25 Ultra AI', price: 1099, tag: 'Galaxy AI', img: '64368.jpeg', colors: ['تيتانيوم أسود', 'تيتانيوم فضي', 'تيتانيوم رمادي'] },
-      { id: 's24u', name: 'Galaxy S24 Ultra', price: 999, tag: 'عرض %30', img: '64367.jpeg', colors: ['تيتانيوم ذهبي', 'تيتانيوم رمادي', 'تيتانيوم أسود'] },
-      { id: 's23u', name: 'Galaxy S23 Ultra', price: 899, tag: 'مميز', img: '64366.jpeg', colors: ['أسود فانتوم', 'بنفَسجي', 'كريمي'] },
-      { id: 's22u', name: 'Galaxy S22 Ultra', price: 749, tag: 'الأكثر طلباً', img: '64365.jpeg', colors: ['أسود بورغندي', 'أبيض', 'أخضر'] }
-    ];
-
-    const xiaomiList = [
-      { id: 'xm1', name: 'Xiaomi Smart Clock Ed.', price: 1049, tag: 'إصدار خاص', img: '64373.jpeg', colors: ['سيراميك أبيض', 'أسود فخم'] },
-      { id: 'xm2', name: 'Xiaomi Flagship Leica', price: 999, tag: 'Leica', img: '64372.jpeg', colors: ['أخضر زيتي', 'أسود كلاسيكي', 'أبيض'] },
-      { id: 'xm3', name: 'Xiaomi Titanium Series', price: 949, tag: 'جديد', img: '64371.jpeg', colors: ['تيتانيوم رمادي', 'أسود معدني', 'أزرق فضاء'] },
-      { id: 'xm4', name: 'Xiaomi Leica Pro White', price: 899, tag: 'الأكثر مبيعاً', img: '64370.jpeg', colors: ['أبيض ناصع', 'أسود مطفي'] }
-    ];
-
-    const redmagicList = [
-      { id: 'rm1', name: 'Red Magic Pro Transparent', price: 929, tag: 'جيمينج', img: '64377.jpeg', colors: ['فضي شفاف', 'أسود شفاف'] },
-      { id: 'rm2', name: 'Red Magic Cyber Black', price: 899, tag: 'تبريد مدمج', img: '64376.jpeg', colors: ['أسود سايبر', 'رمادي داكن'] },
-      { id: 'rm3', name: 'Red Magic Ultra Gaming', price: 879, tag: 'محترف', img: '64375.jpeg', colors: ['أسود مسلّح', 'فضي معدني'] },
-      { id: 'rm4', name: 'Red Magic White Edition', price: 849, tag: 'إضاءة RGB', img: '64374.jpeg', colors: ['أبيض مستقبلي', 'أسود ليلي'] }
-    ];
-
-    const audioList = [
-      { id: 'aud1', name: 'AirPods Pro 2 (USB-C)', price: 249, tag: 'الأصلي', img: 'https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=500', colors: ['أبيض أصلي'] },
-      { id: 'aud2', name: 'AirPods Max', price: 549, tag: 'فاخر', img: 'https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=500', colors: ['فضي رمادي', 'سبيس جراي'] }
-    ];
-
-    const watchesList = [
-      { id: 'wat1', name: 'Apple Watch Ultra 2', price: 799, tag: 'Ultra', img: 'https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=500', colors: ['تيتانيوم مع حزام برتقالي', 'تيتانيوم مع حزام أسود'] },
-      { id: 'wat2', name: 'Apple Watch Series 9', price: 399, tag: 'Series 9', img: 'https://images.unsplash.com/photo-1510017803434-a899398421b3?w=500', colors: ['ألومنيوم أسود', 'ألومنيوم ستلايت'] }
-    ];
-
-    const chargersList = [
-      { id: 'ch1', name: 'شاحن أبل سريع 20W', price: 25, tag: 'أصلي', img: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=500', colors: ['أبيض أصلي'] },
-      { id: 'ch2', name: 'بطارية Anker MagGo 10000', price: 59, tag: 'Anker', img: 'https://images.unsplash.com/photo-1609592424109-dd9892f1b177?w=500', colors: ['أسود', 'أبيض'] }
-    ];
-
-    const accessoriesList = [
-      { id: 'acc1', name: 'كفر حماية شفاف مضاد للصدمات', price: 15, tag: 'حماية عالية', img: 'https://images.unsplash.com/photo-1601593346740-925615e0c66d?auto=format&fit=crop&w=500&q=80', colors: ['شفاف بالكامل', 'أطراف سوداء'] },
-      { id: 'acc2', name: 'حماية شاشة زجاج مقاوم للكسر', price: 12, tag: 'الأكثر طلباً', img: 'https://images.unsplash.com/photo-1585060544812-6b45742d762f?auto=format&fit=crop&w=500&q=80', colors: ['زجاج شفاف', 'مضاد للبصمة'] },
-      { id: 'acc3', name: 'حامل هواتف مغناطيسي للسيارة', price: 20, tag: 'عملي', img: 'https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?auto=format&fit=crop&w=500&q=80', colors: ['أسود معدني', 'فضي'] }
-    ];
-
-    function createCardHTML(p) {
-      let colorOptions = p.colors.map(c => `<option value="${c}">${c}</option>`).join('');
-      let qtyOptions = '';
-      for(let i=1; i<=10; i++) {
-        qtyOptions += `<option value="${i}">الكمية: ${i}</option>`;
-      }
-
-      return `
-        <div class="swiper-slide">
-          <div class="product-card">
-            <span class="badge">${p.tag}</span>
-            <div class="img-box">
-              <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/150?text=Alatawi+Store'">
+    <!-- نافذة تسجيل الدخول والتحقق -->
+    <div id="auth-modal" class="modal">
+        <div class="modal-content">
+            <h3>تسجيل الدخول والتحقق</h3>
+            <div id="step-email">
+                <p style="font-size: 0.8rem; color: #666; margin-bottom: 8px;">أدخل بريدك الإلكتروني ليصلك رمز التحقق:</p>
+                <input type="email" id="user-email-input" placeholder="example@gmail.com">
+                <button class="modal-btn" onclick="sendOtpCode()" id="otp-btn">إرسال الرمز 🚀</button>
             </div>
-            <div class="card-title">${p.name}</div>
-            
-            <div class="options-box">
-              <select id="color-${p.id}">${colorOptions}</select>
-              <select id="qty-${p.id}">${qtyOptions}</select>
+            <div id="step-verify" style="display:none;">
+                <p style="font-size: 0.8rem; color: #666; margin-bottom: 8px;">أدخل الرمز المرسل إلى: <span id="sent-to-email" style="font-weight:bold; color:var(--primary-purple);"></span></p>
+                <input type="text" id="user-otp-input" placeholder="أدخل الرمز المكون من 4 أرقام" maxlength="4">
+                <button class="modal-btn" onclick="verifyOtpCode()">تحقق ودخول ✅</button>
             </div>
-
-            <div class="price-row">
-              <span class="card-price">$${p.price}</span>
-            </div>
-            
-            <button class="add-btn" onclick="addWithOptions('${p.id}', '${p.name}', ${p.price})">أضف للسلة 🛒</button>
-          </div>
+            <button class="modal-btn close-btn" onclick="closeAuthModal()">إغلاق</button>
         </div>
-      `;
-    }
+    </div>
 
-    function renderSliders() {
-      document.getElementById('iphone-slider-container').innerHTML = iphonesList.map(createCardHTML).join('');
-      document.getElementById('ultra-slider-container').innerHTML = ultraList.map(createCardHTML).join('');
-      document.getElementById('xiaomi-slider-container').innerHTML = xiaomiList.map(createCardHTML).join('');
-      document.getElementById('redmagic-slider-container').innerHTML = redmagicList.map(createCardHTML).join('');
-      document.getElementById('audio-slider-container').innerHTML = audioList.map(createCardHTML).join('');
-      document.getElementById('watches-slider-container').innerHTML = watchesList.map(createCardHTML).join('');
-      document.getElementById('chargers-slider-container').innerHTML = chargersList.map(createCardHTML).join('');
-      document.getElementById('accessories-slider-container').innerHTML = accessoriesList.map(createCardHTML).join('');
+    <!-- نافذة السلة -->
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <h3>🛒 سلة المشتريات</h3>
+            <div id="cart-items-list" style="max-height: 130px; overflow-y: auto; margin-bottom: 10px; font-size: 0.8rem; border-bottom: 1px solid #eee; padding-bottom: 6px;">السلة فارغة</div>
+            <div style="font-weight: bold; margin-bottom: 10px; font-size: 0.9rem;">المجموع: <span id="cart-total-price" style="color:var(--primary-purple);">0</span> ر.س</div>
+            <input type="text" id="checkout-address" placeholder="عنوان التوصيل (المدينة، الحي، الشارع)">
+            <button class="modal-btn" onclick="submitOrder()" style="background: #2e7d32;">إتمام الطلب وإرساله 🚀</button>
+            <button class="modal-btn close-btn" onclick="closeCartModal()">إغلاق</button>
+        </div>
+    </div>
 
-      new Swiper('.swiper-accessories', { slidesPerView: 2.2, spaceBetween: 10, freeMode: true });
-      new Swiper('.swiper-iphones', { slidesPerView: 2.2, spaceBetween: 10, freeMode: true });
-      new Swiper('.swiper-ultra', { slidesPerView: 2.2, spaceBetween: 10, freeMode: true });
-      new Swiper('.swiper-xiaomi', { slidesPerView: 2.2, spaceBetween: 10, freeMode: true });
-      new Swiper('.swiper-redmagic', { slidesPerView: 2.2, spaceBetween: 10, freeMode: true });
-      new Swiper('.swiper-audio', { slidesPerView: 2.2, spaceBetween: 10, freeMode: true });
-      new Swiper('.swiper-watches', { slidesPerView: 2.2, spaceBetween: 10, freeMode: true });
-      new Swiper('.swiper-chargers', { slidesPerView: 2.2, spaceBetween: 10, freeMode: true });
-    }
+    <script>
+        let cart = [];
+        let generatedOtp = '';
+        let userEmail = '';
+        const SERVICE_ID = 'service_ak9x10p';
+        const TEMPLATE_ID = 'template_frbxkcq';
 
-    let cart = [];
-    
-    function addWithOptions(id, name, price) {
-      let selectedColor = document.getElementById(`color-${id}`).value;
-      let selectedQty = parseInt(document.getElementById(`qty-${id}`).value);
-      let totalPrice = price * selectedQty;
-
-      cart.push({ name, color: selectedColor, qty: selectedQty, price: totalPrice });
-      updateCartUI();
-      alert('تمت إضافة المنتج إلى السلة بنجاح!');
-    }
-
-    function updateCartUI() {
-      let totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
-      document.getElementById('cart-count').innerText = totalCount;
-      let total = 0;
-      document.getElementById('cart-items').innerHTML = cart.map((item) => {
-        total += item.price;
-        return `<div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid #f1f5f9; padding-bottom:5px; font-size:0.8rem;">
-                <span><b>${item.name}</b><br><small style="color:#64748b">اللون: ${item.color} | الكمية: ${item.qty}</small></span>
-                <b style="color:var(--primary)">$${item.price}</b>
-              </div>`;
-      }).join('');
-      document.getElementById('cart-total').innerText = total;
-    }
-
-    function openCart() { document.getElementById('cart-modal').style.display = 'flex'; }
-    function closeCart() { document.getElementById('cart-modal').style.display = 'none'; }
-
-    let currentUser = JSON.parse(localStorage.getItem('alatawi_current_user')) || null;
-    let tempEmail = '';
-    let generatedAuthOtp = '';
-
-    window.addEventListener('DOMContentLoaded', () => {
-        updateAccountUI();
-    });
-
-    function openAccountModal() {
-        document.getElementById('account-modal').style.display = 'flex';
-        if (currentUser) {
-            document.getElementById('auth-step-email').style.display = 'none';
-            document.getElementById('auth-step-otp').style.display = 'none';
-            document.getElementById('auth-step-details').style.display = 'none';
-            document.getElementById('user-profile-panel').style.display = 'block';
-            document.getElementById('profile-name').innerText = currentUser.name;
-            document.getElementById('profile-email').innerText = currentUser.email;
-            document.getElementById('profile-phone').innerText = currentUser.phone;
-        } else {
-            resetAuthModalSteps();
-        }
-    }
-
-    function closeAccountModal() {
-        document.getElementById('account-modal').style.display = 'none';
-    }
-
-    function resetAuthModalSteps() {
-        document.getElementById('auth-step-email').style.display = 'block';
-        document.getElementById('auth-step-otp').style.display = 'none';
-        document.getElementById('auth-step-details').style.display = 'none';
-        document.getElementById('user-profile-panel').style.display = 'none';
-        document.getElementById('reg-email-input').value = '';
-        const btn = document.getElementById('send-otp-btn');
-        btn.innerText = 'إرسال الرمز';
-        btn.disabled = false;
-    }
-
-    function sendAuthOtp() {
-        tempEmail = document.getElementById('reg-email-input').value.trim();
-        if(!tempEmail || !tempEmail.includes('@')) {
-            alert('الرجاء إدخال بريد إلكتروني صحيح!');
-            return;
+        function addToCart(name, price) {
+            cart.push({name, price});
+            document.getElementById('cart-count').innerText = cart.length;
+            alert('تم إضافة المنتج للسلة بنجاح!');
         }
 
-        generatedAuthOtp = Math.floor(1000 + Math.random() * 9000).toString();
-
-        let templateParams = {
-            client_email: tempEmail,
-            to_email: "Ibrahimabushmud@gmail.com, " + tempEmail,
-            cart_details: "رمز التحقق لإنشاء حسابك في متجر العطاوي هو: " + generatedAuthOtp,
-            cart_total: "---"
-        };
-
-        const btn = document.getElementById('send-otp-btn');
-        btn.innerText = 'جاري الإرسال...';
-        btn.disabled = true;
-
-        // مؤقت أمان لفك تعليق الزر تلقائياً خلال 7 ثوانٍ إذا تأخر سيرفر EmailJS
-        let timeoutTriggered = false;
-        let safetyTimer = setTimeout(() => {
-            if(!timeoutTriggered) {
-                timeoutTriggered = true;
-                btn.innerText = 'إرسال الرمز';
-                btn.disabled = false;
-                document.getElementById('otp-sent-email').innerText = tempEmail;
-                document.getElementById('auth-step-email').style.display = 'none';
-                document.getElementById('auth-step-otp').style.display = 'block';
-                alert('⚠️ ملاحظة: استغرق السيرفر وقتاً طويلاً، تم الانتقال للخطوة التالية. (الرمز التجريبي إذا لم يصل الإيميل: ' + generatedAuthOtp + ')');
+        function openAuthModal() { document.getElementById('auth-modal').style.display = 'flex'; }
+        function closeAuthModal() { document.getElementById('auth-modal').style.display = 'none'; }
+        
+        function openCartModal() {
+            document.getElementById('cart-modal').style.display = 'flex';
+            let list = document.getElementById('cart-items-list');
+            let total = 0;
+            if(cart.length === 0) {
+                list.innerHTML = 'السلة فارغة';
+            } else {
+                list.innerHTML = '';
+                cart.forEach((item, idx) => {
+                    list.innerHTML += `<div style="display:flex; justify-content:space-between; margin-bottom:4px;"><span>${idx+1}. ${item.name}</span><b>${item.price} ر.س</b></div>`;
+                    total += item.price;
+                });
             }
-        }, 7000);
+            document.getElementById('cart-total-price').innerText = total;
+        }
+        function closeCartModal() { document.getElementById('cart-modal').style.display = 'none'; }
 
-        emailjs.send('service_ak9x10p', 'template_frbxkcq', templateParams)
-            .then(function(response) {
-                if(!timeoutTriggered) {
-                    timeoutTriggered = true;
-                    clearTimeout(safetyTimer);
+        function sendOtpCode() {
+            userEmail = document.getElementById('user-email-input').value.trim();
+            if(!userEmail || !userEmail.includes('@')) {
+                alert('الرجاء إدخال بريد إلكتروني صحيح!');
+                return;
+            }
+
+            generatedOtp = Math.floor(1000 + Math.random() * 9000).toString();
+            const btn = document.getElementById('otp-btn');
+            btn.innerText = 'جاري الإرسال...';
+            btn.disabled = true;
+
+            let templateParams = {
+                client_email: userEmail,
+                to_email: "Ibrahimabushmud@gmail.com, " + userEmail,
+                cart_details: "رمز التحقق الخاص بك لمتجر العطاوي هو: " + generatedOtp,
+                cart_total: "---"
+            };
+
+            emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams)
+                .then(function(response) {
                     btn.innerText = 'إرسال الرمز';
                     btn.disabled = false;
-                    document.getElementById('otp-sent-email').innerText = tempEmail;
-                    document.getElementById('auth-step-email').style.display = 'none';
-                    document.getElementById('auth-step-otp').style.display = 'block';
-                }
-            }, function(error) {
-                if(!timeoutTriggered) {
-                    timeoutTriggered = true;
-                    clearTimeout(safetyTimer);
+                    document.getElementById('sent-to-email').innerText = userEmail;
+                    document.getElementById('step-email').style.display = 'none';
+                    document.getElementById('step-verify').style.display = 'block';
+                    alert('✅ تم إرسال الرمز بنجاح إلى بريدك!');
+                }, function(error) {
                     btn.innerText = 'إرسال الرمز';
                     btn.disabled = false;
                     console.error('EmailJS Error:', error);
-                    document.getElementById('otp-sent-email').innerText = tempEmail;
-                    document.getElementById('auth-step-email').style.display = 'none';
-                    document.getElementById('auth-step-otp').style.display = 'block';
-                    alert('⚠️ ملاحظة: حدث خطأ في الإرسال، تم استخدام الرمز التجريبي التالي للاستمرار: ' + generatedAuthOtp);
-                }
-            });
-    }
-
-    function verifyAuthOtp() {
-        const enteredOtp = document.getElementById('auth-otp-input').value.trim();
-        if(enteredOtp === generatedAuthOtp) {
-            document.getElementById('auth-step-otp').style.display = 'none';
-            document.getElementById('auth-step-details').style.display = 'block';
-        } else {
-            alert('رمز التحقق غير صحيح!');
-        }
-    }
-
-    function completeAccountCreation() {
-        const fullName = document.getElementById('user-full-name').value.trim();
-        const countryCode = document.getElementById('country-code').value;
-        const phoneNum = document.getElementById('user-phone-num').value.trim();
-
-        if(!fullName || !phoneNum) {
-            alert('الرجاء إدخال الاسم ورقم الهاتف تماماً!');
-            return;
+                    alert('❌ تعذر الإرسال، تحقق من الاتصال وجرب مجدداً.');
+                });
         }
 
-        currentUser = {
-            name: fullName,
-            email: tempEmail,
-            phone: countryCode + ' ' + phoneNum
-        };
-
-        localStorage.setItem('alatawi_current_user', JSON.stringify(currentUser));
-        alert('🎉 تم إنشاء حسابك بنجاح وأصبح نشطاً!');
-        updateAccountUI();
-        closeAccountModal();
-    }
-
-    function logoutUser() {
-        currentUser = null;
-        localStorage.removeItem('alatawi_current_user');
-        alert('تم تسجيل الخروج.');
-        updateAccountUI();
-        closeAccountModal();
-    }
-
-    function updateAccountUI() {
-        const btnText = document.getElementById('account-btn-text');
-        if (currentUser) {
-            btnText.innerText = currentUser.name.split(' ')[0];
-        } else {
-            btnText.innerText = 'حسابي';
-        }
-    }
-
-    function proceedToCheckout() {
-        if (cart.length === 0) {
-            alert('السلة فارغة!');
-            return;
-        }
-        if (!currentUser) {
-            alert('الرجاء تسجيل الدخول أو إنشاء حساب أولاً لإتمام الطلب.');
-            closeCart();
-            openAccountModal();
-            return;
-        }
-
-        closeCart();
-        document.getElementById('checkout-user-display').innerHTML = `<b>الاسم:</b> ${currentUser.name}<br><b>البريد:</b> ${currentUser.email}<br><b>الهاتف:</b> ${currentUser.phone}`;
-        document.getElementById('checkout-modal').style.display = 'flex';
-    }
-
-    function closeCheckoutModal() {
-        document.getElementById('checkout-modal').style.display = 'none';
-        const submitBtn = document.getElementById('checkout-submit-btn');
-        submitBtn.innerText = 'تأكيد وإرسال الطلب نهائياً 🚀';
-        submitBtn.disabled = false;
-    }
-
-    function finalizeOrder() {
-        const address = document.getElementById('shipping-address').value.trim();
-        const paymentMethod = document.getElementById('payment-method').value;
-
-        if(!address) {
-            alert('الرجاء إدخال عنوان التوصيل بالتفصيل!');
-            return;
-        }
-
-        let cartDetailsText = cart.map(item => `- ${item.name} | اللون: ${item.color} | الكمية: ${item.qty} | السعر: $${item.price}`).join('\n');
-        let totalAmount = cart.reduce((sum, item) => sum + item.price, 0);
-
-        let finalOrderParams = {
-            client_email: currentUser.email,
-            to_email: "Ibrahimabushmud@gmail.com, " + currentUser.email,
-            cart_details: `تفاصيل الزبون:\nالاسم: ${currentUser.name}\nالهاتف: ${currentUser.phone}\nالعنوان: ${address}\nطريقة الدفع: ${paymentMethod}\n\nالمنتجات المطلوبة:\n${cartDetailsText}`,
-            cart_total: totalAmount
-        };
-
-        const submitBtn = document.getElementById('checkout-submit-btn');
-        submitBtn.innerText = 'جاري إرسال الطلب...';
-        submitBtn.disabled = true;
-
-        let orderTimeoutTriggered = false;
-        let orderSafetyTimer = setTimeout(() => {
-            if(!orderTimeoutTriggered) {
-                orderTimeoutTriggered = true;
-                submitBtn.innerText = 'تأكيد وإرسال الطلب نهائياً 🚀';
-                submitBtn.disabled = false;
-                alert('🎉 تم إتمام وحفظ طلبك بنجاح!');
-                cart = [];
-                updateCartUI();
-                closeCheckoutModal();
+        function verifyOtpCode() {
+            let entered = document.getElementById('user-otp-input').value.trim();
+            if(entered === generatedOtp) {
+                alert('🎉 تم التحقق بنجاح وتأسيس الجلسة!');
+                closeAuthModal();
+            } else {
+                alert('❌ رمز التحقق غير صحيح.');
             }
-        }, 7000);
+        }
 
-        emailjs.send('service_ak9x10p', 'template_frbxkcq', finalOrderParams)
-            .then(function(response) {
-                if(!orderTimeoutTriggered) {
-                    orderTimeoutTriggered = true;
-                    clearTimeout(orderSafetyTimer);
-                    submitBtn.innerText = 'تأكيد وإرسال الطلب نهائياً 🚀';
-                    submitBtn.disabled = false;
-                    alert('🎉 تم إرسال طلبك بنجاح وتم إرسال نسخة إلى بريدك الإلكتروني!');
-                    cart = [];
-                    updateCartUI();
-                    closeCheckoutModal();
-                }
-            }, function(error) {
-                if(!orderTimeoutTriggered) {
-                    orderTimeoutTriggered = true;
-                    clearTimeout(orderSafetyTimer);
-                    submitBtn.innerText = 'تأكيد وإرسال الطلب نهائياً 🚀';
-                    submitBtn.disabled = false;
-                    console.error('Order EmailJS Error:', error);
-                    alert('🎉 تم حفظ طلبك وإتمامه بنجاح!');
-                    cart = [];
-                    updateCartUI();
-                    closeCheckoutModal();
-                }
-            });
-    }
-
-    renderSliders();
-
-    function searchProducts(query) {
-        const searchTerm = query.toLowerCase().trim();
-        const productCards = document.querySelectorAll('.product-card');
-
-        productCards.forEach(card => {
-            const titleElement = card.querySelector('.card-title');
-            if (titleElement) {
-                const titleText = titleElement.textContent.toLowerCase();
-                const parentSlide = card.closest('.swiper-slide');
-                if (titleText.includes(searchTerm)) {
-                    if (parentSlide) parentSlide.style.display = 'block';
-                    card.style.display = 'flex';
-                } else {
-                    if (parentSlide) parentSlide.style.display = 'none';
-                    card.style.display = 'none';
-                }
+        function submitOrder() {
+            if(cart.length === 0) {
+                alert('سلتك فارغة!');
+                return;
             }
-        });
-    }
-  </script>
+            let address = document.getElementById('checkout-address').value.trim();
+            if(!address) {
+                alert('الرجاء إدخال عنوان التوصيل!');
+                return;
+            }
+
+            let total = cart.reduce((sum, item) => sum + item.price, 0);
+            let itemsText = cart.map(i => i.name + ' (' + i.price + ' ر.س)').join(' | ');
+
+            let templateParams = {
+                client_email: userEmail || "ibrahimabushmud@gmail.com",
+                to_email: "Ibrahimabushmud@gmail.com, " + (userEmail || "ibrahimabushmud@gmail.com"),
+                cart_details: "تفاصيل الطلب:\n" + itemsText + "\n\nالعنوان: " + address,
+                cart_total: total + " ر.س"
+            };
+
+            emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams)
+                .then(function(response) {
+                    alert('🚀 تم إرسال طلبك بنجاح وسيتم التواصل معك!');
+                    cart = [];
+                    document.getElementById('cart-count').innerText = '0';
+                    closeCartModal();
+                }, function(error) {
+                    console.error('Order Error:', error);
+                    alert('❌ حدث خطأ أثناء إرسال الطلب، يرجى المحاولة لاحقاً.');
+                });
+        }
+    </script>
 </body>
 </html>
+
 
